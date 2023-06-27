@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Викторинка</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Great-Larder</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Домашняя страница</string>
+    <string name="menu_gallery">Выбор фона</string>
+    <string name="menu_slideshow">Информация</string>
+
+    <string name="lets">Давай познакомимся</string>
+    <string name="name">Твое имя</string>
+    <string name="done">готово</string>
+    <string name="hello">Привет</string>
+    <string name="you_earned_it">На счету :</string>
+    <string name="start">начинаем ?</string>
+    <string name="choose">Ты можешь купить фон</string>
+    <string name="_00">00</string>
+    <string name="question">Вопрос</string>
+    <string name="stop">Стоп</string>
+    <string name="resume">Продолжить</string>
+    <string name="out">Выйти</string>
+    <string name="timer">Время :</string>
+    <string name="todo">TODO</string>
+    <string name="todo1">TODO</string>
+    <string name="points_1">5 виктиков</string>
+    <string name="points_2">10 виктиков</string>
+    <string name="points_3">15 виктиков</string>
+    <string name="points_4">20 виктиков</string>
+    <string name="points_5">25 виктиков</string>
+    <string name="points_6">30 виктиков</string>
+    <string name="points_7">35 виктиков</string>
+    <string name="points_8">40 виктиков</string>
+    <string name="points_9">45 виктиков</string>
+    <string name="in_your_account">На счету</string>
+    <string name="points">виктиков</string>
+    <string name="in_your_piggy_bank">Tем :</string>
+    <string name="message_text">Сообщение</string>
+    <string name="yes">да</string>
+    <string name="no">нет</string>
+    <string name="textview">TextView</string>
+    <string name="backgroundDescription">gh</string>
+    <string name="www">www.отличная-кладовая.рф</string>
+    <string name="websait">Вэб сайт:</string>
+    <string name="_7_999_001_25_95">+7(999)001–25–95</string>
+    <string name="phone">Телефон:</string>
+    <string name="info_great_larder_ru">info@great-larder.ru</string>
+    <string name="email">Электронный адрес:</string>
+    <string name="text">По вопросам обращайтесь</string>
+    <string name="shop">Магазин</string>
+    <string name="victorinok">Виктиков</string>
+    <string name="language_quiz">Лингвистика</string>
+    <string name="sports_quiz">Спортивные</string>
+    <string name="school">Школьные</string>
+    <string name="traffic_laws">ПДД</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

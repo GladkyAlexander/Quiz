@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation"
+            app:startDestination="@+id/nav_home">
+
+    <fragment
+            android:id="@+id/nav_home"
+            android:name="ru.great_larder.sportquiz.ui.home.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home"/>
+
+    <fragment
+            android:id="@+id/nav_gallery"
+            android:name="ru.great_larder.sportquiz.ui.gallery.GalleryFragment"
+            android:label="@string/menu_gallery"
+            tools:layout="@layout/fragment_gallery"/>
+
+    <fragment
+            android:id="@+id/nav_slideshow"
+            android:name="ru.great_larder.sportquiz.ui.slideshow.SlideshowFragment"
+            android:label="@string/menu_slideshow"
+            tools:layout="@layout/fragment_slideshow"/>
+
+    <fragment android:id="@+id/nav_language_quiz"
+              android:name="ru.great_larder.sportquiz.ui.language_quiz.LanguageQuizFragment"
+              android:label="@string/language_quiz"
+              tools:layout="@layout/fragment_language_quiz"/>
+
+    <fragment android:id="@+id/nav_sports_quiz"
+              android:name="ru.great_larder.sportquiz.ui.sports.SportsFragment"
+              android:label="@string/sports_quiz"
+              tools:layout="@layout/fragment_sports"/>
+
+    <fragment android:id="@+id/nav_school"
+              android:name="ru.great_larder.sportquiz.ui.school.FragmentSchool"
+              android:label="@string/school"
+              tools:layout="@layout/fragment_school"/>
+
+    <fragment android:id="@+id/nav_traffic_laws"
+              android:name="ru.great_larder.sportquiz.ui.traffic_laws.FragmentTrafficLaws"
+              android:label="@string/traffic_laws"
+              tools:layout="@layout/fragment_traffic_laws"/>
+
+</navigation>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:id="@+id/selected" android:oneshot="false"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/vik1" android:duration="230" />
+    <item android:drawable="@drawable/vik2" android:duration="230" />
+    <item android:drawable="@drawable/vik3" android:duration="230" />
+    <item android:drawable="@drawable/vik4" android:duration="230" />
+    <item android:drawable="@drawable/vik5" android:duration="230" />
+    <item android:drawable="@drawable/vik6" android:duration="230" />
+    <item android:drawable="@drawable/vik7" android:duration="230" />
+    <item android:drawable="@drawable/vik8" android:duration="230" />
+    <item android:drawable="@drawable/vik9" android:duration="230" />
+    <item android:drawable="@drawable/vik10" android:duration="230" />
+    <item android:drawable="@drawable/vik11" android:duration="230" />
+    <item android:drawable="@drawable/vik12" android:duration="230" />
+    <item android:drawable="@drawable/vik13" android:duration="230" />
+</animation-list>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".ui.language_quiz.LanguageQuizFragment"
+              android:orientation="vertical" android:gravity="center">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" android:id="@+id/linearLayoutButtonRuEn">
+
+        <ImageButton
+                android:id="@+id/button_language_ru"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="30dp"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="15dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ru"
+                android:stateListAnimator="@null"/>
+
+        <ImageButton
+                android:id="@+id/button2_language_en"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="15dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/en"
+                android:stateListAnimator="@null"/>
+    </LinearLayout>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayoutLanguage"
+            android:visibility="gone">
+
+    </FrameLayout>
+
+</LinearLayout>

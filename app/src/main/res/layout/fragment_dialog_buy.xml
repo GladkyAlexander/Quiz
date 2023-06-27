@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:background="@drawable/dialog_style_layout"
+              android:scaleType="fitCenter"
+              android:stateListAnimator="@null"
+              android:padding="15dp" android:elevation="5dp">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+        <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:srcCompat="@drawable/fragm_dialog"
+                android:id="@+id/imageView2"
+        />
+        <TextView
+                android:id="@+id/textViewBuy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:text="@string/message_text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center_horizontal">
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_horizontal">
+        <Button
+                android:id="@+id/btnYesBuy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@null"
+                android:text="@string/yes" android:layout_margin="20dp">
+        </Button>
+        <Button
+                android:id="@+id/btnNoBuy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@null"
+                android:text="@string/no" android:layout_margin="20dp">
+        </Button>
+    </LinearLayout>
+</LinearLayout>

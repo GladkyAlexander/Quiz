@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:id="@+id/menu_drawer_top"
+            android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/home_svgrepo_com"
+                android:title="@string/menu_home"/>
+        <item
+                android:id="@+id/nav_gallery"
+                android:icon="@drawable/shop_business_delivery_svgrepo_com"
+                android:title="@string/shop"/>
+    </group>
+    <group android:id="@+id/menu_drawer_centre"
+           android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_school"
+                android:icon="@drawable/school"
+                android:title="@string/school"/>
+        <item
+                android:id="@+id/nav_traffic_laws"
+                android:icon="@drawable/pdd"
+                android:title="@string/traffic_laws"/>
+        <item
+                android:id="@+id/nav_language_quiz"
+                android:icon="@drawable/language_svgrepo_com"
+                android:title="@string/language_quiz"/>
+        <item
+                android:id="@+id/nav_sports_quiz"
+                android:icon="@drawable/olympic_torch_svgrepo_com"
+                android:title="@string/sports_quiz"/>
+    </group>
+    <group android:id="@+id/menu_drawer_bottom"
+           android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_slideshow"
+                android:icon="@drawable/info_svgrepo_com"
+                android:title="@string/menu_slideshow"/>
+    </group>
+</menu>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.gallery.GalleryFragment" android:orientation="vertical"
+        android:dividerPadding="40dp" android:showDividers="middle" android:gravity="center|top">
+    <TextView
+            android:text="@string/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewNameGalleryFragment"
+            android:textColor="#070707"
+            android:textSize="16sp"
+            android:textStyle="bold" android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="50dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerPadding="30dp"
+            android:showDividers="middle" tools:ignore="UselessParent" android:gravity="center"
+            android:layout_margin="5dp">
+        <TextView
+                android:text="@string/in_your_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewGalleryFragment"
+                android:textColor="#070707"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewPointsGF"
+                android:textColor="#070707"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingStart="10dp" android:paddingEnd="10dp" android:layout_margin="5dp"/>
+        <TextView
+                android:text="@string/victorinok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewPointsGalleryFragment"
+                android:textColor="#070707"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:dividerPadding="30dp"
+            android:showDividers="middle">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:id="@+id/ll1" android:gravity="center"
+                android:layout_margin="10dp"
+                android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon1"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewFon1"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:id="@+id/ll2" android:gravity="center"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon2"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewFon2"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:id="@+id/ll3" android:gravity="center"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon3"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewFon3"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:dividerPadding="30dp"
+            android:showDividers="middle">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:gravity="center" android:id="@+id/ll4"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon4"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewFon4"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:gravity="center" android:id="@+id/ll5"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon5"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewFon5"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:gravity="center" android:id="@+id/ll6"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon6"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewFon6"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:dividerPadding="30dp"
+            android:showDividers="middle"
+    >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:gravity="center" android:id="@+id/ll7"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon7"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textViewFon7"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:gravity="center" android:id="@+id/ll8"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon8"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewFon8"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:dividerPadding="5dp"
+                android:showDividers="middle"
+                tools:ignore="UseCompoundDrawables,UselessParent"
+                android:gravity="center_horizontal" android:id="@+id/ll9"
+                android:layout_margin="10dp" android:clickable="true">
+            <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageViewFon9"
+                    android:contentDescription="@string/todo"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewFon9"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

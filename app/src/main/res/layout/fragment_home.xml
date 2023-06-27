@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeFragment"
+        android:id="@+id/fra"
+        android:shrinkColumns="0, true"
+        android:layout_margin="5dp"
+        android:padding="5dp" android:gravity="center|top" android:orientation="vertical">
+
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayoutHi"
+            android:visibility="visible">
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:gravity="center_horizontal">
+            <TextView
+                    android:text="@string/lets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewLets"
+                    android:gravity="center_horizontal"
+                    android:textColor="#0C0C0C"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:gravity="center_horizontal">
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editTextTextPersonName"
+                    android:minHeight="48dp"
+                    android:autofillHints="@string/name"
+                    android:hint="@string/name"
+                    tools:ignore="LabelFor"/>
+        </TableRow>
+        <TableRow android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center_horizontal"
+        >
+
+            <Button
+                    android:text="@string/done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonDone"
+                    android:elevation="10dp"
+                    android:stateListAnimator="@null"
+                    android:translationZ="5dp"
+                    android:background="@drawable/button"
+                    android:textColor="#090909"
+                    android:textStyle="bold"
+                    android:layout_margin="40dp"
+            />
+
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/linearLayoutHello"
+    >
+        <TextView
+                android:text="@string/hello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                android:id="@+id/textViewHi"
+                android:layout_margin="5dp"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                android:id="@+id/textViewNameUser"
+                android:layout_marginStart="10dp"
+                android:layout_margin="5dp"
+        />
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayoutGlasses"
+            android:gravity="center_horizontal"
+            android:dividerPadding="30dp"
+            android:showDividers="middle">
+        <ImageView
+                android:src="@drawable/victik_front"
+                android:layout_width="40dp"
+                android:layout_height="40dp" android:id="@+id/imageViewVictikHomeFragment"
+                android:contentDescription="@string/todo"/>
+        <TextView
+                android:text="@string/you_earned_it"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                android:id="@+id/textView6"
+                android:layout_margin="5dp"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                android:id="@+id/textViewGlasse"
+                android:layout_marginStart="10dp"
+                android:layout_margin="5dp"
+        />
+        <TextView
+                android:text="@string/victorinok"
+                android:layout_width="wrap_content"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textFieldVictorinok"
+                android:layout_marginStart="10dp"
+                android:layout_margin="5dp"
+                tools:ignore="HardcodedText"/>
+    </LinearLayout>
+   <!-- <LinearLayout
+            android:id="@+id/llNumberTheme"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:dividerPadding="30dp"
+            android:showDividers="middle">
+        <TextView
+                android:text="@string/in_your_piggy_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewNumberOfTopics"
+                android:textColor="#0C0C0C"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+        />
+    </LinearLayout>-->
+
+</LinearLayout>
