@@ -15,8 +15,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.*;
-import ru.great_larder.sportquiz.database.DatabaseAdapter;
-import ru.great_larder.sportquiz.database.DatabaseAdapterFon;
 import ru.great_larder.sportquiz.databinding.FragmentGalleryBinding;
 import ru.great_larder.sportquiz.domain.Fon;
 import ru.great_larder.sportquiz.domain.FonItem;
@@ -27,11 +25,20 @@ import java.util.*;
 public class GalleryFragment extends Fragment {
     
     private FragmentGalleryBinding binding;
-    private TextView textViewNameGalleryFragment, textViewPointsGF, textViewFon1, textViewFon2, textViewFon3
-        , textViewFon4, textViewFon5, textViewFon6, textViewFon7, textViewFon8, textViewFon9;
+    private TextView textViewNameGalleryFragment;
+    private TextView textViewPointsGF;
+    private TextView textViewFon1;
+    private TextView textViewFon2;
+    private TextView textViewFon3;
+    private TextView textViewFon4;
+    private TextView textViewFon5;
+    private TextView textViewFon6;
+    private TextView textViewFon7;
+    private TextView textViewFon8;
+    private TextView textViewFon9;
     private ImageView imageViewFon1, imageViewFon2, imageViewFon3, imageViewFon4, imageViewFon5, imageViewFon6
         ,imageViewFon7, imageViewFon8, imageViewFon9;
-    private LinearLayout ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8, ll9;
+    private LinearLayout ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8, ll9, llStart;
     DialogFragment dialogFragment;
     Integer i = 0;
     List<FonItem> fonItemList = new ArrayList<>();
@@ -47,6 +54,8 @@ public class GalleryFragment extends Fragment {
         textViewNameGalleryFragment = binding.textViewNameGalleryFragment;
         textViewPointsGF = binding.textViewPointsGF;
         
+        llStart = binding.llStart;
+        
         fonItemList.add(new FonItem(ll1 = binding.ll1, textViewFon1 = binding.textViewFon1, imageViewFon1 = binding.imageViewFon1));
         fonItemList.add(new FonItem(ll2 = binding.ll2, textViewFon2 = binding.textViewFon2, imageViewFon2 = binding.imageViewFon2));
         fonItemList.add(new FonItem(ll3 = binding.ll3, textViewFon3 = binding.textViewFon3, imageViewFon3 = binding.imageViewFon3));
@@ -57,44 +66,15 @@ public class GalleryFragment extends Fragment {
         fonItemList.add(new FonItem(ll8 = binding.ll8, textViewFon8 = binding.textViewFon8, imageViewFon8 = binding.imageViewFon8));
         fonItemList.add(new FonItem(ll9 = binding.ll9, textViewFon9 = binding.textViewFon9, imageViewFon9 = binding.imageViewFon9));
         
+        dialogFragment = new FragmentDialogBuy();
+        
         if(GlobalLinkUser.getUser() != null){
             loadFragment(GlobalLinkUser.getUser());
         }
-        dialogFragment = new FragmentDialogBuy();
         
         return root;
     }
     private void openDialog(Fon fo){
-        /*DatabaseAdapterFon databaseAdapterFon = new DatabaseAdapterFon(requireActivity());
-        databaseAdapterFon.open();
-        fo.setId(databaseAdapterFon.insert(fo));
-        databaseAdapterFon.close();
-        
-        User u = GlobalLinkUser.getUser();
-        u.setGlasses(u.getGlasses() - fo.getPrice());
-        List<Fon> lf = u.getFonList();
-        lf.add(fo);
-        u.setFonList(lf);
-        
-        DatabaseAdapter databaseAdapter = new DatabaseAdapter(requireActivity());
-        databaseAdapter.open();
-        databaseAdapter.update(u);
-        GlobalLinkUser.setUser(databaseAdapter.getUserById(u.getId()));
-        databaseAdapter.close();
-        
-        DatabaseAdapterFon adapterFon = new DatabaseAdapterFon(requireActivity());
-        adapterFon.open();
-        List<Fon> fonList = new ArrayList<>(adapterFon.getBackgrounds((int) GlobalLinkUser.getUser().getId()));
-        adapterFon.close();
-        
-        List<Fon> fonUser = new ArrayList<>();
-        for(Fon f : fonList){
-            if(Objects.equals(GlobalLinkUser.getUser().getId(), f.getAffiliation())){
-                fonUser.add(f);
-            }
-        }
-        GlobalLinkUser.getUser().setFonList(fonUser);
-        loadFragment(GlobalLinkUser.getUser());*/
         
         Bundle args = new Bundle();
         args.putInt("numberImage", fo.getImageI());
@@ -111,10 +91,15 @@ public class GalleryFragment extends Fragment {
         
         GetFon getFon = new GetFonImpl();
         List<Fon> fonList = getFon.getListFon();
-
         for (FonItem fi : fonItemList){
             fi.getTextView().setText(String.valueOf(fonList.get(i).getPrice()));
             fi.getImageView().setImageResource(fonList.get(i).getImageI());
+            Fon fon = new Fon();
+            fon.setId(fonList.get(i).getId());
+            fon.setName(fi.getImageView().getTransitionName());
+            fon.setPrice(Integer.parseInt((String) fi.getTextView().getText()));
+            fon.setAffiliation((int) GlobalLinkUser.getUser().getId());
+            fon.setImageI(fonList.get(i).getImageI());
             
             if(fonList.get(i).getPrice() > user.getGlasses()){
                 ImageViewCompat.setImageTintMode(fi.getImageView(), PorterDuff.Mode.SRC_ATOP);
@@ -122,32 +107,12 @@ public class GalleryFragment extends Fragment {
             }
             
             fi.getImageView().setOnClickListener(r->{
-                Fon fon = new Fon();
-                fon.setId(fonList.get(i).getId());
-                fon.setName(fi.getImageView().getTransitionName());
-                fon.setPrice(Integer.parseInt((String) fi.getTextView().getText()));
-                fon.setAffiliation((int) GlobalLinkUser.getUser().getId());
-                fon.setImageI(fi.getImageView().getId());
-                if(Integer.parseInt((String) textViewPointsGF.getText()) >= Integer.parseInt((String) fi.getTextView().getText())){
+                
+                if(GlobalLinkUser.getUser().getGlasses() >= Integer.parseInt((String) fi.getTextView().getText())){
                     openDialog(fon);
                 }
             });
             
-            /*if(!user.getFonList().isEmpty()){
-                for (Fon g : user.getFonList()) {
-                    if (g.getPrice() == fonList.get(i).getPrice()) {
-                        ImageViewCompat.setImageTintList(fi.getImageView(), null);
-                    } else {
-                        ImageViewCompat.setImageTintMode(fi.getImageView(), PorterDuff.Mode.SRC_ATOP);
-                        ImageViewCompat.setImageTintList(fi.getImageView(), ColorStateList.valueOf(Color.parseColor("#80000000")));
-                    }
-                }
-            } else if(Integer.parseInt((String) textViewPointsGF.getText()) >= fonList.get(i).getPrice()){
-                ImageViewCompat.setImageTintList(fi.getImageView(), null);
-            } else {
-                ImageViewCompat.setImageTintMode(fi.getImageView(), PorterDuff.Mode.SRC_ATOP);
-                ImageViewCompat.setImageTintList(fi.getImageView(), ColorStateList.valueOf(Color.parseColor("#80000000")));
-            }*/
             i++;
         }
         i = 0;

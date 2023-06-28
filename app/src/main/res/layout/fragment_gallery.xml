@@ -5,8 +5,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.gallery.GalleryFragment" android:orientation="vertical"
-        android:dividerPadding="40dp" android:showDividers="middle" android:gravity="center|top">
+        tools:context=".ui.gallery.GalleryFragment"
+        android:orientation="vertical"
+        android:dividerPadding="40dp"
+        android:showDividers="middle"
+        android:gravity="center|top"
+android:id="@+id/llStart">
     <TextView
             android:text="@string/name"
             android:layout_width="wrap_content"

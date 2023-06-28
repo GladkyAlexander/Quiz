@@ -17,7 +17,7 @@ import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
     
     private FragmentHomeBinding binding;
     private TableLayout tableLayoutHi;
@@ -25,9 +25,11 @@ public class HomeFragment extends Fragment {
     private TextView textViewNameUser, textViewGlasses/*, textViewNumberOfTopics*/;
     private LinearLayout linearLayoutHello, linearLayoutGlasses, /*llNumberTheme,*/ fra;
     private Button buttonDone;
+    private User user;
     
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        
         HomeViewModel homeViewModel =
             new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
         
@@ -39,20 +41,19 @@ public class HomeFragment extends Fragment {
         
         linearLayoutHello = binding.linearLayoutHello;
         linearLayoutGlasses = binding.linearLayoutGlasses;
-//        llNumberTheme = binding.llNumberTheme;
         fra = binding.fra;
         
         textViewNameUser = binding.textViewNameUser;
         textViewGlasses = binding.textViewGlasse;
-
-//        textViewNumberOfTopics = binding.textViewNumberOfTopics;
         
         editTextTextPersonName = binding.editTextTextPersonName;
 
         tableLayoutHi = binding.tableLayoutHi;
         
+        user = GlobalLinkUser.getUser();
+        
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        if(GlobalLinkUser.getUser() == null){
+        if(user == null){
             tableLayoutHi.setVisibility(View.VISIBLE);
             loadFragment(null);
         } else {
@@ -70,7 +71,7 @@ public class HomeFragment extends Fragment {
             adapter.close();
             user.setFonList(new ArrayList<>());
             GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
-            //GlobalLinkUser.setUser(user);
+            GlobalLinkUser.setUser(user);
             loadFragment(user);
         });
         return root;

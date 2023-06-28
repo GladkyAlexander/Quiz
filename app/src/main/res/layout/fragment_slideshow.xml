@@ -8,7 +8,7 @@
         tools:context=".ui.slideshow.SlideshowFragment"
         android:orientation="vertical"
         android:layout_margin="8dp"
-        android:gravity="center" android:background="#797E6F6F">
+        android:gravity="center" android:background="#C9FAFAF7">
 
     <TextView
             android:id="@+id/text_slideshow"

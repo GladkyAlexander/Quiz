@@ -1,13 +1,9 @@
 package ru.great_larder.sportquiz;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,9 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
-import ru.great_larder.sportquiz.database.DatabaseAdapterFon;
 import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
-import ru.great_larder.sportquiz.domain.Fon;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
@@ -41,28 +35,27 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         handlerUserListener.registerObserverUser(this);
         GlobalLinkUser.setHandlerUserListener(handlerUserListener);
         
+        List<User> users;
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
-        List<User> users = adapter.getUsers();
+        users = adapter.getUsers();
         adapter.close();
-        
-        GlobalLinkUser.setUser(users.get(0));
+        if(users.size() > 0) {
+            GlobalLinkUser.setUser(users.get(0));
+        } else GlobalLinkUser.setUser(null);
         
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         textViewBar = binding.appBarMain.textViewRight;
         img = binding.appBarMain.imageViewVik;
         drawer = binding.drawerLayout;
-
-        setTBarDate(GlobalLinkUser.getUser());
+        
+        handlerUserListener.onNewDataUser(new DataUser(GlobalLinkUser.getUser()));
+        
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
-        
-        /*binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show());*/
         
         NavigationView navigationView = binding.navView;
         
@@ -82,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        
     }
     
   /*  @Override
@@ -102,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     }
     public void setTBarDate(User user){
         img.setImageDrawable(null);
-        
         if(user != null) {
             textViewBar.setText(String.valueOf(user.getGlasses()));
             img.setBackgroundResource(R.drawable.animat_viktik);
@@ -110,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
             frameAnimation.setOneShot(true);
             frameAnimation.start();
             if(user.getThemeInstalledNow() != 0){
-                setBackgroundActivity(user.getThemeInstalledNow());
+                GetFon getFon = new GetFonImpl();
+                setBackgroundActivity(getFon.getFonById(user.getThemeInstalledNow()).getImageI());
             }
         } else textViewBar.setText(String.valueOf(0));
         img.setBackgroundResource(R.drawable.animat_viktik);

@@ -31,6 +31,7 @@ public class OfTheGameFragment extends Fragment {
     GetQuestion getQuestion;
     Map<CheckBox, ImageView> map = new HashMap<>();
     ImageView view;
+    List<Question> questionList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +81,12 @@ public class OfTheGameFragment extends Fragment {
     
     private void startQuiz(){
             clear();
-            Question b = getQuestion.getRandomQuestion(null);
+            //Question b = getQuestion.getRandomQuestion(null);
+            
+            Random random = new Random();
+        System.out.println(questionList.size() + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+            Question b = questionList.get(random.nextInt(questionList.size()));
+            
             List<String> l = new ArrayList<>();
             l.add(b.getRightAnswer());
             l.add(b.getWrongAnswer1());
@@ -99,7 +105,10 @@ public class OfTheGameFragment extends Fragment {
                     startQuiz();
                 }
             }.start();
+            
     }
+    
+    
     private void timerResume(){
         chronometer.cancel();
         startQuiz();
@@ -108,30 +117,39 @@ public class OfTheGameFragment extends Fragment {
     private void setQue(String arg) {
         if(arg.equals("Biology")){
             getQuestion = new GetQuestionBiology();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("History")){
             getQuestion = new GetQuestionHistory();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("Geography")){
             getQuestion = new GetQuestionGeography();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("Physics")){
             getQuestion = new GetQuestionPhisics();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("Mathematics")){
             getQuestion = new GetQuestionMathematics();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("Sports")){
             getQuestion = new GetQuestionSportsImpl();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("Russian language")){
             getQuestion = new GetQuestionRuLanguageImpl();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("English language")){
             getQuestion = new GetQuestionEnLanguageImpl();
+            questionList = getQuestion.getListQuestion(null);
         }
         if(arg.equals("Traffic Laws")){
             getQuestion = new GetQuestionTrafficLaws();
+            questionList = getQuestion.getListQuestion(null);
         }
     }
     private void stageLoading(String q, List<String> list, String right_answer){
@@ -162,9 +180,7 @@ public class OfTheGameFragment extends Fragment {
                         view = map.get(c);
                         assert view != null;
                         view.setVisibility(View.VISIBLE);
-                        
                         view.setImageResource(R.drawable.animat);
-                        
                         AnimationDrawable frameAnimation = (AnimationDrawable) view.getDrawable();
                         frameAnimation.setOneShot(true);
                         frameAnimation.start();

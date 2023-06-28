@@ -15,7 +15,7 @@ public class GlobalLinkUser {
         GlobalLinkUser.handlerUserListener = handlerUserListener;
     }
     
-    private GlobalLinkUser(){
+    GlobalLinkUser(){
     
     }
     
