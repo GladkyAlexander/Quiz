@@ -22,9 +22,10 @@ public class HomeFragment extends Fragment{
     private FragmentHomeBinding binding;
     private TableLayout tableLayoutHi;
     private EditText editTextTextPersonName;
-    private TextView textViewNameUser, textViewGlasses/*, textViewNumberOfTopics*/;
+    private TextView textViewNameUser, textViewGlasses/*, textViewNumberOfTopics*/, textViewLets, textViewCity;
     private LinearLayout linearLayoutHello, linearLayoutGlasses, /*llNumberTheme,*/ fra;
     private Button buttonDone;
+    private ImageView imageViewSettings;
     private User user;
     
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -37,7 +38,8 @@ public class HomeFragment extends Fragment{
         View root = binding.getRoot();
 
         buttonDone = binding.buttonDone;
-
+        imageViewSettings = binding.imageViewSettings;
+        imageViewSettings.setClickable(true);
         
         linearLayoutHello = binding.linearLayoutHello;
         linearLayoutGlasses = binding.linearLayoutGlasses;
@@ -45,6 +47,8 @@ public class HomeFragment extends Fragment{
         
         textViewNameUser = binding.textViewNameUser;
         textViewGlasses = binding.textViewGlasse;
+        textViewLets = binding.textViewLets;
+        textViewCity = binding.editTextTextCity;
         
         editTextTextPersonName = binding.editTextTextPersonName;
 
@@ -60,19 +64,46 @@ public class HomeFragment extends Fragment{
             tableLayoutHi.setVisibility(View.GONE);
             loadFragment(GlobalLinkUser.getUser());
         }
-        
         buttonDone.setOnClickListener(v -> {
             DatabaseAdapter adapter = new DatabaseAdapter(requireActivity());
-            adapter.open();
-            long idUs = adapter.insert(new User(editTextTextPersonName.getText().toString(), 0));
-            adapter.close();
-            adapter.open();
-            User user = adapter.getUserById(idUs);
-            adapter.close();
-            user.setFonList(new ArrayList<>());
-            GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
-            GlobalLinkUser.setUser(user);
-            loadFragment(user);
+            if(user == null) {
+                adapter.open();
+                long idUs = adapter.insert(new User(editTextTextPersonName.getText().toString(), textViewCity.getText().toString(), 0,0));
+                adapter.close();
+                adapter.open();
+                User user = adapter.getUserById(idUs);
+                adapter.close();
+                user.setFonList(new ArrayList<>());
+                GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
+                GlobalLinkUser.setUser(user);
+                loadFragment(user);
+            } else {
+                adapter.open();
+                user.setName(editTextTextPersonName.getText().toString());
+                user.setCity(textViewCity.getText().toString());
+                long idUs = adapter.insert(user);
+                adapter.close();
+                adapter.open();
+                User user = adapter.getUserById(idUs);
+                adapter.close();
+                user.setFonList(new ArrayList<>());
+                GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
+                GlobalLinkUser.setUser(user);
+                loadFragment(user);
+            }
+        });
+        imageViewSettings.setOnClickListener(d ->{
+            if(tableLayoutHi.getVisibility() == View.VISIBLE){
+                tableLayoutHi.setVisibility(View.GONE);
+            } else {
+                tableLayoutHi.setVisibility(View.VISIBLE);
+                if(user != null) {
+                    tableLayoutHi.setVisibility(View.VISIBLE);
+                    textViewLets.setText("Внесите изменения");
+                    editTextTextPersonName.setText(user.getName());
+                    textViewCity.setText(user.getCity());
+                }
+            }
         });
         return root;
     }

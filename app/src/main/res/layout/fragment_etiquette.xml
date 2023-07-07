@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".ui.etiquette.EtiquetteFragment"
+              android:orientation="vertical" android:gravity="center">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayoutButtonEtiquette">
+
+        <ImageButton
+                android:id="@+id/button_secular"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="30dp"
+                android:padding="10dp"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="15dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/business_etiquette"
+                android:stateListAnimator="@null"/>
+
+        <ImageButton
+                android:id="@+id/button_business"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:padding="15dp"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="15dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/social_etiquette"
+                android:stateListAnimator="@null"/>
+    </LinearLayout>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayoutEtiquette"
+            android:visibility="gone">
+
+    </FrameLayout>
+
+
+</LinearLayout>

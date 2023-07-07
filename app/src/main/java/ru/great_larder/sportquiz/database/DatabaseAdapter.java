@@ -29,8 +29,8 @@ public class DatabaseAdapter {
     }
     
     private Cursor getAllEntries(){
-        String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_NAME, DatabaseHelper.COLUMN_GLASSES
-        , DatabaseHelper.COLUMN_THEME_INSTALL};
+        String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_NAME, DatabaseHelper.COLUMN_CITY
+            , DatabaseHelper.COLUMN_GLASSES, DatabaseHelper.COLUMN_THEME_INSTALL};
         return  database.query(DatabaseHelper.TABLE_USERS, columns, null, null, null, null, null);
     }
     
@@ -42,6 +42,7 @@ public class DatabaseAdapter {
         while (cursor.moveToNext()){
             user.setId(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID)));
             user.setName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME)));
+            user.setCity(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CITY)));
             user.setGlasses(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_GLASSES)));
             user.setThemeInstalledNow(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_THEME_INSTALL)));
             users.add(user);
@@ -62,6 +63,7 @@ public class DatabaseAdapter {
         if(cursor.moveToFirst()){
             user.setId(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID)));
             user.setName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME)));
+            user.setCity(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CITY)));
             user.setGlasses(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_GLASSES)));
             user.setThemeInstalledNow(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_THEME_INSTALL)));
         }
@@ -73,6 +75,7 @@ public class DatabaseAdapter {
         
         ContentValues cv = new ContentValues();
         cv.put(DatabaseHelper.COLUMN_NAME, user.getName());
+        cv.put(DatabaseHelper.COLUMN_CITY, user.getCity());
         cv.put(DatabaseHelper.COLUMN_GLASSES, user.getGlasses());
         cv.put(DatabaseHelper.COLUMN_THEME_INSTALL, user.getThemeInstalledNow());
         
@@ -91,6 +94,7 @@ public class DatabaseAdapter {
         String whereClause = DatabaseHelper.COLUMN_ID + "=" + user.getId();
         ContentValues cv = new ContentValues();
         cv.put(DatabaseHelper.COLUMN_NAME, user.getName());
+        cv.put(DatabaseHelper.COLUMN_CITY, user.getCity());
         cv.put(DatabaseHelper.COLUMN_GLASSES, user.getGlasses());
         cv.put(DatabaseHelper.COLUMN_THEME_INSTALL, user.getThemeInstalledNow());
 

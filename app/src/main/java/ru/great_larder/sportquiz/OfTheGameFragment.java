@@ -84,7 +84,6 @@ public class OfTheGameFragment extends Fragment {
             //Question b = getQuestion.getRandomQuestion(null);
             
             Random random = new Random();
-        System.out.println(questionList.size() + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
             Question b = questionList.get(random.nextInt(questionList.size()));
             
             List<String> l = new ArrayList<>();
@@ -149,6 +148,14 @@ public class OfTheGameFragment extends Fragment {
         }
         if(arg.equals("Traffic Laws")){
             getQuestion = new GetQuestionTrafficLaws();
+            questionList = getQuestion.getListQuestion(null);
+        }
+        if(arg.equals("Etiquette Business")){
+            getQuestion = new GetEtiquetteBusiness();
+            questionList = getQuestion.getListQuestion(null);
+        }
+        if(arg.equals("Etiquette Secular")){
+            getQuestion = new GetEtiquetteSecuar();
             questionList = getQuestion.getListQuestion(null);
         }
     }

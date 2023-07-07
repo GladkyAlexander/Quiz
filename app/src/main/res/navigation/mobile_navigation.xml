@@ -42,5 +42,12 @@
               android:name="ru.great_larder.sportquiz.ui.traffic_laws.FragmentTrafficLaws"
               android:label="@string/traffic_laws"
               tools:layout="@layout/fragment_traffic_laws"/>
+    <fragment android:id="@+id/nav_etiquette"
+              android:name="ru.great_larder.sportquiz.ui.etiquette.EtiquetteFragment"
+              android:label="fragment_etiquette"
+              tools:layout="@layout/fragment_etiquette"/>
+    <fragment android:id="@+id/nav_partners"
+              android:name="ru.great_larder.sportquiz.ui.partners.PartnersFragment"
+              android:label="fragment_partners" tools:layout="@layout/fragment_partners"/>
 
 </navigation>

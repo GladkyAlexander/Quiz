@@ -6,30 +6,28 @@ import java.util.List;
 public class User {
     long id;
     String name;
+    String city;
     int glasses;
     int themeInstalledNow;
     
-    public User(String name, int glasses, int themeInstalledNow) {
+    public User(String name, String city, int glasses, int themeInstalledNow) {
         this.name = name;
+        this.city = city;
         this.glasses = glasses;
         this.themeInstalledNow = themeInstalledNow;
     }
     
-    List<Fon> fonList;
-    
     public User() {
     }
     
-    public User(int id, String name, int glasses, List<Fon> fonList) {
-        this.id = id;
-        this.name = name;
-        this.glasses = glasses;
-        this.fonList = fonList;
+    List<Fon> fonList;
+    
+    public String getCity() {
+        return city;
     }
     
-    public User(String name, int glasses) {
-        this.name = name;
-        this.glasses = glasses;
+    public void setCity(String city) {
+        this.city = city;
     }
     
     public long getId() {
@@ -77,6 +75,7 @@ public class User {
         return "User{" +
             "id=" + id +
             ", name='" + name + '\'' +
+            ", city='" + city + '\'' +
             ", glasses=" + glasses +
             ", themeInstalledNow=" + themeInstalledNow +
             ", fonList=" + fonList +

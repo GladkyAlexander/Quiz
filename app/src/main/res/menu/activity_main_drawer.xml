@@ -32,9 +32,17 @@
                 android:id="@+id/nav_sports_quiz"
                 android:icon="@drawable/olympic_torch_svgrepo_com"
                 android:title="@string/sports_quiz"/>
+        <item
+                android:id="@+id/nav_etiquette"
+                android:icon="@drawable/etiquette"
+                android:title="@string/etiquette"/>
     </group>
     <group android:id="@+id/menu_drawer_bottom"
            android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_partners"
+                android:icon="@drawable/partners_svgrepo_com"
+                android:title="@string/partners"/>
         <item
                 android:id="@+id/nav_slideshow"
                 android:icon="@drawable/info_svgrepo_com"

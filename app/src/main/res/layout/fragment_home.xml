@@ -10,7 +10,17 @@
         android:shrinkColumns="0, true"
         android:layout_margin="5dp"
         android:padding="5dp" android:gravity="center|top" android:orientation="vertical">
-
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:gravity="end" android:layout_margin="5dp">
+        <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/settings"
+                android:id="@+id/imageViewSettings"
+                android:layout_marginEnd="5dp" android:contentDescription="@string/todo"/>
+    </LinearLayout>
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +50,19 @@
                     android:minHeight="48dp"
                     android:autofillHints="@string/name"
                     android:hint="@string/name"
+                    tools:ignore="LabelFor"/>
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:gravity="center_horizontal">
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editTextTextCity"
+                    android:minHeight="48dp"
+                    android:autofillHints="@string/city"
+                    android:hint="@string/city"
                     tools:ignore="LabelFor"/>
         </TableRow>
         <TableRow android:layout_width="match_parent"

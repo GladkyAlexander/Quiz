@@ -5,7 +5,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        android:orientation="vertical"
         android:gravity="center"
         android:background="#F72196F3"
         android:paddingTop="30dp">
@@ -17,13 +16,18 @@
             android:id="@+id/imageView"
             app:srcCompat="@drawable/owl" android:layout_margin="10dp"
     />
-
-    <TextView
-            android:id="@+id/textViewNameNavHeader"
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nav_header_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:gravity="center_horizontal"
-            android:layout_margin="10dp"/>
+            android:layout_height="match_parent" android:layout_margin="3dp">
+        <TextView
+                android:id="@+id/textViewNameNavHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_header_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp"/>
+    </LinearLayout>
+
 </LinearLayout>

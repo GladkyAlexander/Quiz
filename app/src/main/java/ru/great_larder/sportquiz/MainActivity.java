@@ -19,9 +19,7 @@ import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity implements ObserverUser {
@@ -60,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavigationView navigationView = binding.navView;
         
         View hView = navigationView.getHeaderView(0);
+        
         TextView tg = hView.findViewById(R.id.textViewNameNavHeader);
         if(GlobalLinkUser.getUser() != null) {
             tg.setText(GlobalLinkUser.getUser().getName());
@@ -69,13 +68,12 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         
         mAppBarConfiguration = new AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_language_quiz, R.id.nav_sports_quiz
-        , R.id.nav_school, R.id.nav_traffic_laws)
+        , R.id.nav_school, R.id.nav_traffic_laws, R.id.nav_etiquette, R.id.nav_partners)
             .setOpenableLayout(drawer)
             .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        
     }
     
   /*  @Override
