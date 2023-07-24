@@ -123,7 +123,8 @@
         <ImageView
                 android:src="@drawable/victik_front"
                 android:layout_width="40dp"
-                android:layout_height="40dp" android:id="@+id/imageViewVictikHomeFragment"
+                android:layout_height="40dp"
+                android:id="@+id/imageViewVictikHomeFragment"
                 android:contentDescription="@string/todo"/>
         <TextView
                 android:text="@string/you_earned_it"

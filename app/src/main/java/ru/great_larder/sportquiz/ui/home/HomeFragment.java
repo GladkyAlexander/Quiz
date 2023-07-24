@@ -10,23 +10,28 @@ import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.*;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 
+import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentHomeBinding;
-import ru.great_larder.sportquiz.domain.Fon;
+import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment{
     
     private FragmentHomeBinding binding;
     private TableLayout tableLayoutHi;
     private EditText editTextTextPersonName;
-    private TextView textViewNameUser, textViewGlasses/*, textViewNumberOfTopics*/, textViewLets, textViewCity;
-    private LinearLayout linearLayoutHello, linearLayoutGlasses, /*llNumberTheme,*/ fra;
+    private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity;
+    private LinearLayout linearLayoutHello, linearLayoutGlasses, fra;
     private Button buttonDone;
     private ImageView imageViewSettings;
     private User user;
+    DatabaseAdapter adapter;
+    
     
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class HomeFragment extends Fragment{
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        adapter = new DatabaseAdapter(requireActivity());
+        
         buttonDone = binding.buttonDone;
         imageViewSettings = binding.imageViewSettings;
         imageViewSettings.setClickable(true);
@@ -55,8 +62,6 @@ public class HomeFragment extends Fragment{
         tableLayoutHi = binding.tableLayoutHi;
         
         user = GlobalLinkUser.getUser();
-        
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         if(user == null){
             tableLayoutHi.setVisibility(View.VISIBLE);
             loadFragment(null);
@@ -65,7 +70,7 @@ public class HomeFragment extends Fragment{
             loadFragment(GlobalLinkUser.getUser());
         }
         buttonDone.setOnClickListener(v -> {
-            DatabaseAdapter adapter = new DatabaseAdapter(requireActivity());
+            
             if(user == null) {
                 adapter.open();
                 long idUs = adapter.insert(new User(editTextTextPersonName.getText().toString(), textViewCity.getText().toString(), 0,0));
@@ -73,7 +78,6 @@ public class HomeFragment extends Fragment{
                 adapter.open();
                 User user = adapter.getUserById(idUs);
                 adapter.close();
-                user.setFonList(new ArrayList<>());
                 GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
                 GlobalLinkUser.setUser(user);
                 loadFragment(user);
@@ -86,7 +90,6 @@ public class HomeFragment extends Fragment{
                 adapter.open();
                 User user = adapter.getUserById(idUs);
                 adapter.close();
-                user.setFonList(new ArrayList<>());
                 GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
                 GlobalLinkUser.setUser(user);
                 loadFragment(user);
@@ -117,43 +120,15 @@ public class HomeFragment extends Fragment{
     private void loadFragment(User u){
         if(u == null) {
             tableLayoutHi.setVisibility(View.VISIBLE);
-
             linearLayoutHello.setVisibility(View.GONE);
             linearLayoutGlasses.setVisibility(View.GONE);
-//            llNumberTheme.setVisibility(View.GONE);
-
         } else {
             tableLayoutHi.setVisibility(View.GONE);
             linearLayoutHello.setVisibility(View.VISIBLE);
             linearLayoutGlasses.setVisibility(View.VISIBLE);
-//            llNumberTheme.setVisibility(View.VISIBLE);
-
             textViewNameUser.setText(u.getName());
             textViewGlasses.setText(String.valueOf(u.getGlasses()));
-//            textViewNumberOfTopics.setText(String.valueOf(u.getFonList().size()));
-            
-            
-            /*
-            GetFon getFon = new GetFonImpl();
-            for (Fon f : getFon.getListFon()){
-                carouselList.add(f.getImageI());
-            }
-                
-                img.setOnClickListener(g->{
-                    
-                    User user = GlobalLinkUser.getUser();
-                    user.setThemeInstalledNow(f.getId());
-                    DatabaseAdapter databaseAdapter = new DatabaseAdapter(requireActivity());
-                    databaseAdapter.open();
-                    databaseAdapter.update(user);
-                    databaseAdapter.close();
-                    GlobalLinkUser.setUser(user);
-                    
-                    ((MainActivity) requireActivity()).setBackgroundActivity(f.getImageI());
-                });
-            */
         }
     }
     
-
 }

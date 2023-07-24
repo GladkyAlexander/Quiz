@@ -10,7 +10,7 @@
         android:dividerPadding="40dp"
         android:showDividers="middle"
         android:gravity="center|top"
-android:id="@+id/llStart">
+        android:id="@+id/llStart">
     <TextView
             android:text="@string/name"
             android:layout_width="wrap_content"
@@ -18,13 +18,18 @@ android:id="@+id/llStart">
             android:id="@+id/textViewNameGalleryFragment"
             android:textColor="#070707"
             android:textSize="16sp"
-            android:textStyle="bold" android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="50dp"/>
+            android:textStyle="bold"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="10dp"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:dividerPadding="30dp"
-            android:showDividers="middle" tools:ignore="UselessParent" android:gravity="center"
+            android:showDividers="middle"
+            tools:ignore="UselessParent"
+            android:gravity="center"
             android:layout_margin="5dp">
         <TextView
                 android:text="@string/in_your_account"
@@ -51,210 +56,250 @@ android:id="@+id/llStart">
                 android:textSize="16sp"
                 android:textStyle="bold"/>
     </LinearLayout>
-    <LinearLayout
+    <TextView
+            android:text="@string/FairiesGreeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="5dp"
-            android:dividerPadding="30dp"
-            android:showDividers="middle">
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:id="@+id/ll1" android:gravity="center"
-                android:layout_margin="10dp"
-                android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon1"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textViewFon1"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:id="@+id/ll2" android:gravity="center"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon2"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textViewFon2"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:id="@+id/ll3" android:gravity="center"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon3"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewFon3"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/textViewFairiesGreeting"
             android:gravity="center"
-            android:padding="5dp"
-            android:dividerPadding="30dp"
-            android:showDividers="middle">
-        <LinearLayout
-                android:orientation="vertical"
+            android:textColor="#0B0B0B"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/motion"
+            app:layoutDescription="@xml/fragment_gallery_scene">
+        <ImageView android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:src="@drawable/fairies1"
+                   android:id="@+id/img1"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginEnd="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/img2"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:src="@drawable/fairies2"
+                   android:id="@+id/img2"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginEnd="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/img3"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView android:layout_width="120dp"
+                   android:layout_height="150dp"
+                   android:src="@drawable/fairies3"
+                   android:id="@+id/img3"
+                   android:contentDescription="@string/todo"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintHorizontal_bias="0.5"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent"
+        />
+
+        <ImageView android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:src="@drawable/fairies4"
+                   android:id="@+id/img4"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginStart="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toEndOf="@+id/img3"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:id="@+id/img5"
+                   android:src="@drawable/fairies5"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginStart="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toEndOf="@+id/img4"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:gravity="center" android:id="@+id/ll4"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon4"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewFon4"/>
-        </LinearLayout>
-        <LinearLayout
                 android:orientation="vertical"
+                app:layout_constraintGuide_begin="100dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:gravity="center" android:id="@+id/ll5"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon5"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewFon5"/>
-        </LinearLayout>
-        <LinearLayout
                 android:orientation="vertical"
+                app:layout_constraintGuide_end="100dp"/>
+        <androidx.constraintlayout.helper.widget.Carousel
+                android:id="@+id/carousel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:gravity="center" android:id="@+id/ll6"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon6"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewFon6"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
+                app:carousel_forwardTransition="@+id/forward"
+                app:carousel_backwardTransition="@+id/backward"
+                app:carousel_previousState="@+id/previous"
+                app:carousel_nextState="@+id/next"
+                app:carousel_firstView="@+id/img3"
+                app:carousel_infinite="true"
+                app:carousel_touchUpMode="carryVelocity"
+                app:carousel_touchUp_dampeningFactor="0.8"
+                app:constraint_referenced_ids="img1, img2, img3, img4, img5"/>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+    <TextView
+            android:text="@string/PuzzleGreeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:dividerPadding="30dp"
-            android:showDividers="middle"
-    >
-        <LinearLayout
-                android:orientation="vertical"
+            android:id="@+id/textViewPuzzleGreeting"
+            android:textColor="#090909"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/motionPazl"
+            app:layoutDescription="@xml/fragment_gallery_pazl_scene"
+            android:layout_marginTop="10dp">
+
+        <FrameLayout android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:src="@drawable/pazl0"
+                   android:id="@+id/imgPazl1"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginEnd="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/imgPazl2"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <FrameLayout android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:src="@drawable/pazl0"
+                   android:id="@+id/imgPazl2"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginEnd="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/imgPazl3"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <FrameLayout android:layout_width="120dp"
+                   android:layout_height="150dp"
+                   android:src="@drawable/pazl0"
+                   android:id="@+id/imgPazl3"
+                   android:contentDescription="@string/todo"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintHorizontal_bias="0.5"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent"
+        />
+
+        <FrameLayout android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:src="@drawable/pazl0"
+                   android:id="@+id/imgPazl4"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginStart="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toEndOf="@+id/imgPazl3"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <FrameLayout android:layout_width="100dp"
+                   android:layout_height="130dp"
+                   android:id="@+id/imgPazl5"
+                   android:src="@drawable/pazl0"
+                   android:contentDescription="@string/todo"
+                   android:layout_marginStart="16dp"
+                   android:scaleType="fitCenter"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toEndOf="@+id/imgPazl4"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelinePazl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:gravity="center" android:id="@+id/ll7"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon7"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textViewFon7"/>
-        </LinearLayout>
-        <LinearLayout
                 android:orientation="vertical"
+                app:layout_constraintGuide_begin="100dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelinePazl2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:gravity="center" android:id="@+id/ll8"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon8"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="100dp" />
+        <androidx.constraintlayout.helper.widget.Carousel
+                android:id="@+id/carousel_pazl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:carousel_forwardTransition="@+id/forward"
+                app:carousel_backwardTransition="@+id/backward"
+                app:carousel_previousState="@+id/previous"
+                app:carousel_nextState="@+id/next"
+                app:carousel_firstView="@+id/imgPazl3"
+                app:carousel_touchUpMode="carryVelocity"
+                app:carousel_infinite="true"
+                app:carousel_touchUp_dampeningFactor="0.8"
+                app:constraint_referenced_ids="imgPazl1, imgPazl2, imgPazl3, imgPazl4, imgPazl5" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:id="@+id/frameLayoutFairies"
+                 android:visibility="gone">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      tools:ignore="UselessParent">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textViewFon8"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:dividerPadding="5dp"
-                android:showDividers="middle"
-                tools:ignore="UseCompoundDrawables,UselessParent"
-                android:gravity="center_horizontal" android:id="@+id/ll9"
-                android:layout_margin="10dp" android:clickable="true">
-            <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:id="@+id/imageViewFon9"
-                    android:contentDescription="@string/todo"/>
-            <TextView
-                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    tools:ignore="UseCompoundDrawables">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewPriceFairies"
+                        android:paddingEnd="10dp"
+                        tools:ignore="RtlSymmetry"/>
+                <ImageView
+                        android:src="@drawable/victik_front"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/imageView4"
+                        android:contentDescription="@string/todo"/>
+            </LinearLayout>
+            <Button android:id="@+id/button_patronat"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textViewFon9"/>
+                    android:text="@string/enlist_patronage"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/button_lihguistics"
+                    android:contentDescription="@string/todo"
+                    android:elevation="15dp"/>
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="match_parent"
+                       android:id="@+id/imgMax"
+                       android:contentDescription="@string/todo"/>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:id="@+id/frameLayoutPazl"
+                 android:visibility="visible">
+    </FrameLayout>
 </LinearLayout>

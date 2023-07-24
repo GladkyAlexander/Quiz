@@ -38,8 +38,8 @@ public class DatabaseAdapter {
     public List<User> getUsers(){
         ArrayList<User> users = new ArrayList<>();
         Cursor cursor = getAllEntries();
-        User user = new User();
         while (cursor.moveToNext()){
+            User user = new User();
             user.setId(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID)));
             user.setName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME)));
             user.setCity(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CITY)));

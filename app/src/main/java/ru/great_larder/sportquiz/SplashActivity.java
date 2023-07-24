@@ -27,24 +27,11 @@ public class SplashActivity extends AppCompatActivity {
         
         imageViewSplash = findViewById(R.id.imageViewSplach);
         
-       /* rotate_anim = AnimationUtils.loadAnimation(getApplicationContext(),
-            R.animator.rotat);
-        imageViewSplash.startAnimation(rotate_anim);
-        */
-        
         imageViewSplash.setBackgroundResource(R.drawable.animat_viktik);
         AnimationDrawable frameAnimation = (AnimationDrawable) imageViewSplash.getBackground();
         frameAnimation.setOneShot(true);
         frameAnimation.start();
-        
-        /*mHandler = new Handler();
-        mRunnable = () -> {
-            Intent intent = new Intent(SplashActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        };
-        mHandler.postDelayed(mRunnable,10);*/
-        
+      
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);

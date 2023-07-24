@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              tools:context=".ui.traffic_laws.FragmentTrafficLaws"
-             android:id="@+id/frameLayoutTrafficLaws"/>
+>
+    <ImageView
+            android:src="@drawable/pdd_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageViewPdd"
+            android:contentDescription="@string/todo"/>
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/frameLayoutTrafficLaws"
+    />
+</LinearLayout>

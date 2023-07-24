@@ -14,7 +14,7 @@
             android:id="@+id/linearLayoutButtonEtiquette">
 
         <ImageButton
-                android:id="@+id/button_secular"
+                android:id="@+id/button_business"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="30dp"
@@ -27,7 +27,7 @@
                 android:stateListAnimator="@null"/>
 
         <ImageButton
-                android:id="@+id/button_business"
+                android:id="@+id/button_secular"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:padding="15dp"

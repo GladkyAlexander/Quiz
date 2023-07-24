@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              tools:context=".ui.dialog_puzzle.DialogPuzzleFragment" android:padding="5dp" android:gravity="center">
+
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:gravity="center">
+        <ImageView
+                android:src="@drawable/cheat_sheet"
+                android:layout_width="80dp"
+                android:layout_height="80dp" android:id="@+id/imageView5"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:gravity="center">
+                <TextView
+                        android:text="@string/on_the_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView9"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:textStyle="bold"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewOnTheAccount"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:textStyle="bold"/>
+                <ImageView
+                        android:src="@drawable/victik_front"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" android:id="@+id/imageView6" android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/btnYesBuyPuzzle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@null"
+                android:text="@string/buy"
+                android:layout_margin="20dp"/>
+        <Button
+                android:id="@+id/btnNoBuyPuzzle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@null"
+                android:text="@string/no"
+                android:layout_margin="20dp"/>
+    </LinearLayout>
+</LinearLayout>

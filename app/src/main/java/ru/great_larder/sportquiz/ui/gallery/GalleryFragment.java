@@ -1,47 +1,57 @@
 package ru.great_larder.sportquiz.ui.gallery;
 
 import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
-import androidx.core.widget.ImageViewCompat;
-import androidx.fragment.app.DialogFragment;
+import androidx.constraintlayout.helper.widget.Carousel;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.*;
+import ru.great_larder.sportquiz.database.DatabaseAdapter;
+import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
+import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentGalleryBinding;
-import ru.great_larder.sportquiz.domain.Fon;
-import ru.great_larder.sportquiz.domain.FonItem;
+import ru.great_larder.sportquiz.domain.Fairies;
+import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
+import ru.great_larder.sportquiz.services.DoubleClickListener;
+import ru.great_larder.sportquiz.services.fairies.GetFairies;
+import ru.great_larder.sportquiz.services.fairies.GetFairiesImpl;
+import ru.great_larder.sportquiz.services.puzzle_listener.DataPuzzle;
+import ru.great_larder.sportquiz.services.puzzle_listener.ObserverPuzzle;
+import ru.great_larder.sportquiz.services.user_listener.DataUser;
+import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
+import ru.great_larder.sportquiz.ui.for_a_corusel_of_puzzles.ForACarouselOfPuzzlesFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment implements ObserverUser, ObserverPuzzle {
     
     private FragmentGalleryBinding binding;
-    private TextView textViewNameGalleryFragment;
-    private TextView textViewPointsGF;
-    private TextView textViewFon1;
-    private TextView textViewFon2;
-    private TextView textViewFon3;
-    private TextView textViewFon4;
-    private TextView textViewFon5;
-    private TextView textViewFon6;
-    private TextView textViewFon7;
-    private TextView textViewFon8;
-    private TextView textViewFon9;
-    private ImageView imageViewFon1, imageViewFon2, imageViewFon3, imageViewFon4, imageViewFon5, imageViewFon6
-        ,imageViewFon7, imageViewFon8, imageViewFon9;
-    private LinearLayout ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8, ll9, llStart;
-    DialogFragment dialogFragment;
-    Integer i = 0;
-    List<FonItem> fonItemList = new ArrayList<>();
+    private TextView textViewNameGalleryFragment, textViewPuzzleGreeting, textViewFairiesGretting;
+    private TextView textViewPointsGF, textViewPriceFairies;
+    private ImageView img3, imgMax;
+    private FrameLayout frameLayoutFairies, frameLayoutPuzzleImage, imgPuzzle3;
+    private Carousel carousel, carouselPuzzle;
+    private MotionLayout motion, motionPuzzle;
+    private Button button_patronage;
+    int numImages;
+    int getNumImagesPuzzle;
+    Fairies fairiesToInstall;
+    
+    List<Puzzle> puzzles;
+    public boolean flag = false;
+    PuzzleDatabaseAdapter adapterPuzzle;
+    FairiesDatabaseAdapter adapterFairies;
+    DatabaseAdapter userAdapter;
+    
     @SuppressLint("DiscouragedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,76 +61,199 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
+        GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
+        adapterPuzzle = new PuzzleDatabaseAdapter(requireActivity());
+        adapterFairies = new FairiesDatabaseAdapter(requireActivity());
+        userAdapter = new DatabaseAdapter(requireActivity());
+        
         textViewNameGalleryFragment = binding.textViewNameGalleryFragment;
         textViewPointsGF = binding.textViewPointsGF;
+        textViewPuzzleGreeting = binding.textViewPuzzleGreeting;
+        textViewFairiesGretting = binding.textViewFairiesGreeting;
         
-        llStart = binding.llStart;
+        carousel = binding.carousel;
+        motion = binding.motion;
+        imgMax = binding.imgMax;
+        textViewPriceFairies = binding.textViewPriceFairies;
+        frameLayoutFairies = binding.frameLayoutFairies;
+        img3 = binding.img3;
+        button_patronage = binding.buttonPatronat;
         
-        fonItemList.add(new FonItem(ll1 = binding.ll1, textViewFon1 = binding.textViewFon1, imageViewFon1 = binding.imageViewFon1));
-        fonItemList.add(new FonItem(ll2 = binding.ll2, textViewFon2 = binding.textViewFon2, imageViewFon2 = binding.imageViewFon2));
-        fonItemList.add(new FonItem(ll3 = binding.ll3, textViewFon3 = binding.textViewFon3, imageViewFon3 = binding.imageViewFon3));
-        fonItemList.add(new FonItem(ll4 = binding.ll4, textViewFon4 = binding.textViewFon4, imageViewFon4 = binding.imageViewFon4));
-        fonItemList.add(new FonItem(ll5 = binding.ll5, textViewFon5 = binding.textViewFon5, imageViewFon5 = binding.imageViewFon5));
-        fonItemList.add(new FonItem(ll6 = binding.ll6, textViewFon6 = binding.textViewFon6, imageViewFon6 = binding.imageViewFon6));
-        fonItemList.add(new FonItem(ll7 = binding.ll7, textViewFon7 = binding.textViewFon7, imageViewFon7 = binding.imageViewFon7));
-        fonItemList.add(new FonItem(ll8 = binding.ll8, textViewFon8 = binding.textViewFon8, imageViewFon8 = binding.imageViewFon8));
-        fonItemList.add(new FonItem(ll9 = binding.ll9, textViewFon9 = binding.textViewFon9, imageViewFon9 = binding.imageViewFon9));
+        carouselPuzzle = binding.carouselPazl;
+        motionPuzzle = binding.motionPazl;
+        frameLayoutPuzzleImage = binding.frameLayoutPazl;
+        imgPuzzle3 = binding.imgPazl3;
         
-        dialogFragment = new FragmentDialogBuy();
+        img3.setClickable(true);
+        img3.setOnClickListener(new DoubleClickListener(){
+            @Override
+            public void onDoubleClick(View v) {
+                super.onDoubleClick(v);
+                openFairies((Fairies) img3.getTag());
+            }
+        });
+
+        imgPuzzle3.setClickable(true);
+        imgPuzzle3.setOnClickListener(new DoubleClickListener(){
+            @Override
+            public void onDoubleClick(View v) {
+                super.onDoubleClick(v);
+                openPuzzle((Puzzle) imgPuzzle3.getTag());
+            }
+        });
+        loadFragment(GlobalLinkUser.getUser());
         
-        if(GlobalLinkUser.getUser() != null){
-            loadFragment(GlobalLinkUser.getUser());
-        }
-        
+        button_patronage.setOnClickListener(m -> {
+            if(GlobalLinkUser.getUser() != null) {
+                if (GlobalLinkUser.getUser().getGlasses() >= fairiesToInstall.getPrice()) {
+                    fairiesToInstall.setActivity_fairies(1);
+                    fairiesToInstall.setDateStart(new Date());
+                    Fairies g;
+                    adapterFairies.open();
+                    g = adapterFairies.getFairiesByActive();
+                    adapterFairies.close();
+                    if (g != null) {
+                        g.setActivity_fairies(0);
+                        adapterFairies.open();
+                        adapterFairies.update(g);
+                        adapterFairies.close();
+                        //-------------------------------
+                    }
+                    adapterFairies.open();
+                    adapterFairies.update(fairiesToInstall);
+                    adapterFairies.close();
+                    User user = GlobalLinkUser.getUser();
+                    user.setGlasses(user.getGlasses() - fairiesToInstall.getPrice());
+                    userAdapter.open();
+                    userAdapter.update(user);
+                    userAdapter.close();
+                    GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
+                   
+                } else Toast.makeText(requireActivity(), "Не достаточно Виктиков!", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
+            }
+        });
+        setupCarousel();
         return root;
     }
-    private void openDialog(Fon fo){
-        
-        Bundle args = new Bundle();
-        args.putInt("numberImage", fo.getImageI());
-        args.putInt("idFon", fo.getId());
-        dialogFragment.setArguments(args);
-        
-        dialogFragment.show(getChildFragmentManager(), "dlg 1");
-    }
-    
     public void loadFragment(User user) {
-        
-        textViewNameGalleryFragment.setText(user.getName());
-        textViewPointsGF.setText(String.valueOf(user.getGlasses()));
-        
-        GetFon getFon = new GetFonImpl();
-        List<Fon> fonList = getFon.getListFon();
-        for (FonItem fi : fonItemList){
-            fi.getTextView().setText(String.valueOf(fonList.get(i).getPrice()));
-            fi.getImageView().setImageResource(fonList.get(i).getImageI());
-            Fon fon = new Fon();
-            fon.setId(fonList.get(i).getId());
-            fon.setName(fi.getImageView().getTransitionName());
-            fon.setPrice(Integer.parseInt((String) fi.getTextView().getText()));
-            fon.setAffiliation((int) GlobalLinkUser.getUser().getId());
-            fon.setImageI(fonList.get(i).getImageI());
-            
-            if(fonList.get(i).getPrice() > user.getGlasses()){
-                ImageViewCompat.setImageTintMode(fi.getImageView(), PorterDuff.Mode.SRC_ATOP);
-                ImageViewCompat.setImageTintList(fi.getImageView(), ColorStateList.valueOf(Color.parseColor("#80000000")));
-            }
-            
-            fi.getImageView().setOnClickListener(r->{
-                
-                if(GlobalLinkUser.getUser().getGlasses() >= Integer.parseInt((String) fi.getTextView().getText())){
-                    openDialog(fon);
-                }
-            });
-            
-            i++;
+        frameLayoutPuzzleImage.setVisibility(View.GONE);
+        if(GlobalLinkUser.getUser() != null) {
+            textViewNameGalleryFragment.setText(user.getName());
+            textViewPointsGF.setText(String.valueOf(user.getGlasses()));
+            motionPuzzle.setVisibility(View.VISIBLE);
+            textViewPuzzleGreeting.setVisibility(View.VISIBLE);
+            adapterPuzzle.open();
+            puzzles = adapterPuzzle.getPuzzles();
+            adapterPuzzle.close();
+            setupCarouselPuzzle();
+        } else {
+            textViewNameGalleryFragment.setText("");
+            textViewPointsGF.setText(String.valueOf(0));
+            motionPuzzle.setVisibility(View.GONE);
+            textViewPuzzleGreeting.setVisibility(View.GONE);
         }
-        i = 0;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    private void setupCarousel() {
+        GetFairies getFairies = new GetFairiesImpl();
+        List<Fairies> listSource = getFairies.getListFairies();
+        
+        if (carousel == null) {
+            return;
+        }
+        numImages = listSource.size();
+        carousel.setAdapter(new Carousel.Adapter() {
+            @Override
+            public int count() {
+                return numImages;
+            }
+            
+            @Override
+            public void populate(View view, int index) {
+                if (view instanceof ImageView) {
+                    ImageView imageView = (ImageView) view;
+                    imageView.setImageResource(listSource.get(index).getImageI());
+                    imageView.setTag(listSource.get(index));
+                }
+            }
+            
+            @Override
+            public void onNewItem(int index) {
+            }
+        });
+    }
+    private void setupCarouselPuzzle() {
+        if (carouselPuzzle == null) {
+            return;
+        }
+        getNumImagesPuzzle = puzzles.size();
+        carouselPuzzle.setAdapter(new Carousel.Adapter() {
+            @Override
+            public int count() {
+                return getNumImagesPuzzle;
+            }
+            @Override
+            public void populate(View view, int index) {
+                if(view instanceof FrameLayout){
+                    FrameLayout frameLayout = (FrameLayout) view;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idPuzzle", puzzles.get(index).getId());
+                    ForACarouselOfPuzzlesFragment forACarouselOfPuzzlesFragment = new ForACarouselOfPuzzlesFragment();
+                    forACarouselOfPuzzlesFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                    transaction.replace(frameLayout.getId(), forACarouselOfPuzzlesFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    frameLayout.setTag(puzzles.get(index));
+                }
+            }
+            
+            @Override
+            public void onNewItem(int index) {
+            }
+            
+        });
+    }
+    private void openFairies(Fairies value){
+        fairiesToInstall = value;
+        motionPuzzle.setVisibility(View.GONE);
+        textViewPuzzleGreeting.setVisibility(View.GONE);
+        frameLayoutFairies.setVisibility(View.VISIBLE);
+        imgMax.setImageResource(value.getImageI());
+        textViewPriceFairies.setText(String.valueOf(value.getPrice()));
+    }
+    private void openPuzzle(Puzzle val){
+        motion.setVisibility(View.GONE);
+        motionPuzzle.setVisibility(View.GONE);
+        textViewPuzzleGreeting.setVisibility(View.GONE);
+        textViewFairiesGretting.setVisibility(View.GONE);
+        frameLayoutPuzzleImage.setVisibility(View.VISIBLE);
+        
+        ForAPuzzleFragment forAPuzzleFragment = new ForAPuzzleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("getPuzzleId", val.getId());
+        forAPuzzleFragment.setArguments(bundle);
+        
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(frameLayoutPuzzleImage.getId(), forAPuzzleFragment);
+        
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    
+    @Override
+    public void updateUser(DataUser dataUser) {
+        loadFragment(dataUser.getUser());
+    }
+    
+    @Override
+    public void updatePuzzle(DataPuzzle dataUser) {
+    
     }
 }

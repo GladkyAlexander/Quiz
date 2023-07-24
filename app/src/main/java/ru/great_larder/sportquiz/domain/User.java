@@ -1,8 +1,5 @@
 package ru.great_larder.sportquiz.domain;
 
-
-import java.util.List;
-
 public class User {
     long id;
     String name;
@@ -19,8 +16,6 @@ public class User {
     
     public User() {
     }
-    
-    List<Fon> fonList;
     
     public String getCity() {
         return city;
@@ -54,14 +49,6 @@ public class User {
         this.glasses = glasses;
     }
     
-    public List<Fon> getFonList() {
-        return fonList;
-    }
-    
-    public void setFonList(List<Fon> fonList) {
-        this.fonList = fonList;
-    }
-    
     public int getThemeInstalledNow() {
         return themeInstalledNow;
     }
@@ -78,7 +65,6 @@ public class User {
             ", city='" + city + '\'' +
             ", glasses=" + glasses +
             ", themeInstalledNow=" + themeInstalledNow +
-            ", fonList=" + fonList +
             '}';
     }
 }

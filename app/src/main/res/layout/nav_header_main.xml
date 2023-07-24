@@ -6,8 +6,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:gravity="center"
-        android:background="#F72196F3"
-        android:paddingTop="30dp">
+        android:background="#F72196F3">
 
     <ImageView
             android:layout_width="100dp"
@@ -19,7 +18,9 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_margin="3dp">
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:gravity="center">
         <TextView
                 android:id="@+id/textViewNameNavHeader"
                 android:layout_width="match_parent"

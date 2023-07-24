@@ -64,5 +64,10 @@
     <string name="zamanuha">Здесь можете оказаться Вы</string>
     <string name="city">Твой город</string>
     <string name="link">info@great-larder.ru</string>
+    <string name="enlist_patronage">Заручиться покровительством</string>
+    <string name="buy">Купить</string>
+    <string name="on_the_account">На счету</string>
+    <string name="FairiesGreeting">Заручитесь поддержкой фей и магов</string>
+    <string name="PuzzleGreeting">Откройте все картинки</string>
 
 </resources>

@@ -13,13 +13,23 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
+import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
+import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements ObserverUser {
@@ -28,27 +38,34 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
     private TextView textViewBar;
-    private ImageView img;
+    private ImageView img, img_fairies;
     HandlerUserListener handlerUserListener = new HandlerUserListener();
+    FairiesDatabaseAdapter fairiesDatabaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handlerUserListener.registerObserverUser(this);
         GlobalLinkUser.setHandlerUserListener(handlerUserListener);
+        fairiesDatabaseAdapter = new FairiesDatabaseAdapter(this);
         
         List<User> users;
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
         users = adapter.getUsers();
         adapter.close();
-        if(users.size() > 0) {
+        if(!users.isEmpty()) {
             GlobalLinkUser.setUser(users.get(0));
         } else GlobalLinkUser.setUser(null);
+        
+        LoadDataApp loadDataApp = new LoadDataApp(this);
+        loadDataApp.setFairies();
+        loadDataApp.setPuzzle();
         
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         textViewBar = binding.appBarMain.textViewRight;
         img = binding.appBarMain.imageViewVik;
         drawer = binding.drawerLayout;
+        img_fairies = binding.appBarMain.imgFairies;
         
         handlerUserListener.onNewDataUser(new DataUser(GlobalLinkUser.getUser()));
         
@@ -60,22 +77,33 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         View hView = navigationView.getHeaderView(0);
         
         TextView tg = hView.findViewById(R.id.textViewNameNavHeader);
+        navigationView.setItemIconTintList(null);
         if(GlobalLinkUser.getUser() != null) {
             tg.setText(GlobalLinkUser.getUser().getName());
+            loadMainAct();
         }
-        
-        navigationView.setItemIconTintList(null);
-        
         mAppBarConfiguration = new AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_language_quiz, R.id.nav_sports_quiz
-        , R.id.nav_school, R.id.nav_traffic_laws, R.id.nav_etiquette, R.id.nav_partners)
+            , R.id.nav_school, R.id.nav_traffic_laws, R.id.nav_etiquette, R.id.nav_partners)
             .setOpenableLayout(drawer)
             .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-    
+    public void loadMainAct(){
+        Fairies fairies;
+        fairiesDatabaseAdapter.open();
+        fairies = fairiesDatabaseAdapter.getFairiesByActive();
+        fairiesDatabaseAdapter.close();
+        
+        if(fairies != null){
+            if (getDifferenceInDays(fairies) <= fairies.getPrice() || getDifferenceInDays(fairies) == 0) {
+                img_fairies.setImageResource(fairies.getImageI());
+            }
+        }
+        
+    }
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -89,9 +117,6 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
             || super.onSupportNavigateUp();
     }
-    public void setBackgroundActivity(int img){
-        drawer.setBackgroundResource(img);
-    }
     public void setTBarDate(User user){
         img.setImageDrawable(null);
         if(user != null) {
@@ -100,10 +125,6 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
             AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
             frameAnimation.setOneShot(true);
             frameAnimation.start();
-            if(user.getThemeInstalledNow() != 0){
-                GetFon getFon = new GetFonImpl();
-                setBackgroundActivity(getFon.getFonById(user.getThemeInstalledNow()).getImageI());
-            }
         } else textViewBar.setText(String.valueOf(0));
         img.setBackgroundResource(R.drawable.animat_viktik);
         AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
@@ -115,5 +136,21 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     @Override
     public void updateUser(DataUser dataUser) {
         setTBarDate(dataUser.getUser());
+        loadMainAct();
+    }
+    private int getDifferenceInDays(Fairies g){
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        try {
+            Date dateCurrent = dateFormat.parse(currentDate);
+            Date fd = g.getDateStart();
+            assert dateCurrent != null;
+            assert fd != null;
+            long milliseconds = dateCurrent.getTime() - fd.getTime();
+            return (int) (milliseconds / (24 * 60 * 60 * 1000));
+        } catch (ParseException e) {
+            e.getStackTrace();
+        }
+        return 0;
     }
 }
