@@ -12,7 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/imageViewSportz"
-            android:contentDescription="@string/todo" android:paddingTop="150dp"/>
+            android:contentDescription="@string/todo"
+            android:paddingTop="150dp"/>
+    <Button android:text="@string/start"
+            android:id="@+id/btnStartSport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/button_lihguistics"
+            android:contentDescription="@string/todo"
+            android:elevation="15dp"
+            android:scaleType="fitCenter"/>
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

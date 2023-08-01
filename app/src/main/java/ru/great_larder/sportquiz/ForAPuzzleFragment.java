@@ -17,11 +17,12 @@ import ru.great_larder.sportquiz.services.puzzle_listener.GlobalLinkHandlerPuzzl
 import ru.great_larder.sportquiz.services.puzzle_listener.HandlerPuzzleListener;
 import ru.great_larder.sportquiz.services.puzzle_listener.ObserverPuzzle;
 import ru.great_larder.sportquiz.ui.dialog_puzzle.DialogPuzzleFragment;
+import ru.great_larder.sportquiz.ui.gallery.GalleryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForAPuzzleFragment extends Fragment implements ObserverPuzzle {
+public class ForAPuzzleFragment extends Fragment {
     Puzzle puzzle;
     private ImageView imgP1, imgP2, imgP3, imgP4, imgP5, imgP6, imgP7, imgP8, imgP9, imgP10
         , imgP11, imgP12, imgP13, imgP14, imgP15, imgP16, imgP17, imgP18, imgP19, imgP20
@@ -33,8 +34,9 @@ public class ForAPuzzleFragment extends Fragment implements ObserverPuzzle {
     List<ImageView> imageViewList;
     List<TextView> textViewList;
     List<Integer> listDraw;
-    List<Integer> listPazl;
+    List<Integer> listPuzzle;
     List<Integer> listPrice;
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,9 +44,9 @@ public class ForAPuzzleFragment extends Fragment implements ObserverPuzzle {
         FragmentForAPuzzleBinding binding = FragmentForAPuzzleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
-        HandlerPuzzleListener handlerPuzzleListener = new HandlerPuzzleListener();
+        /*HandlerPuzzleListener handlerPuzzleListener = new HandlerPuzzleListener();
         handlerPuzzleListener.registerObserverPuzzle(this);
-        GlobalLinkHandlerPuzzle.setHandlerPuzzleListener(handlerPuzzleListener);
+        GlobalLinkHandlerPuzzle.setHandlerPuzzleListener(handlerPuzzleListener);*/
         
         imgStartForAPuzzle = binding.imgStartForAPuzzle;
         frameLayoutPuzzleFr = binding.frameLayoutPuzzleFr;
@@ -157,43 +159,43 @@ public class ForAPuzzleFragment extends Fragment implements ObserverPuzzle {
         return root;
     }
     
-    private void loadFragment(Puzzle puzz) {
+    public void loadFragment(Puzzle puzz) {
             if (GlobalLinkUser.getUser() != null && puzz != null) {
                 frameLayoutPuzzleFr.removeAllViews();
                 imgStartForAPuzzle.setImageResource(puzz.getId_drawable_resource());
                 frameLayoutPuzzleFr.addView(imgStartForAPuzzle);
                 
-                listPazl = new ArrayList<>();
-                listPazl.add(getPaz(puzz.isPuzzle1()));
-                listPazl.add(getPaz(puzz.isPuzzle2()));
-                listPazl.add(getPaz(puzz.isPuzzle3()));
-                listPazl.add(getPaz(puzz.isPuzzle4()));
-                listPazl.add(getPaz(puzz.isPuzzle5()));
-                listPazl.add(getPaz(puzz.isPuzzle6()));
-                listPazl.add(getPaz(puzz.isPuzzle7()));
-                listPazl.add(getPaz(puzz.isPuzzle8()));
-                listPazl.add(getPaz(puzz.isPuzzle9()));
-                listPazl.add(getPaz(puzz.isPuzzle10()));
-                listPazl.add(getPaz(puzz.isPuzzle11()));
-                listPazl.add(getPaz(puzz.isPuzzle12()));
-                listPazl.add(getPaz(puzz.isPuzzle13()));
-                listPazl.add(getPaz(puzz.isPuzzle14()));
-                listPazl.add(getPaz(puzz.isPuzzle15()));
-                listPazl.add(getPaz(puzz.isPuzzle16()));
-                listPazl.add(getPaz(puzz.isPuzzle17()));
-                listPazl.add(getPaz(puzz.isPuzzle18()));
-                listPazl.add(getPaz(puzz.isPuzzle19()));
-                listPazl.add(getPaz(puzz.isPuzzle20()));
-                listPazl.add(getPaz(puzz.isPuzzle21()));
-                listPazl.add(getPaz(puzz.isPuzzle22()));
-                listPazl.add(getPaz(puzz.isPuzzle23()));
-                listPazl.add(getPaz(puzz.isPuzzle24()));
-                listPazl.add(getPaz(puzz.isPuzzle25()));
-                listPazl.add(getPaz(puzz.isPuzzle26()));
-                listPazl.add(getPaz(puzz.isPuzzle27()));
-                listPazl.add(getPaz(puzz.isPuzzle28()));
-                listPazl.add(getPaz(puzz.isPuzzle29()));
-                listPazl.add(getPaz(puzz.isPuzzle30()));
+                listPuzzle = new ArrayList<>();
+                listPuzzle.add(getPaz(puzz.isPuzzle1()));
+                listPuzzle.add(getPaz(puzz.isPuzzle2()));
+                listPuzzle.add(getPaz(puzz.isPuzzle3()));
+                listPuzzle.add(getPaz(puzz.isPuzzle4()));
+                listPuzzle.add(getPaz(puzz.isPuzzle5()));
+                listPuzzle.add(getPaz(puzz.isPuzzle6()));
+                listPuzzle.add(getPaz(puzz.isPuzzle7()));
+                listPuzzle.add(getPaz(puzz.isPuzzle8()));
+                listPuzzle.add(getPaz(puzz.isPuzzle9()));
+                listPuzzle.add(getPaz(puzz.isPuzzle10()));
+                listPuzzle.add(getPaz(puzz.isPuzzle11()));
+                listPuzzle.add(getPaz(puzz.isPuzzle12()));
+                listPuzzle.add(getPaz(puzz.isPuzzle13()));
+                listPuzzle.add(getPaz(puzz.isPuzzle14()));
+                listPuzzle.add(getPaz(puzz.isPuzzle15()));
+                listPuzzle.add(getPaz(puzz.isPuzzle16()));
+                listPuzzle.add(getPaz(puzz.isPuzzle17()));
+                listPuzzle.add(getPaz(puzz.isPuzzle18()));
+                listPuzzle.add(getPaz(puzz.isPuzzle19()));
+                listPuzzle.add(getPaz(puzz.isPuzzle20()));
+                listPuzzle.add(getPaz(puzz.isPuzzle21()));
+                listPuzzle.add(getPaz(puzz.isPuzzle22()));
+                listPuzzle.add(getPaz(puzz.isPuzzle23()));
+                listPuzzle.add(getPaz(puzz.isPuzzle24()));
+                listPuzzle.add(getPaz(puzz.isPuzzle25()));
+                listPuzzle.add(getPaz(puzz.isPuzzle26()));
+                listPuzzle.add(getPaz(puzz.isPuzzle27()));
+                listPuzzle.add(getPaz(puzz.isPuzzle28()));
+                listPuzzle.add(getPaz(puzz.isPuzzle29()));
+                listPuzzle.add(getPaz(puzz.isPuzzle30()));
                 
                 listPrice = new ArrayList<>();
                 listPrice.add(puzz.getPrice1());
@@ -227,18 +229,15 @@ public class ForAPuzzleFragment extends Fragment implements ObserverPuzzle {
                 listPrice.add(puzz.getPrice29());
                 listPrice.add(puzz.getPrice30());
                 
-                
-                
                 for (ImageView k : imageViewList) {
                     k.setImageResource(listDraw.get(imageViewList.indexOf(k)));
                     textViewList.get(imageViewList.indexOf(k)).setText(String.valueOf(listPrice.get(imageViewList.indexOf(k))));
-                    if (listPazl.get(imageViewList.indexOf(k)) == 0) {
+                    if (listPuzzle.get(imageViewList.indexOf(k)) == 0) {
                         ImageView im = new ImageView(requireActivity());
                         im.setImageResource(listDraw.get(imageViewList.indexOf(k)));
                         im.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         frameLayoutPuzzleFr.addView(im);
                     }
-                    
                     k.setOnClickListener(t -> {
                         Bundle args = new Bundle();
                         args.putInt("idPuzzle", puzz.getId());
@@ -254,10 +253,9 @@ public class ForAPuzzleFragment extends Fragment implements ObserverPuzzle {
     private Integer getPaz(boolean v){
         if (v){return 1;} else {return 0;}
     }
-    
-    @Override
-    public void updatePuzzle(DataPuzzle dataPuzzle) {
-        puzzle = dataPuzzle.getPuzzle();
-        loadFragment(dataPuzzle.getPuzzle());
+    public void updateFr(Puzzle puzzle) {
+        this.puzzle = puzzle;
+        loadFragment(puzzle);
     }
+    
 }

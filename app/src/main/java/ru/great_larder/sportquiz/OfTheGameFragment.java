@@ -1,8 +1,10 @@
 package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.animation.Animation;
@@ -12,26 +14,38 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.wear.tiles.EventBuilders;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentOfTheGameBinding;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.question.*;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
+import ru.great_larder.sportquiz.ui.etiquette.EtiquetteFragment;
+import ru.great_larder.sportquiz.ui.language_quiz.LanguageQuizFragment;
+import ru.great_larder.sportquiz.ui.school.FragmentSchool;
+import ru.great_larder.sportquiz.ui.sports.SportsFragment;
+import ru.great_larder.sportquiz.ui.traffic_laws.FragmentTrafficLaws;
 
 import java.util.*;
 
 public class OfTheGameFragment extends Fragment {
     TextView textViewTimeGame, tv_second_game, textViewQuestionGame;
-    LinearLayout llAnswersGame, llButtonsGame;
+    LinearLayout llAnswersGame, llButtonsGame, linearLayoutGame;
     CheckBox checkBoxGame1, checkBoxGame2, checkBoxGame3, checkBoxGame4;
     Button buttonResumeGame, buttonOutGame;
-    ImageView img1, img2, img3, img4;
+    ImageView img1, img2, img3, img4, imageViewFinish;
     private CountDownTimer chronometer = null;
     GetQuestion getQuestion;
     Map<CheckBox, ImageView> map = new HashMap<>();
-    ImageView view;
+    ImageView view, img_hint;
     List<Question> questionList;
+    private EtiquetteFragment etiquetteFragment;
+    private LanguageQuizFragment languageQuizFragment;
+    private FragmentSchool fragmentSchool;
+    private SportsFragment sportsFragment;
+    private FragmentTrafficLaws fragmentTrafficLaws;
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,7 +60,7 @@ public class OfTheGameFragment extends Fragment {
         
         llAnswersGame = binding.llAnswersGame;
         llButtonsGame = binding.llButtonsGame;
-        
+        linearLayoutGame = binding.linearLayoutGame;
         checkBoxGame1 = binding.checkBoxGame1;
         checkBoxGame2 = binding.checkBoxGame2;
         checkBoxGame3 = binding.checkBoxGame3;
@@ -55,24 +69,24 @@ public class OfTheGameFragment extends Fragment {
         buttonResumeGame = binding.buttonResumeGame;
         buttonOutGame = binding.buttonOutGame;
         
+        img_hint = binding.imgHint;
+        imageViewFinish = binding.imageViewFinish;
+        
         map.put(checkBoxGame1, img1 = binding.imgCB1);
         map.put(checkBoxGame2, img2 = binding.imgCB2);
         map.put(checkBoxGame3, img3 = binding.imgCB3);
         map.put(checkBoxGame4, img4 = binding.imgCB4);
         
-        buttonResumeGame.setOnClickListener(f->{
-            timerResume();
-        });
+        buttonResumeGame.setOnClickListener(f-> timerResume());
         buttonOutGame.setOnClickListener(a->{
             chronometer.cancel();
-            requireActivity().getSupportFragmentManager().popBackStack();
-            requireActivity().getSupportFragmentManager().popBackStack();
-            
+            back(GlobalLinkUser.getUser());
+            requireActivity().onBackPressed();
+           /* requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager().popBackStack();*/
         });
-        
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            setQue(bundle.getString("getGuestion"));
+        if (getArguments() != null) {
+            questionList = getQuestionList(getArguments().getString("getGuestion"));
             startQuiz();
         }
         
@@ -81,83 +95,96 @@ public class OfTheGameFragment extends Fragment {
     
     private void startQuiz(){
             clear();
-            //Question b = getQuestion.getRandomQuestion(null);
-            
             Random random = new Random();
-            Question b = questionList.get(random.nextInt(questionList.size()));
-            
-            List<String> l = new ArrayList<>();
-            l.add(b.getRightAnswer());
-            l.add(b.getWrongAnswer1());
-            l.add(b.getWrongAnswer2());
-            l.add(b.getWrongAnswer3());
-            Collections.shuffle(l);
-            stageLoading(b.getQuestion(), l, b.getRightAnswer());
-            
-            chronometer = new CountDownTimer(2 * 10000L, 1000) {
-                @SuppressLint("SetTextI18n")
-                public void onTick(long millisUntilFinished) {
-                    tv_second_game.setText(String.valueOf(millisUntilFinished / 1000));
-                }
+            if(!questionList.isEmpty()) {
                 
-                public void onFinish() {
-                    startQuiz();
-                }
-            }.start();
-            
+                llAnswersGame.setVisibility(View.VISIBLE);
+                linearLayoutGame.setVisibility(View.VISIBLE);
+                textViewQuestionGame.setVisibility(View.VISIBLE);
+                img_hint.setVisibility(View.VISIBLE);
+                imageViewFinish.setVisibility(View.GONE);
+                
+                Question b = questionList.get(random.nextInt(questionList.size()));
+                questionList.remove(b);
+                List<String> l = new ArrayList<>();
+                l.add(b.getRightAnswer());
+                l.add(b.getWrongAnswer1());
+                l.add(b.getWrongAnswer2());
+                l.add(b.getWrongAnswer3());
+                Collections.shuffle(l);
+                setHint(b.getLink());
+                
+                stageLoading(b.getQuestion(), l, b.getRightAnswer());
+                
+                chronometer = new CountDownTimer(2 * 10000L, 1000) {
+                    @SuppressLint("SetTextI18n")
+                    public void onTick(long millisUntilFinished) {
+                        tv_second_game.setText(String.valueOf(millisUntilFinished / 1000));
+                    }
+                    
+                    public void onFinish() {
+                        img_hint.setVisibility(View.GONE);
+                        startQuiz();
+                    }
+                }.start();
+            } else {
+                imageViewFinish.setVisibility(View.VISIBLE);
+                llAnswersGame.setVisibility(View.GONE);
+                linearLayoutGame.setVisibility(View.GONE);
+                textViewQuestionGame.setVisibility(View.GONE);
+                img_hint.setVisibility(View.GONE);
+            }
     }
-    
-    
     private void timerResume(){
         chronometer.cancel();
         startQuiz();
     }
-    
-    private void setQue(String arg) {
+    private List<Question> getQuestionList(String arg) {
         if(arg.equals("Biology")){
             getQuestion = new GetQuestionBiology();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("History")){
             getQuestion = new GetQuestionHistory();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Geography")){
             getQuestion = new GetQuestionGeography();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Physics")){
             getQuestion = new GetQuestionPhisics();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Mathematics")){
             getQuestion = new GetQuestionMathematics();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Sports")){
             getQuestion = new GetQuestionSportsImpl();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Russian language")){
             getQuestion = new GetQuestionRuLanguageImpl();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("English language")){
             getQuestion = new GetQuestionEnLanguageImpl();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Traffic Laws")){
             getQuestion = new GetQuestionTrafficLaws();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Etiquette Business")){
             getQuestion = new GetEtiquetteBusiness();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Etiquette Secular")){
             getQuestion = new GetEtiquetteSecuar();
-            questionList = getQuestion.getListQuestion(null);
+            return getQuestion.getListQuestion(null);
         }
+        return null;
     }
     private void stageLoading(String q, List<String> list, String right_answer){
         
@@ -175,7 +202,6 @@ public class OfTheGameFragment extends Fragment {
         
         for (CheckBox c : checkBoxList){
             c.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                
                 if(isChecked){
                     if(buttonView.getText().equals(right_answer)){
                         setScores();
@@ -191,12 +217,6 @@ public class OfTheGameFragment extends Fragment {
                         AnimationDrawable frameAnimation = (AnimationDrawable) view.getDrawable();
                         frameAnimation.setOneShot(true);
                         frameAnimation.start();
-                        
-                        /*c.setBackgroundResource(R.drawable.animat);
-                        AnimationDrawable frameAnimation = (AnimationDrawable) c.getBackground();
-                        frameAnimation.setOneShot(true);
-                        frameAnimation.start();*/
-                        
                         for (CheckBox f : checkBoxList){
                             f.setClickable(false);
                         }
@@ -208,7 +228,6 @@ public class OfTheGameFragment extends Fragment {
         }
     }
     private void showHandler(CompoundButton buttonView) {
-        
         CountDownTimer f = new CountDownTimer(800, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -233,7 +252,6 @@ public class OfTheGameFragment extends Fragment {
         adapter.open();
         adapter.update(GlobalLinkUser.getUser());
         adapter.close();
-        
     }
     private void clear(){
         textViewQuestionGame.clearComposingText();
@@ -249,5 +267,52 @@ public class OfTheGameFragment extends Fragment {
         checkBoxGame4.setChecked(false);
         checkBoxGame4.setClickable(true);
         checkBoxGame4.setBackgroundResource(R.drawable.check_box);
+    }
+    
+    public void setCont(Fragment fragment) {
+        
+        if(fragment instanceof SportsFragment){
+            this.sportsFragment = (SportsFragment) fragment;
+        }
+        if(fragment instanceof FragmentTrafficLaws){
+            this.fragmentTrafficLaws = (FragmentTrafficLaws) fragment;
+        }
+        if(fragment instanceof FragmentSchool){
+            this.fragmentSchool = (FragmentSchool) fragment;
+        }
+        if(fragment instanceof LanguageQuizFragment){
+            this.languageQuizFragment = (LanguageQuizFragment) fragment;
+        }
+        if(fragment instanceof EtiquetteFragment){
+            this.etiquetteFragment = (EtiquetteFragment) fragment;
+        }
+        
+    }
+    private void back(User user) {
+        if(sportsFragment != null){
+            sportsFragment.loadFragment(user);
+        }
+        if(fragmentTrafficLaws != null){
+            fragmentTrafficLaws.loadFragment(user);
+        }
+        if(fragmentSchool != null){
+            fragmentSchool.loadFragment(user);
+        }
+        if(languageQuizFragment != null){
+            languageQuizFragment.loadFragment(user);
+        }
+        if(etiquetteFragment != null){
+            etiquetteFragment.loadFragment(user);
+        }
+    }
+    public void setHint(String link){
+        if(link != null){
+            img_hint.setVisibility(View.VISIBLE);
+            img_hint.setClickable(true);
+            img_hint.setOnClickListener(n ->{
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                startActivity(browserIntent);
+            });
+        } else img_hint.setVisibility(View.GONE);
     }
 }

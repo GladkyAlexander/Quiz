@@ -1,10 +1,12 @@
 package ru.great_larder.sportquiz;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -14,19 +16,15 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
-import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
+import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,11 +37,14 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     private DrawerLayout drawer;
     private TextView textViewBar;
     private ImageView img, img_fairies;
+    private ProgressBar progressBar;
     HandlerUserListener handlerUserListener = new HandlerUserListener();
     FairiesDatabaseAdapter fairiesDatabaseAdapter;
+    @SuppressLint("UnsafeIntentLaunch")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         handlerUserListener.registerObserverUser(this);
         GlobalLinkUser.setHandlerUserListener(handlerUserListener);
         fairiesDatabaseAdapter = new FairiesDatabaseAdapter(this);
@@ -66,20 +67,19 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         img = binding.appBarMain.imageViewVik;
         drawer = binding.drawerLayout;
         img_fairies = binding.appBarMain.imgFairies;
-        
-        handlerUserListener.onNewDataUser(new DataUser(GlobalLinkUser.getUser()));
+        progressBar = binding.appBarMain.progressBar;
         
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         
         NavigationView navigationView = binding.navView;
-        
         View hView = navigationView.getHeaderView(0);
         
         TextView tg = hView.findViewById(R.id.textViewNameNavHeader);
         navigationView.setItemIconTintList(null);
         if(GlobalLinkUser.getUser() != null) {
             tg.setText(GlobalLinkUser.getUser().getName());
+            setTBarDate(GlobalLinkUser.getUser());
             loadMainAct();
         }
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        
     }
     public void loadMainAct(){
         Fairies fairies;
@@ -98,11 +99,15 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         fairiesDatabaseAdapter.close();
         
         if(fairies != null){
-            if (getDifferenceInDays(fairies) <= fairies.getPrice() || getDifferenceInDays(fairies) == 0) {
+            if (getDifferenceInDays(fairies) <= fairies.getPrice()) {
+                if(getDifferenceInDays(fairies) == 0){
+                    progressBar.setMax(100);
+                } else {
+                    progressBar.setProgress(100 / getDifferenceInDays(fairies));
+                }
                 img_fairies.setImageResource(fairies.getImageI());
-            }
-        }
-        
+            } else progressBar.setProgress(0);
+        }else progressBar.setProgress(0);
     }
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {

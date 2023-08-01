@@ -6,14 +6,16 @@ public class Question {
     String wrongAnswer1;
     String wrongAnswer2;
     String wrongAnswer3;
+    String link;
     int level;
     
-    public Question(String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, int level) {
+    public Question(String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level) {
         this.question = question;
         this.rightAnswer = rightAnswer;
         this.wrongAnswer1 = wrongAnswer1;
         this.wrongAnswer2 = wrongAnswer2;
         this.wrongAnswer3 = wrongAnswer3;
+        this.link = link;
         this.level = level;
     }
     
@@ -57,6 +59,14 @@ public class Question {
         this.wrongAnswer3 = wrongAnswer3;
     }
     
+    public String getLink() {
+        return link;
+    }
+    
+    public void setLink(String link) {
+        this.link = link;
+    }
+    
     public int getLevel() {
         return level;
     }
@@ -73,6 +83,7 @@ public class Question {
             ", wrongAnswer1='" + wrongAnswer1 + '\'' +
             ", wrongAnswer2='" + wrongAnswer2 + '\'' +
             ", wrongAnswer3='" + wrongAnswer3 + '\'' +
+            ", link='" + link + '\'' +
             ", level=" + level +
             '}';
     }

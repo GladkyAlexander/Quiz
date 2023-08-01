@@ -17,7 +17,7 @@ import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 
 
-public class LanguageQuizFragment extends Fragment implements ObserverUser {
+public class LanguageQuizFragment extends Fragment {
     private LinearLayout linearLayoutButtonRuEn;
     private FrameLayout frameLayoutLanguage;
     private ImageButton button_language_ru, button_language_en;
@@ -37,13 +37,14 @@ public class LanguageQuizFragment extends Fragment implements ObserverUser {
         linearLayoutButtonRuEn = binding.linearLayoutButtonRuEn;
         
         frameLayoutLanguage = binding.frameLayoutLanguage;
-        GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
         loadFragment(GlobalLinkUser.getUser());
   
         return root;
     }
     public void loadFragment(User user){
         if(user == null){
+            linearLayoutButtonRuEn.setVisibility(View.VISIBLE);
+            frameLayoutLanguage.setVisibility(View.GONE);
             button_language_en.setOnClickListener(b->{
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
             });
@@ -52,6 +53,8 @@ public class LanguageQuizFragment extends Fragment implements ObserverUser {
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
             });
         } else {
+            linearLayoutButtonRuEn.setVisibility(View.VISIBLE);
+            frameLayoutLanguage.setVisibility(View.GONE);
             button_language_en.setOnClickListener(b->{
                 linearLayoutButtonRuEn.setVisibility(View.GONE);
                 frameLayoutLanguage.setVisibility(View.VISIBLE);
@@ -60,7 +63,7 @@ public class LanguageQuizFragment extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "English language");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutLanguage.getId(), ofTheGameFragment);
                 
@@ -77,7 +80,7 @@ public class LanguageQuizFragment extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Russian language");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutLanguage.getId(), ofTheGameFragment);
                 
@@ -85,10 +88,5 @@ public class LanguageQuizFragment extends Fragment implements ObserverUser {
                 transaction.commit();
             });
         }
-    }
-    
-    @Override
-    public void updateUser(DataUser dataUser) {
-        loadFragment(dataUser.getUser());
     }
 }

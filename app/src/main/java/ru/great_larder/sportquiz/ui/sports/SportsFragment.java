@@ -16,9 +16,10 @@ import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 
-public class SportsFragment extends Fragment implements ObserverUser {
+public class SportsFragment extends Fragment{
     FrameLayout frLayout;
     ImageView imageViewSportz;
+    Button btnStartSport;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,29 +28,31 @@ public class SportsFragment extends Fragment implements ObserverUser {
         View root = binding.getRoot();
         frLayout = binding.frLayoutSports;
         imageViewSportz = binding.imageViewSportz;
-        GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
+        btnStartSport = binding.btnStartSport;
         loadFragment(GlobalLinkUser.getUser());
         return root;
     }
-    private void loadFragment(User user){
+    public void loadFragment(User user){
         if(user == null){
+            btnStartSport.setVisibility(View.GONE);
             imageViewSportz.setVisibility(View.VISIBLE);
             Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
         } else {
+            btnStartSport.setVisibility(View.VISIBLE);
+            imageViewSportz.setVisibility(View.VISIBLE);
+        }
+        btnStartSport.setOnClickListener(v ->{
+            btnStartSport.setVisibility(View.GONE);
             imageViewSportz.setVisibility(View.GONE);
             OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
             Bundle bundle = new Bundle();
             bundle.putString("getGuestion", "Sports");
             ofTheGameFragment.setArguments(bundle);
+            ofTheGameFragment.setCont(this);
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.replace(frLayout.getId(), ofTheGameFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        }
-    }
-    
-    @Override
-    public void updateUser(DataUser dataUser) {
-        loadFragment(dataUser.getUser());
+        });
     }
 }

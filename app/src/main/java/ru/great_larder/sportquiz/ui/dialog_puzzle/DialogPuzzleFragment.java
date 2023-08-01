@@ -13,7 +13,6 @@ import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
 import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
-import ru.great_larder.sportquiz.services.puzzle_listener.*;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 public class DialogPuzzleFragment extends DialogFragment {
@@ -24,6 +23,8 @@ public class DialogPuzzleFragment extends DialogFragment {
     PuzzleDatabaseAdapter adapter;
     DatabaseAdapter userAdapter;
     int price;
+    private ForAPuzzleFragment forAPuzzleFragment;
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class DialogPuzzleFragment extends DialogFragment {
                         userAdapter.update(us);
                         userAdapter.close();
                         GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(us));
-                        GlobalLinkHandlerPuzzle.getHandlerPuzzleListener().onNewDataPuzzle(new DataPuzzle(puzzle));
                         dismiss();
                     }
                 } else {

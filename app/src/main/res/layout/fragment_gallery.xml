@@ -300,6 +300,6 @@
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:id="@+id/frameLayoutPazl"
-                 android:visibility="visible">
+                 android:visibility="gone">
     </FrameLayout>
 </LinearLayout>

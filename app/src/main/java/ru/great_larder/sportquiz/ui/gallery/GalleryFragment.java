@@ -32,7 +32,7 @@ import ru.great_larder.sportquiz.ui.for_a_corusel_of_puzzles.ForACarouselOfPuzzl
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class GalleryFragment extends Fragment implements ObserverUser, ObserverPuzzle {
+public class GalleryFragment extends Fragment implements ObserverUser {
     
     private FragmentGalleryBinding binding;
     private TextView textViewNameGalleryFragment, textViewPuzzleGreeting, textViewFairiesGretting;
@@ -45,9 +45,7 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
     int numImages;
     int getNumImagesPuzzle;
     Fairies fairiesToInstall;
-    
     List<Puzzle> puzzles;
-    public boolean flag = false;
     PuzzleDatabaseAdapter adapterPuzzle;
     FairiesDatabaseAdapter adapterFairies;
     DatabaseAdapter userAdapter;
@@ -62,10 +60,9 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
         View root = binding.getRoot();
         
         GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
-        adapterPuzzle = new PuzzleDatabaseAdapter(requireActivity());
-        adapterFairies = new FairiesDatabaseAdapter(requireActivity());
-        userAdapter = new DatabaseAdapter(requireActivity());
-        
+        adapterPuzzle = new PuzzleDatabaseAdapter(this.requireActivity());
+        adapterFairies = new FairiesDatabaseAdapter(this.requireActivity());
+        userAdapter = new DatabaseAdapter(this.requireActivity());
         textViewNameGalleryFragment = binding.textViewNameGalleryFragment;
         textViewPointsGF = binding.textViewPointsGF;
         textViewPuzzleGreeting = binding.textViewPuzzleGreeting;
@@ -102,7 +99,6 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
             }
         });
         loadFragment(GlobalLinkUser.getUser());
-        
         button_patronage.setOnClickListener(m -> {
             if(GlobalLinkUser.getUser() != null) {
                 if (GlobalLinkUser.getUser().getGlasses() >= fairiesToInstall.getPrice()) {
@@ -134,26 +130,32 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
             }
         });
-        setupCarousel();
+        
         return root;
     }
     public void loadFragment(User user) {
-        frameLayoutPuzzleImage.setVisibility(View.GONE);
+        setupCarousel();
         if(GlobalLinkUser.getUser() != null) {
-            textViewNameGalleryFragment.setText(user.getName());
-            textViewPointsGF.setText(String.valueOf(user.getGlasses()));
             motionPuzzle.setVisibility(View.VISIBLE);
             textViewPuzzleGreeting.setVisibility(View.VISIBLE);
+            motion.setVisibility(View.VISIBLE);
+            textViewFairiesGretting.setVisibility(View.VISIBLE);
+            frameLayoutFairies.setVisibility(View.GONE);
+            frameLayoutPuzzleImage.setVisibility(View.GONE);
+            
+            textViewNameGalleryFragment.setText(user.getName());
+            textViewPointsGF.setText(String.valueOf(user.getGlasses()));
             adapterPuzzle.open();
             puzzles = adapterPuzzle.getPuzzles();
             adapterPuzzle.close();
             setupCarouselPuzzle();
         } else {
-            textViewNameGalleryFragment.setText("");
-            textViewPointsGF.setText(String.valueOf(0));
             motionPuzzle.setVisibility(View.GONE);
             textViewPuzzleGreeting.setVisibility(View.GONE);
+            textViewNameGalleryFragment.setText("");
+            textViewPointsGF.setText(String.valueOf(0));
         }
+        
     }
     @Override
     public void onDestroyView() {
@@ -163,7 +165,7 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
     private void setupCarousel() {
         GetFairies getFairies = new GetFairiesImpl();
         List<Fairies> listSource = getFairies.getListFairies();
-        
+        Toast.makeText(requireActivity(),"чтобы выбрать нажмите дважды на картинку", Toast.LENGTH_LONG).show();
         if (carousel == null) {
             return;
         }
@@ -239,7 +241,6 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
         Bundle bundle = new Bundle();
         bundle.putInt("getPuzzleId", val.getId());
         forAPuzzleFragment.setArguments(bundle);
-        
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(frameLayoutPuzzleImage.getId(), forAPuzzleFragment);
         
@@ -250,10 +251,5 @@ public class GalleryFragment extends Fragment implements ObserverUser, ObserverP
     @Override
     public void updateUser(DataUser dataUser) {
         loadFragment(dataUser.getUser());
-    }
-    
-    @Override
-    public void updatePuzzle(DataPuzzle dataUser) {
-    
     }
 }

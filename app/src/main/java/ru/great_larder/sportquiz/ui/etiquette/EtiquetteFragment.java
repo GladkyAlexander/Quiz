@@ -17,7 +17,7 @@ import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 
-public class EtiquetteFragment extends Fragment implements ObserverUser {
+public class EtiquetteFragment extends Fragment {
     
     private LinearLayout linearLayoutButtonEtiquette;
     private FrameLayout frameLayoutLanguage;
@@ -34,17 +34,19 @@ public class EtiquetteFragment extends Fragment implements ObserverUser {
         buttonSecular = binding.buttonSecular;
         linearLayoutButtonEtiquette = binding.linearLayoutButtonEtiquette;
         frameLayoutLanguage = binding.frameLayoutEtiquette;
-        GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
         loadFragment(GlobalLinkUser.getUser());
         
         return root;
     }
     public void loadFragment(User user){
         if(user == null){
+            linearLayoutButtonEtiquette.setVisibility(View.VISIBLE);
+            frameLayoutLanguage.setVisibility(View.GONE);
             buttonSecular.setOnClickListener(b-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
-            
             buttonBusiness.setOnClickListener(g-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
         } else {
+            linearLayoutButtonEtiquette.setVisibility(View.VISIBLE);
+            frameLayoutLanguage.setVisibility(View.GONE);
             buttonSecular.setOnClickListener(b->{
                 linearLayoutButtonEtiquette.setVisibility(View.GONE);
                 frameLayoutLanguage.setVisibility(View.VISIBLE);
@@ -53,7 +55,7 @@ public class EtiquetteFragment extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Etiquette Secular");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutLanguage.getId(), ofTheGameFragment);
                 
@@ -70,7 +72,7 @@ public class EtiquetteFragment extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Etiquette Business");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutLanguage.getId(), ofTheGameFragment);
                 
@@ -78,10 +80,5 @@ public class EtiquetteFragment extends Fragment implements ObserverUser {
                 transaction.commit();
             });
         }
-    }
-    
-    @Override
-    public void updateUser(DataUser dataUser) {
-        loadFragment(dataUser.getUser());
     }
 }

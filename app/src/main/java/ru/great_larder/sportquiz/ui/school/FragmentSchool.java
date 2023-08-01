@@ -18,7 +18,7 @@ import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 
-public class FragmentSchool extends Fragment implements ObserverUser {
+public class FragmentSchool extends Fragment {
     
     private LinearLayout linearLayout1, linearLayout2, linearLayout3;
     private FrameLayout frameLayoutShool;
@@ -42,19 +42,30 @@ public class FragmentSchool extends Fragment implements ObserverUser {
         linearLayout3 = binding.linearLayout3;
         
         frameLayoutShool = binding.frameLayoutShool;
-        GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
         loadFragment(GlobalLinkUser.getUser());
         
         return root;
     }
     public void loadFragment(User user){
         if(user == null){
+            
+            linearLayout1.setVisibility(View.VISIBLE);
+            linearLayout2.setVisibility(View.VISIBLE);
+            linearLayout3.setVisibility(View.VISIBLE);
+            frameLayoutShool.setVisibility(View.GONE);
+            
             button_biolog.setOnClickListener(a-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
             button_history.setOnClickListener(a-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
             button_geografik.setOnClickListener(a-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
             button_physics.setOnClickListener(a-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
             button_mathematics.setOnClickListener(a-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
         } else {
+            
+            linearLayout1.setVisibility(View.VISIBLE);
+            linearLayout2.setVisibility(View.VISIBLE);
+            linearLayout3.setVisibility(View.VISIBLE);
+            frameLayoutShool.setVisibility(View.GONE);
+            
             button_biolog.setOnClickListener(a->{
                 
                 linearLayout1.setVisibility(View.GONE);
@@ -66,7 +77,7 @@ public class FragmentSchool extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Biology");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
                 
@@ -84,7 +95,7 @@ public class FragmentSchool extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "History");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
                 
@@ -102,7 +113,7 @@ public class FragmentSchool extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Geography");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
                 
@@ -120,7 +131,7 @@ public class FragmentSchool extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Physics");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
                 
@@ -138,7 +149,7 @@ public class FragmentSchool extends Fragment implements ObserverUser {
                 Bundle bundle = new Bundle();
                 bundle.putString("getGuestion", "Mathematics");
                 ofTheGameFragment.setArguments(bundle);
-                
+                ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
                 
@@ -146,10 +157,5 @@ public class FragmentSchool extends Fragment implements ObserverUser {
                 transaction.commit();
             });
         }
-    }
-    
-    @Override
-    public void updateUser(DataUser dataUser) {
-        loadFragment(dataUser.getUser());
     }
 }
