@@ -21,22 +21,24 @@ public class LoadDataApp {
         fairiesDatabaseAdapter = new FairiesDatabaseAdapter(context);
     }
     public void setPuzzle(){
-        List<Puzzle> list;
+        List<Puzzle> listPuzzle;
         puzzleDatabaseAdapter.open();
-        list = puzzleDatabaseAdapter.getPuzzles();
+        listPuzzle = puzzleDatabaseAdapter.getPuzzles();
         puzzleDatabaseAdapter.close();
         GetPuzzles getPuzzles = new GetPuzzlesImpl();
         List<Puzzle> listLocal = getPuzzles.getListPuzzles();
-        if(list.size() == 0){
+        if(listPuzzle.isEmpty()){
             for (Puzzle h : listLocal){
                 puzzleDatabaseAdapter.open();
+                h.setId_user((int) GlobalLinkUser.getUser().getId());
                 puzzleDatabaseAdapter.insert(h);
                 puzzleDatabaseAdapter.close();
             }
-        } else if(list.size() < listLocal.size()){
+        } else if(listPuzzle.size() < listLocal.size()){
             for (Puzzle d : listLocal){
-                for (Puzzle f : list){
+                for (Puzzle f : listPuzzle){
                     if(!Objects.equals(d.getId(), f.getId())){
+                        d.setId_user((int) GlobalLinkUser.getUser().getId());
                         puzzleDatabaseAdapter.open();
                         puzzleDatabaseAdapter.insert(d);
                         puzzleDatabaseAdapter.close();
@@ -52,8 +54,9 @@ public class LoadDataApp {
         fairiesDatabaseAdapter.close();
         GetFairies getFairies = new GetFairiesImpl();
         List<Fairies> listLocal = getFairies.getListFairies();
-        if(list.size() == 0){
+        if(list.isEmpty()){
             for (Fairies h : listLocal){
+                h.setIdUser((int) GlobalLinkUser.getUser().getId());
                 fairiesDatabaseAdapter.open();
                 fairiesDatabaseAdapter.insert(h);
                 fairiesDatabaseAdapter.close();
@@ -62,6 +65,7 @@ public class LoadDataApp {
             for (Fairies floc : listLocal){
                 for (Fairies fDB : list){
                     if(!Objects.equals(floc.getId(), fDB.getId())){
+                        floc.setIdUser((int) GlobalLinkUser.getUser().getId());
                         fairiesDatabaseAdapter.open();
                         fairiesDatabaseAdapter.insert(floc);
                         fairiesDatabaseAdapter.close();
