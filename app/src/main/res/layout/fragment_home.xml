@@ -117,15 +117,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/linearLayoutGlasses"
-            android:gravity="center_horizontal"
             android:dividerPadding="30dp"
-            android:showDividers="middle">
-        <ImageView
-                android:src="@drawable/victik_front"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/imageViewVictikHomeFragment"
-                android:contentDescription="@string/todo"/>
+            android:showDividers="middle" android:gravity="bottom|center_horizontal">
         <TextView
                 android:text="@string/you_earned_it"
                 android:layout_width="wrap_content"
@@ -154,30 +147,35 @@
                 android:layout_marginStart="10dp"
                 android:layout_margin="5dp"
                 tools:ignore="HardcodedText"/>
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:id="@+id/imageViewAnimCoins"
+                android:contentDescription="@string/todo"/>
     </LinearLayout>
-   <!-- <LinearLayout
-            android:id="@+id/llNumberTheme"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:dividerPadding="30dp"
-            android:showDividers="middle">
-        <TextView
-                android:text="@string/in_your_piggy_bank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:textColor="#0C0C0C"
-                android:textSize="20sp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewNumberOfTopics"
-                android:textColor="#0C0C0C"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp"
-        />
-    </LinearLayout>-->
+    <!-- <LinearLayout
+             android:id="@+id/llNumberTheme"
+             android:orientation="horizontal"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:dividerPadding="30dp"
+             android:showDividers="middle">
+         <TextView
+                 android:text="@string/in_your_piggy_bank"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/textView3"
+                 android:textColor="#0C0C0C"
+                 android:textSize="20sp"/>
+         <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/textViewNumberOfTopics"
+                 android:textColor="#0C0C0C"
+                 android:textSize="20sp"
+                 android:layout_marginStart="10dp"
+         />
+     </LinearLayout>-->
 
 </LinearLayout>

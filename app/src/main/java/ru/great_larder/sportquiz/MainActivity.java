@@ -56,11 +56,10 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         adapter.close();
         if(!users.isEmpty()) {
             GlobalLinkUser.setUser(users.get(0));
+            LoadDataApp loadDataApp = new LoadDataApp(this);
+            loadDataApp.setFairies();
+            loadDataApp.setPuzzle();
         } else GlobalLinkUser.setUser(null);
-        
-        LoadDataApp loadDataApp = new LoadDataApp(this);
-        loadDataApp.setFairies();
-        loadDataApp.setPuzzle();
         
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         textViewBar = binding.appBarMain.textViewRight;
@@ -124,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     }
     public void setTBarDate(User user){
         img.setImageDrawable(null);
+        img.setBackground(null);
         if(user != null) {
             textViewBar.setText(String.valueOf(user.getGlasses()));
             img.setBackgroundResource(R.drawable.animat_viktik);

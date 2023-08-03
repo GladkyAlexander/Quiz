@@ -1,4 +1,5 @@
 package ru.great_larder.sportquiz.ui.home;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +26,10 @@ public class HomeFragment extends Fragment{
     private FragmentHomeBinding binding;
     private TableLayout tableLayoutHi;
     private EditText editTextTextPersonName;
-    private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity;
+    private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity, textFieldVictorinok;
     private LinearLayout linearLayoutHello, linearLayoutGlasses, fra;
     private Button buttonDone;
-    private ImageView imageViewSettings;
+    private ImageView imageViewSettings, imageViewAnimCoins;
     private User user;
     DatabaseAdapter adapter;
     
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment{
         buttonDone = binding.buttonDone;
         imageViewSettings = binding.imageViewSettings;
         imageViewSettings.setClickable(true);
+        imageViewAnimCoins = binding.imageViewAnimCoins;
         
         linearLayoutHello = binding.linearLayoutHello;
         linearLayoutGlasses = binding.linearLayoutGlasses;
@@ -56,6 +58,7 @@ public class HomeFragment extends Fragment{
         textViewGlasses = binding.textViewGlasse;
         textViewLets = binding.textViewLets;
         textViewCity = binding.editTextTextCity;
+        textFieldVictorinok = binding.textFieldVictorinok;
         
         editTextTextPersonName = binding.editTextTextPersonName;
 
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment{
             tableLayoutHi.setVisibility(View.GONE);
             loadFragment(GlobalLinkUser.getUser());
         }
+        
         buttonDone.setOnClickListener(v -> {
             
             if(user == null) {
@@ -128,7 +132,18 @@ public class HomeFragment extends Fragment{
             linearLayoutGlasses.setVisibility(View.VISIBLE);
             textViewNameUser.setText(u.getName());
             textViewGlasses.setText(String.valueOf(u.getGlasses()));
+            textFieldVictorinok.setText(getTextVic(u.getGlasses()));
+            
+            imageViewAnimCoins.setBackgroundResource(R.drawable.animat_home);
+            AnimationDrawable frameAnimation = (AnimationDrawable) imageViewAnimCoins.getBackground();
+            frameAnimation.setOneShot(true);
+            frameAnimation.start();
         }
     }
-    
+    private String getTextVic(int t){
+        String res = "Виктиков";
+        if (t == 1)return "Виктик";
+        if (t == 2 || t == 3 || t == 4) return "Виктика";
+        return res;
+    }
 }

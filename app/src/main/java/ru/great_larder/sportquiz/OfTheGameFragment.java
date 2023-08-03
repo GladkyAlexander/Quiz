@@ -204,7 +204,7 @@ public class OfTheGameFragment extends Fragment {
             c.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if(isChecked){
                     if(buttonView.getText().equals(right_answer)){
-                        setScores();
+                        setScoresPlus();
                         buttonView.setBackgroundResource(R.drawable.check_box);
                         for (CheckBox f : checkBoxList){
                             f.setClickable(false);
@@ -217,6 +217,7 @@ public class OfTheGameFragment extends Fragment {
                         AnimationDrawable frameAnimation = (AnimationDrawable) view.getDrawable();
                         frameAnimation.setOneShot(true);
                         frameAnimation.start();
+                        setScoresMinus();
                         for (CheckBox f : checkBoxList){
                             f.setClickable(false);
                         }
@@ -227,6 +228,22 @@ public class OfTheGameFragment extends Fragment {
             
         }
     }
+    
+    private void setScoresMinus() {
+        User u = GlobalLinkUser.getUser();
+        int gl = u.getGlasses();
+        if(gl > 0){
+            u.setGlasses(gl - 1);
+            GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(u));
+            GlobalLinkUser.setUser(u);
+            
+            DatabaseAdapter adapter = new DatabaseAdapter(requireActivity());
+            adapter.open();
+            adapter.update(GlobalLinkUser.getUser());
+            adapter.close();
+        }
+    }
+    
     private void showHandler(CompoundButton buttonView) {
         CountDownTimer f = new CountDownTimer(800, 10) {
             @Override
@@ -240,8 +257,7 @@ public class OfTheGameFragment extends Fragment {
             }
         }.start();
     }
-    private void setScores() {
-        
+    private void setScoresPlus() {
         User u = GlobalLinkUser.getUser();
         int gl = u.getGlasses();
         u.setGlasses(gl + 1);

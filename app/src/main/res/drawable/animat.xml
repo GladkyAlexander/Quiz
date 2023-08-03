@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list android:id="@+id/selected" android:oneshot="false"
                 xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/exp1_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp2_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp3_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp4_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp5_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp6_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp7_foreground" android:duration="50" />
-    <item android:drawable="@mipmap/exp8_foreground" android:duration="50" />
+    <item android:drawable="@mipmap/exp1_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp2_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp3_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp4_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp5_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp6_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp7_foreground" android:duration="110" />
+    <item android:drawable="@mipmap/exp8_foreground" android:duration="110" />
 </animation-list>

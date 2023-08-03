@@ -130,7 +130,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
             }
         });
-        
+        Toast.makeText(requireActivity(),"чтобы выбрать нажмите дважды на картинку", Toast.LENGTH_LONG).show();
         return root;
     }
     public void loadFragment(User user) {
@@ -165,7 +165,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
     private void setupCarousel() {
         GetFairies getFairies = new GetFairiesImpl();
         List<Fairies> listSource = getFairies.getListFairies();
-        Toast.makeText(requireActivity(),"чтобы выбрать нажмите дважды на картинку", Toast.LENGTH_LONG).show();
+        
         if (carousel == null) {
             return;
         }

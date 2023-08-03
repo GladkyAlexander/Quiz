@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:id="@+id/selected_coins" android:oneshot="false"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/a_coins1" android:duration="50" />
+    <item android:drawable="@drawable/a_coins2" android:duration="50" />
+    <item android:drawable="@drawable/a_coins3" android:duration="50" />
+    <item android:drawable="@drawable/a_coins4" android:duration="50" />
+    <item android:drawable="@drawable/a_coins5" android:duration="50" />
+    <item android:drawable="@drawable/a_coins6" android:duration="50" />
+    <item android:drawable="@drawable/a_coins7" android:duration="50" />
+    <item android:drawable="@drawable/a_coins8" android:duration="50" />
+    <item android:drawable="@drawable/a_coins9" android:duration="50" />
+    <item android:drawable="@drawable/a_coins10" android:duration="50" />
+    <item android:drawable="@drawable/a_coins11" android:duration="50" />
+    <item android:drawable="@drawable/a_coins12" android:duration="50" />
+    <item android:drawable="@drawable/a_coins13" android:duration="50" />
+    <item android:drawable="@drawable/a_coins14" android:duration="50" />
+    <item android:drawable="@drawable/a_coins15" android:duration="50" />
+    <item android:drawable="@drawable/a_coins16" android:duration="50" />
+    <item android:drawable="@drawable/a_coins17" android:duration="50" />
+    <item android:drawable="@drawable/a_coins18" android:duration="50" />
+    <item android:drawable="@drawable/a_coins19" android:duration="50" />
+    <item android:drawable="@drawable/a_coins20" android:duration="50" />
+    <item android:drawable="@drawable/a_coins21" android:duration="50" />
+    <item android:drawable="@drawable/a_coins22" android:duration="50" />
+    <item android:drawable="@drawable/a_coins23" android:duration="50" />
+    <item android:drawable="@drawable/a_coins24" android:duration="50" />
+    <item android:drawable="@drawable/a_coins25" android:duration="50" />
+    <item android:drawable="@drawable/a_coins26" android:duration="50" />
+    <item android:drawable="@drawable/a_coins27" android:duration="50" />
+    <item android:drawable="@drawable/a_coins28" android:duration="50" />
+    <item android:drawable="@drawable/a_coins29" android:duration="50" />
+    </animation-list>
+
