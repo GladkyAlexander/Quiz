@@ -48,7 +48,6 @@ public class DialogPuzzleFragment extends DialogFragment {
         
         btnYesBuyPuzzle.setOnClickListener(view -> {
             if(GlobalLinkUser.getUser() != null && puzzle != null) {
-                
                 updatePuzzle(idPuzzle);
                 Integer f;
                 if(GlobalLinkUser.getUser().getGlasses() >= price) {
@@ -108,5 +107,6 @@ public class DialogPuzzleFragment extends DialogFragment {
         } else if(value == 28) {puzzle.setPuzzle29(true);
         } else if(value == 29) {puzzle.setPuzzle30(true);
         }
+        puzzle.setId_user((int) GlobalLinkUser.getUser().getId());
  }
 }

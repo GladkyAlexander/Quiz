@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
                     progressBar.setProgress(100 / getDifferenceInDays(fairies));
                 }
                 img_fairies.setImageResource(fairies.getImageI());
-            } else progressBar.setProgress(0);
-        }else progressBar.setProgress(0);
+            } else {progressBar.setProgress(0); img_fairies.setImageResource(R.drawable.logo_victorinka);}
+        }else {progressBar.setProgress(0); img_fairies.setImageResource(R.drawable.logo_victorinka);}
     }
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {

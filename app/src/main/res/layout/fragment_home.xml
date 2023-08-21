@@ -153,29 +153,4 @@
                 android:id="@+id/imageViewAnimCoins"
                 android:contentDescription="@string/todo"/>
     </LinearLayout>
-    <!-- <LinearLayout
-             android:id="@+id/llNumberTheme"
-             android:orientation="horizontal"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:gravity="center_horizontal"
-             android:dividerPadding="30dp"
-             android:showDividers="middle">
-         <TextView
-                 android:text="@string/in_your_piggy_bank"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/textView3"
-                 android:textColor="#0C0C0C"
-                 android:textSize="20sp"/>
-         <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/textViewNumberOfTopics"
-                 android:textColor="#0C0C0C"
-                 android:textSize="20sp"
-                 android:layout_marginStart="10dp"
-         />
-     </LinearLayout>-->
-
 </LinearLayout>

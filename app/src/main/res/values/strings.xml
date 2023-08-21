@@ -69,5 +69,6 @@
     <string name="on_the_account">На счету</string>
     <string name="FairiesGreeting">Заручитесь поддержкой фей и магов</string>
     <string name="PuzzleGreeting">Откройте все картинки</string>
+    <string name="zero">0</string>
 
 </resources>

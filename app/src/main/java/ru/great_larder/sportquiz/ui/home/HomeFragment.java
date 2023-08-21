@@ -11,8 +11,10 @@ import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.*;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 
+import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
 import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentHomeBinding;
+import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment{
         adapter = new DatabaseAdapter(requireActivity());
         
         buttonDone = binding.buttonDone;
+        
         imageViewSettings = binding.imageViewSettings;
         imageViewSettings.setClickable(true);
         imageViewAnimCoins = binding.imageViewAnimCoins;
