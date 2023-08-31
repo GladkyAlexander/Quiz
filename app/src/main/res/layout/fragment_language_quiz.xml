@@ -10,7 +10,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal" android:id="@+id/linearLayoutButtonRuEn">
+            android:orientation="horizontal"
+            android:id="@+id/linearLayoutButtonRuEn">
 
         <ImageButton
                 android:id="@+id/button_language_ru"

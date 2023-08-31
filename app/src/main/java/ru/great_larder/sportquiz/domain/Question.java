@@ -19,6 +19,9 @@ public class Question {
         this.level = level;
     }
     
+    public Question() {
+    }
+    
     public String getQuestion() {
         return question;
     }

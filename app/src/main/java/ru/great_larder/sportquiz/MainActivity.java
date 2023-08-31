@@ -2,11 +2,15 @@ package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -15,9 +19,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
+import ru.great_larder.sportquiz.database.ExternalDB;
 import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
+import ru.great_larder.sportquiz.services.CheckNetClass;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
@@ -29,17 +35,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.app.PendingIntent.getActivity;
+
 
 public class MainActivity extends AppCompatActivity implements ObserverUser {
     
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
-    private TextView textViewBar;
-    private ImageView img, img_fairies;
+    public TextView textViewBar, tg;
+    private ImageView img, imageViewAwatar;
+    private ImageView img_fairies;
     private ProgressBar progressBar;
     HandlerUserListener handlerUserListener = new HandlerUserListener();
     FairiesDatabaseAdapter fairiesDatabaseAdapter;
+    
     @SuppressLint("UnsafeIntentLaunch")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         adapter.open();
         users = adapter.getUsers();
         adapter.close();
-        if(!users.isEmpty()) {
+        if (!users.isEmpty()) {
             GlobalLinkUser.setUser(users.get(0));
             LoadDataApp loadDataApp = new LoadDataApp(this);
             loadDataApp.setFairies();
@@ -65,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         textViewBar = binding.appBarMain.textViewRight;
         img = binding.appBarMain.imageViewVik;
         drawer = binding.drawerLayout;
+        
         img_fairies = binding.appBarMain.imgFairies;
         progressBar = binding.appBarMain.progressBar;
         
@@ -74,12 +85,17 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavigationView navigationView = binding.navView;
         View hView = navigationView.getHeaderView(0);
         
-        TextView tg = hView.findViewById(R.id.textViewNameNavHeader);
+        tg = hView.findViewById(R.id.textViewNameNavHeader);
+        imageViewAwatar = hView.findViewById(R.id.imageViewAwatar);
+        
         navigationView.setItemIconTintList(null);
-        if(GlobalLinkUser.getUser() != null) {
-            tg.setText(GlobalLinkUser.getUser().getName());
-            setTBarDate(GlobalLinkUser.getUser());
-            loadMainAct();
+        if (GlobalLinkUser.getUser() != null) {
+            loadMainAct(GlobalLinkUser.getUser());
+            if (new CheckNetClass().getConnectionType(this) > 0) {
+                new ExternalDB(GlobalLinkUser.getUser(), this);
+            } else {
+                Toast.makeText(this, "Нет интернета!", Toast.LENGTH_LONG).show();
+            }
         }
         mAppBarConfiguration = new AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_language_quiz, R.id.nav_sports_quiz
@@ -91,22 +107,37 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavigationUI.setupWithNavController(navigationView, navController);
         
     }
-    public void loadMainAct(){
-        Fairies fairies;
-        fairiesDatabaseAdapter.open();
-        fairies = fairiesDatabaseAdapter.getFairiesByActive();
-        fairiesDatabaseAdapter.close();
-        
-        if(fairies != null){
-            if (getDifferenceInDays(fairies) <= fairies.getPrice()) {
-                if(getDifferenceInDays(fairies) == 0){
-                    progressBar.setMax(100);
+    
+    public void loadMainAct(User userIn) {
+        if(userIn != null) {
+            Fairies fairies;
+            fairiesDatabaseAdapter.open();
+            fairies = fairiesDatabaseAdapter.getFairiesByActive();
+            fairiesDatabaseAdapter.close();
+            
+            if (fairies != null) {
+                if (getDifferenceInDays(fairies) <= fairies.getPrice()) {
+                    if (getDifferenceInDays(fairies) == 0) {
+                        progressBar.setMax(100);
+                    } else {
+                        progressBar.setProgress(100 / getDifferenceInDays(fairies));
+                    }
+                    img_fairies.setImageResource(fairies.getImageI());
                 } else {
-                    progressBar.setProgress(100 / getDifferenceInDays(fairies));
+                    progressBar.setProgress(0);
+                    img_fairies.setImageResource(R.drawable.logo_victorinka);
                 }
-                img_fairies.setImageResource(fairies.getImageI());
-            } else {progressBar.setProgress(0); img_fairies.setImageResource(R.drawable.logo_victorinka);}
-        }else {progressBar.setProgress(0); img_fairies.setImageResource(R.drawable.logo_victorinka);}
+            } else {
+                progressBar.setProgress(0);
+                img_fairies.setImageResource(R.drawable.logo_victorinka);
+            }
+            setTBarDate(GlobalLinkUser.getUser());
+            tg.setText(GlobalLinkUser.getUser().getName());
+            if (GlobalLinkUser.getUser().getAwatar() != null && GlobalLinkUser.getUser().getAwatar().length > 0) {
+                imageViewAwatar.setImageBitmap(BitmapFactory.decodeByteArray(GlobalLinkUser.getUser().getAwatar()
+                    , 0, GlobalLinkUser.getUser().getAwatar().length));
+            }
+        }
     }
   /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,10 +152,11 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
             || super.onSupportNavigateUp();
     }
-    public void setTBarDate(User user){
+    
+    public void setTBarDate(User user) {
         img.setImageDrawable(null);
         img.setBackground(null);
-        if(user != null) {
+        if (user != null) {
             textViewBar.setText(String.valueOf(user.getGlasses()));
             img.setBackgroundResource(R.drawable.animat_viktik);
             AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
@@ -140,10 +172,10 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     
     @Override
     public void updateUser(DataUser dataUser) {
-        setTBarDate(dataUser.getUser());
-        loadMainAct();
+        loadMainAct(dataUser.getUser());
     }
-    private int getDifferenceInDays(Fairies g){
+    
+    private int getDifferenceInDays(Fairies g) {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         try {
@@ -158,4 +190,5 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         }
         return 0;
     }
+  
 }

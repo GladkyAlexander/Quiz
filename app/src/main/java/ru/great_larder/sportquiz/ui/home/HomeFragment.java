@@ -1,40 +1,52 @@
 package ru.great_larder.sportquiz.ui.home;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.*;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
-
-import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
-import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentHomeBinding;
-import ru.great_larder.sportquiz.domain.Fairies;
-import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment {
     
     private FragmentHomeBinding binding;
-    private TableLayout tableLayoutHi;
+    private LinearLayout tableLayoutHi;
     private EditText editTextTextPersonName;
-    private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity, textFieldVictorinok;
-    private LinearLayout linearLayoutHello, linearLayoutGlasses, fra;
-    private Button buttonDone;
-    private ImageView imageViewSettings, imageViewAnimCoins;
+    private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity, textFieldVictorinok, textViewSlogan;
+    private LinearLayout linearLayoutHello;
+    private LinearLayout linearLayoutGlasses;
+    private ImageView imageViewAnimCoins;
+    private ImageView imgStartDetki;
     private User user;
     DatabaseAdapter adapter;
     
+    private Button btnTimePicker, buttonDone, buttonChangeUser;
+    private EditText editTextDate, editTextTime;
+    ImageView imageViewAddImage;
+    boolean flagChooseAwatar = false;
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+        uri -> {
+            // Handle the returned Uri
+            flagChooseAwatar = true;
+            imageViewAddImage.setImageURI(uri);
+        });
     
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,98 +56,108 @@ public class HomeFragment extends Fragment{
         
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        
         adapter = new DatabaseAdapter(requireActivity());
         
         buttonDone = binding.buttonDone;
+        buttonChangeUser = binding.buttonChangeUser;
         
-        imageViewSettings = binding.imageViewSettings;
+        ImageView imageViewSettings = binding.imageViewSettings;
         imageViewSettings.setClickable(true);
+        imageViewAddImage = binding.imageViewaddImage;
+        imageViewAddImage.setClickable(true);
         imageViewAnimCoins = binding.imageViewAnimCoins;
+        imgStartDetki = binding.imgStartDetki;
         
         linearLayoutHello = binding.linearLayoutHello;
         linearLayoutGlasses = binding.linearLayoutGlasses;
-        fra = binding.fra;
+        LinearLayout fra = binding.fra;
         
         textViewNameUser = binding.textViewNameUser;
         textViewGlasses = binding.textViewGlasse;
         textViewLets = binding.textViewLets;
         textViewCity = binding.editTextTextCity;
         textFieldVictorinok = binding.textFieldVictorinok;
+        textViewSlogan = binding.textViewSlogan;
         
         editTextTextPersonName = binding.editTextTextPersonName;
-
+        
         tableLayoutHi = binding.tableLayoutHi;
         
+        Button btnDatePicker = root.findViewById(R.id.btn_date);
+        editTextDate = root.findViewById(R.id.picked_date);
+        
+        /*
+        btnTimePicker = root.findViewById(R.id.btn_time);
+        editTextTime = root.findViewById(R.id.picked_time);
+        btnTimePicker.setOnClickListener(d -> callTimePicker());
+        */
+        
+        btnDatePicker.setOnClickListener(f -> callDatePicker());
+        imageViewAddImage.setOnClickListener(d -> loadImage());
+        
         user = GlobalLinkUser.getUser();
-        if(user == null){
+        /*if (user == null) {
             tableLayoutHi.setVisibility(View.VISIBLE);
-            loadFragment(null);
+            loadFragment();
         } else {
             tableLayoutHi.setVisibility(View.GONE);
-            loadFragment(GlobalLinkUser.getUser());
-        }
+            loadFragment();
+        }*/
+        
+        loadFragment();
         
         buttonDone.setOnClickListener(v -> {
-            
-            if(user == null) {
-                adapter.open();
-                long idUs = adapter.insert(new User(editTextTextPersonName.getText().toString(), textViewCity.getText().toString(), 0,0));
-                adapter.close();
-                adapter.open();
-                User user = adapter.getUserById(idUs);
-                adapter.close();
-                GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
-                GlobalLinkUser.setUser(user);
-                loadFragment(user);
-            } else {
-                adapter.open();
-                user.setName(editTextTextPersonName.getText().toString());
-                user.setCity(textViewCity.getText().toString());
-                long idUs = adapter.insert(user);
-                adapter.close();
-                adapter.open();
-                User user = adapter.getUserById(idUs);
-                adapter.close();
-                GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
-                GlobalLinkUser.setUser(user);
-                loadFragment(user);
-            }
+            user = saveUser();
+            GlobalLinkUser.setUser(user);
+            GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
+            loadFragment();
         });
-        imageViewSettings.setOnClickListener(d ->{
-            if(tableLayoutHi.getVisibility() == View.VISIBLE){
-                tableLayoutHi.setVisibility(View.GONE);
-            } else {
-                tableLayoutHi.setVisibility(View.VISIBLE);
-                if(user != null) {
-                    tableLayoutHi.setVisibility(View.VISIBLE);
-                    textViewLets.setText("Внесите изменения");
-                    editTextTextPersonName.setText(user.getName());
-                    textViewCity.setText(user.getCity());
-                }
-            }
+        buttonChangeUser.setOnClickListener(d ->{
+            user = changeUser();
+            GlobalLinkUser.setUser(user);
+            GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
+            loadFragment();
         });
+        imageViewSettings.setOnClickListener(d -> {
+           openSettings();
+        });
+        
         return root;
     }
-
+    
+    private void loadImage() {
+        // Pass in the mime type you want to let the user select
+        // Передайте тип mime, который вы хотите, чтобы пользователь мог выбрать.
+        // as the input   в качестве входных данных
+        
+        mGetContent.launch("image/*");
+    }
+    
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-   
-    private void loadFragment(User u){
-        if(u == null) {
+    
+    private void loadFragment() {
+        if (user == null) {
             tableLayoutHi.setVisibility(View.VISIBLE);
             linearLayoutHello.setVisibility(View.GONE);
             linearLayoutGlasses.setVisibility(View.GONE);
+            imgStartDetki.setVisibility(View.GONE);
+            textViewSlogan.setVisibility(View.GONE);
+            buttonChangeUser.setVisibility(View.GONE);
+            buttonDone.setVisibility(View.VISIBLE);
         } else {
             tableLayoutHi.setVisibility(View.GONE);
             linearLayoutHello.setVisibility(View.VISIBLE);
             linearLayoutGlasses.setVisibility(View.VISIBLE);
-            textViewNameUser.setText(u.getName());
-            textViewGlasses.setText(String.valueOf(u.getGlasses()));
-            textFieldVictorinok.setText(getTextVic(u.getGlasses()));
+            textViewNameUser.setText(user.getName());
+            textViewGlasses.setText(String.valueOf(user.getGlasses()));
+            textFieldVictorinok.setText(getTextVic(user.getGlasses()));
+            imgStartDetki.setVisibility(View.VISIBLE);
+            textViewSlogan.setVisibility(View.VISIBLE);
             
             imageViewAnimCoins.setBackgroundResource(R.drawable.animat_home);
             AnimationDrawable frameAnimation = (AnimationDrawable) imageViewAnimCoins.getBackground();
@@ -143,10 +165,125 @@ public class HomeFragment extends Fragment{
             frameAnimation.start();
         }
     }
-    private String getTextVic(int t){
+    
+    private String getTextVic(int t) {
         String res = "Виктиков";
-        if (t == 1)return "Виктик";
+        if (t == 1) return "Виктик";
         if (t == 2 || t == 3 || t == 4) return "Виктика";
         return res;
+    }
+    
+    private void callTimePicker() {
+        // получаем текущее время
+        final Calendar cal = Calendar.getInstance();
+        int mHour = cal.get(Calendar.HOUR_OF_DAY);
+        int mMinute = cal.get(Calendar.MINUTE);
+        
+        // инициализируем диалог выбора времени текущими значениями
+        TimePickerDialog timePickerDialog = new TimePickerDialog(requireActivity(),
+            (view, hourOfDay, minute) -> {
+                String editTextTimeParam = hourOfDay + " : " + minute;
+                editTextTime.setText(editTextTimeParam);
+            }, mHour, mMinute, false);
+        timePickerDialog.show();
+    }
+    
+    private void callDatePicker() {
+        // получаем текущую дату
+        final Calendar cal = Calendar.getInstance();
+        int mYear = cal.get(Calendar.YEAR);
+        int mMonth = cal.get(Calendar.MONTH);
+        int mDay = cal.get(Calendar.DAY_OF_MONTH);
+        
+        // инициализируем диалог выбора даты текущими значениями
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireActivity(),
+            (view, year, monthOfYear, dayOfMonth) -> {
+                String editTextDateParam = dayOfMonth + "." + (monthOfYear + 1) + "." + year;
+                editTextDate.setText(editTextDateParam);
+            }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+    
+    private User saveUser(){
+        
+        User userRecord = new User();
+        userRecord.setName(String.valueOf(editTextTextPersonName.getText()));
+        userRecord.setCity(String.valueOf(textViewCity.getText()));
+        userRecord.setGlasses(0);
+        userRecord.setThemeInstalledNow(0);
+        userRecord.setDate_of_birth(String.valueOf(editTextDate.getText()));
+        
+        if(flagChooseAwatar){
+            Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            
+            userRecord.setAwatar(stream.toByteArray());
+        } else {
+            imageViewAddImage.setImageResource(R.drawable.cheat_sheet);
+            Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            
+            userRecord.setAwatar(stream.toByteArray());
+        }
+        
+        adapter.open();
+        long idUs = adapter.insert(userRecord);
+        adapter.close();
+        adapter.open();
+        User userReturn = adapter.getUserById(idUs);
+        adapter.close();
+        
+        return userReturn;
+    }
+    private User changeUser(){
+        
+        user.setName(String.valueOf(editTextTextPersonName.getText()));
+        user.setCity(String.valueOf(textViewCity.getText()));
+        user.setGlasses(0);
+        user.setThemeInstalledNow(0);
+        user.setDate_of_birth(String.valueOf(editTextDate.getText()));
+        
+        Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        
+        user.setAwatar(stream.toByteArray());
+        
+        adapter.open();
+        long idUs = adapter.update(user);
+        adapter.close();
+        adapter.open();
+        User userReturn = adapter.getUserById(idUs);
+        adapter.close();
+        
+        return userReturn;
+    }
+    private void openSettings(){
+        
+        if (tableLayoutHi.getVisibility() == View.VISIBLE) {
+            tableLayoutHi.setVisibility(View.GONE);
+        } else {
+            tableLayoutHi.setVisibility(View.VISIBLE);
+            if (user != null) {
+                buttonDone.setVisibility(View.GONE);
+                buttonChangeUser.setVisibility(View.VISIBLE);
+                
+                textViewLets.setText("Внесите изменения");
+                editTextTextPersonName.setText(user.getName());
+                textViewCity.setText(user.getCity());
+                editTextDate.setText(user.getDate_of_birth());
+                
+                if (user.getAwatar() != null && user.getAwatar().length > 0) {
+                    imageViewAddImage.setImageBitmap(BitmapFactory.decodeByteArray(user.getAwatar()
+                        , 0, user.getAwatar().length));
+                }
+            } else {
+                buttonChangeUser.setVisibility(View.GONE);
+                buttonDone.setVisibility(View.VISIBLE);
+            }
+        }
+        
     }
 }

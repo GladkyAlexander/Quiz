@@ -2,19 +2,15 @@ package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.wear.tiles.EventBuilders;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentOfTheGameBinding;
 import ru.great_larder.sportquiz.domain.Question;
@@ -141,23 +137,23 @@ public class OfTheGameFragment extends Fragment {
     }
     private List<Question> getQuestionList(String arg) {
         if(arg.equals("Biology")){
-            getQuestion = new GetQuestionBiology();
+            getQuestion = new GetQuestionBiologyImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("History")){
-            getQuestion = new GetQuestionHistory();
+            getQuestion = new GetQuestionHistoryImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Geography")){
-            getQuestion = new GetQuestionGeography();
+            getQuestion = new GetQuestionGeographyImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Physics")){
-            getQuestion = new GetQuestionPhisics();
+            getQuestion = new GetQuestionPhysicsImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Mathematics")){
-            getQuestion = new GetQuestionMathematics();
+            getQuestion = new GetQuestionMathematicsImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Sports")){
@@ -173,15 +169,15 @@ public class OfTheGameFragment extends Fragment {
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Traffic Laws")){
-            getQuestion = new GetQuestionTrafficLaws();
+            getQuestion = new GetQuestionTrafficLawsImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Etiquette Business")){
-            getQuestion = new GetEtiquetteBusiness();
+            getQuestion = new GetEtiquetteBusinessImpl();
             return getQuestion.getListQuestion(null);
         }
         if(arg.equals("Etiquette Secular")){
-            getQuestion = new GetEtiquetteSecuar();
+            getQuestion = new GetEtiquetteSecularImpl();
             return getQuestion.getListQuestion(null);
         }
         return null;

@@ -14,7 +14,7 @@
     <fragment
             android:id="@+id/nav_gallery"
             android:name="ru.great_larder.sportquiz.ui.gallery.GalleryFragment"
-            android:label="@string/menu_gallery"
+            android:label="@string/shop"
             tools:layout="@layout/fragment_gallery"/>
 
     <fragment

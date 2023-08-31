@@ -21,14 +21,13 @@
                 android:id="@+id/imageViewSettings"
                 android:layout_marginEnd="5dp" android:contentDescription="@string/todo"/>
     </LinearLayout>
-    <TableLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:id="@+id/tableLayoutHi"
-            android:visibility="visible">
-
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:gravity="center_horizontal">
+            android:gravity="center"
+    >
             <TextView
                     android:text="@string/lets"
                     android:layout_width="match_parent"
@@ -38,9 +37,6 @@
                     android:textColor="#0C0C0C"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
-        </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:gravity="center_horizontal">
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,9 +47,6 @@
                     android:autofillHints="@string/name"
                     android:hint="@string/name"
                     tools:ignore="LabelFor"/>
-        </TableRow>
-        <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:gravity="center_horizontal">
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,28 +57,70 @@
                     android:autofillHints="@string/city"
                     android:hint="@string/city"
                     tools:ignore="LabelFor"/>
-        </TableRow>
-        <TableRow android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:gravity="center_horizontal"
-        >
-
-            <Button
-                    android:text="@string/done"
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal|center_vertical">
+            <EditText
+                    android:id="@+id/picked_date"
+                    android:hint="@string/date_of_birth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/buttonDone"
-                    android:elevation="10dp"
+                    android:inputType="date"
+                    android:autofillHints=""
+                    android:minHeight="48dp"/>
+            <Button
+                    android:id="@+id/btn_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose"
+                    android:elevation="5dp"
                     android:stateListAnimator="@null"
                     android:translationZ="5dp"
                     android:background="@drawable/button"
                     android:textColor="#090909"
                     android:textStyle="bold"
-                    android:layout_margin="40dp"
-            />
+                    android:layout_margin="15dp"/>
+        </LinearLayout>
+            <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/imageViewaddImage"
+                    android:src="@drawable/upphoto"
+                    android:contentDescription="@string/todo"/>
+        <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:gravity="center_horizontal|center_vertical"
+                  android:padding="10dp">
+            <Button android:text="@string/done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonDone"
+                    android:elevation="5dp"
+                    android:stateListAnimator="@null"
+                    android:translationZ="5dp"
+                    android:background="@drawable/button"
+                    android:textColor="#090909"
+                    android:textStyle="bold"
+                    android:layout_margin="15dp"
+                    style="?android:attr/buttonBarButtonStyle"/>
+            <Button android:text="@string/done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonChangeUser"
+                    android:elevation="5dp"
+                    android:stateListAnimator="@null"
+                    android:translationZ="5dp"
+                    android:background="@drawable/button"
+                    android:textColor="#090909"
+                    android:textStyle="bold"
+                    android:layout_margin="15dp"
+                    style="?android:attr/buttonBarButtonStyle"/>
 
-        </TableRow>
-    </TableLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -118,15 +153,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/linearLayoutGlasses"
             android:dividerPadding="30dp"
-            android:showDividers="middle" android:gravity="bottom|center_horizontal">
+            android:showDividers="middle" android:gravity="bottom|center">
         <TextView
-                android:text="@string/you_earned_it"
+                android:text="@string/on_the_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#0C0C0C"
                 android:textSize="20sp"
                 android:id="@+id/textView6"
-                android:layout_margin="5dp"
         />
         <TextView
                 android:layout_width="wrap_content"
@@ -135,22 +169,31 @@
                 android:textSize="20sp"
                 android:id="@+id/textViewGlasse"
                 android:layout_marginStart="10dp"
-                android:layout_margin="5dp"
         />
         <TextView
-                android:text="@string/victorinok"
+                android:text="@string/viktikov"
                 android:layout_width="wrap_content"
                 android:textColor="#0C0C0C"
                 android:textSize="20sp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textFieldVictorinok"
                 android:layout_marginStart="10dp"
-                android:layout_margin="5dp"
                 tools:ignore="HardcodedText"/>
         <ImageView
-                android:layout_width="100dp"
-                android:layout_height="140dp"
+                android:layout_width="50dp"
+                android:layout_height="70dp"
                 android:id="@+id/imageViewAnimCoins"
                 android:contentDescription="@string/todo"/>
     </LinearLayout>
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+            android:id="@+id/imgStartDetki"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/detki"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/textViewSlogan"
+              android:text="@string/slogan"
+              android:gravity="center"
+              android:textColor="@color/black" android:textStyle="bold"/>
 </LinearLayout>

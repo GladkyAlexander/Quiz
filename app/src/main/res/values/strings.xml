@@ -8,25 +8,21 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Домашняя страница</string>
-    <string name="menu_gallery">Выбор фона</string>
     <string name="menu_slideshow">Информация</string>
 
     <string name="lets">Давай познакомимся</string>
     <string name="name">Твое имя</string>
     <string name="done">готово</string>
     <string name="hello">Привет</string>
-    <string name="you_earned_it">На счету :</string>
     <string name="start">начинаем ?</string>
-    <string name="choose">Ты можешь купить фон</string>
-    <string name="_00">00</string>
+
     <string name="question">Вопрос</string>
     <string name="stop">Стоп</string>
     <string name="resume">Продолжить</string>
     <string name="out">Выйти</string>
     <string name="timer">Время :</string>
     <string name="todo">TODO</string>
-    <string name="todo1">TODO</string>
-    <string name="points_1">5 виктиков</string>
+    <!--<string name="points_1">5 виктиков</string>
     <string name="points_2">10 виктиков</string>
     <string name="points_3">15 виктиков</string>
     <string name="points_4">20 виктиков</string>
@@ -34,15 +30,11 @@
     <string name="points_6">30 виктиков</string>
     <string name="points_7">35 виктиков</string>
     <string name="points_8">40 виктиков</string>
-    <string name="points_9">45 виктиков</string>
-    <string name="in_your_account">На счету</string>
-    <string name="points">виктиков</string>
-    <string name="in_your_piggy_bank">Tем :</string>
-    <string name="message_text">Сообщение</string>
+    <string name="points_9">45 виктиков</string>-->
+
+    <string name="message">Сообщение</string>
     <string name="yes">да</string>
     <string name="no">нет</string>
-    <string name="textview">TextView</string>
-    <string name="backgroundDescription">gh</string>
     <string name="www">www.отличная-кладовая.рф</string>
     <string name="websait">Вэб сайт:</string>
     <string name="_7_999_001_25_95">+7(999)001–25–95</string>
@@ -51,7 +43,6 @@
     <string name="email">Электронный адрес:</string>
     <string name="text">По вопросам обращайтесь</string>
     <string name="shop">Магазин</string>
-    <string name="victorinok">Виктиков</string>
     <string name="language_quiz">Лингвистика</string>
     <string name="sports_quiz">Спортивные</string>
     <string name="school">Школьные</string>
@@ -67,8 +58,17 @@
     <string name="enlist_patronage">Заручиться покровительством</string>
     <string name="buy">Купить</string>
     <string name="on_the_account">На счету</string>
+    <string name="viktikov">Виктиков</string>
+    <string name="viktika">Виктика</string>
     <string name="FairiesGreeting">Заручитесь поддержкой фей и магов</string>
     <string name="PuzzleGreeting">Откройте все картинки</string>
     <string name="zero">0</string>
+    <string name="zero_zero">00</string>
+    <string name="slogan">Мир вокруг нас постоянно меняется и чтобы держаться на волне, нужно постоянно учиться.
+        Научитесь учиться всегда и везде.
+    </string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="choose">Выбрать</string>
+
 
 </resources>

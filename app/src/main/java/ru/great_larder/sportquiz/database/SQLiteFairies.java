@@ -1,7 +1,7 @@
 package ru.great_larder.sportquiz.database;
 
 public interface SQLiteFairies {
-    String CREATE_TABLE_FAIRIES = "CREATE TABLE fairies (" +
+    String CREATE_TABLE_FAIRIES = "CREATE TABLE IF NOT EXISTS fairies (" +
         "    'id'                       INTEGER," +
         "    'idUser'                   INTEGER," +
         "    'name'                        TEXT," +

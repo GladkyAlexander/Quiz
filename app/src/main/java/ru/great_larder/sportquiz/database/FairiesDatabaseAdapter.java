@@ -67,12 +67,7 @@ public class FairiesDatabaseAdapter {
     }
     @SuppressLint("Range")
     public Fairies getFairyById(Integer id){
-       /* ArrayList<User> users = new ArrayList<>();
-        for (Fairies fairies : getFairies()){
-            if(Objects.equals(fairies.getId(), id)) return fairies;
-        }
-        return  null;*/
-        
+      
         Fairies fairies = new Fairies();
         String query = String.format("SELECT * FROM %s WHERE %s=?",DatabaseHelper.TABLE_FAIRIES, DatabaseHelper.COLUMN_ID_FAIRIES);
         Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(id)});

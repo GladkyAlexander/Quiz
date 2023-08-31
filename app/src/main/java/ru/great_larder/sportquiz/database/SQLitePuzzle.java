@@ -1,7 +1,7 @@
 package ru.great_larder.sportquiz.database;
 
 public interface SQLitePuzzle {
-    String CREATE_TABLE_PUZZLE = "CREATE TABLE puzzle (" +
+    String CREATE_TABLE_PUZZLE = "CREATE TABLE IF NOT EXISTS puzzle (" +
         "    'id'                       INTEGER, " +
         "    'id_drawable_resource'     INTEGER," +
         "    'id_user'                  INTEGER," +

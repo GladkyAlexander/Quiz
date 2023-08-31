@@ -12,6 +12,10 @@
         android:gravity="center|top"
         android:id="@+id/llStart">
     <TextView
+            android:text="чтобы выбрать картинку нажмите дважды на нее"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:gravity="center_horizontal" android:id="@+id/textViewHint"/>
+    <TextView
             android:text="@string/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +36,7 @@
             android:gravity="center"
             android:layout_margin="5dp">
         <TextView
-                android:text="@string/in_your_account"
+                android:text="@string/on_the_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewGalleryFragment"
@@ -48,7 +52,7 @@
                 android:textStyle="bold"
                 android:paddingStart="10dp" android:paddingEnd="10dp" android:layout_margin="5dp"/>
         <TextView
-                android:text="@string/victorinok"
+                android:text="@string/viktikov"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewPointsGalleryFragment"
@@ -290,7 +294,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/button_lihguistics"
                     android:contentDescription="@string/todo"
-                    android:elevation="15dp"/>
+                    android:elevation="15dp" android:visibility="visible"/>
             <ImageView android:layout_width="wrap_content"
                        android:layout_height="match_parent"
                        android:id="@+id/imgMax"

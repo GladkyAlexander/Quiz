@@ -36,7 +36,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
     
     private FragmentGalleryBinding binding;
     private TextView textViewNameGalleryFragment, textViewPuzzleGreeting, textViewFairiesGretting;
-    private TextView textViewPointsGF, textViewPriceFairies;
+    private TextView textViewPointsGF, textViewPriceFairies, textViewHint;
     private ImageView img3, imgMax;
     private FrameLayout frameLayoutFairies, frameLayoutPuzzleImage, imgPuzzle3;
     private Carousel carousel, carouselPuzzle;
@@ -67,6 +67,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         textViewPointsGF = binding.textViewPointsGF;
         textViewPuzzleGreeting = binding.textViewPuzzleGreeting;
         textViewFairiesGretting = binding.textViewFairiesGreeting;
+        textViewHint = binding.textViewHint;
         
         carousel = binding.carousel;
         motion = binding.motion;
@@ -98,7 +99,9 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                 openPuzzle((Puzzle) imgPuzzle3.getTag());
             }
         });
+        
         loadFragment(GlobalLinkUser.getUser());
+        
         button_patronage.setOnClickListener(m -> {
             if(GlobalLinkUser.getUser() != null) {
                 if (GlobalLinkUser.getUser().getGlasses() >= fairiesToInstall.getPrice()) {
@@ -130,10 +133,11 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
             }
         });
-        Toast.makeText(requireActivity(),"чтобы выбрать нажмите дважды на картинку", Toast.LENGTH_LONG).show();
+        
         return root;
     }
     public void loadFragment(User user) {
+        textViewHint.setVisibility(View.VISIBLE);
         setupCarousel();
         if(GlobalLinkUser.getUser() != null) {
             motionPuzzle.setVisibility(View.VISIBLE);
@@ -155,7 +159,6 @@ public class GalleryFragment extends Fragment implements ObserverUser {
             textViewNameGalleryFragment.setText("");
             textViewPointsGF.setText(String.valueOf(0));
         }
-        
     }
     @Override
     public void onDestroyView() {
@@ -191,36 +194,39 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         });
     }
     private void setupCarouselPuzzle() {
-        if (carouselPuzzle == null) {
-            return;
-        }
-        getNumImagesPuzzle = puzzles.size();
-        carouselPuzzle.setAdapter(new Carousel.Adapter() {
-            @Override
-            public int count() {
-                return getNumImagesPuzzle;
-            }
-            @Override
-            public void populate(View view, int index) {
-                if(view instanceof FrameLayout){
-                    FrameLayout frameLayout = (FrameLayout) view;
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("idPuzzle", puzzles.get(index).getId());
-                    ForACarouselOfPuzzlesFragment forACarouselOfPuzzlesFragment = new ForACarouselOfPuzzlesFragment();
-                    forACarouselOfPuzzlesFragment.setArguments(bundle);
-                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.replace(frameLayout.getId(), forACarouselOfPuzzlesFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                    frameLayout.setTag(puzzles.get(index));
-                }
+        textViewPuzzleGreeting.setVisibility(View.GONE);
+            if (puzzles != null && !puzzles.isEmpty()) {
+                textViewPuzzleGreeting.setVisibility(View.VISIBLE);
+                getNumImagesPuzzle = puzzles.size();
+                carouselPuzzle.setAdapter(new Carousel.Adapter() {
+                    @Override
+                    public int count() {
+                        return getNumImagesPuzzle;
+                    }
+                    
+                    @Override
+                    public void populate(View view, int index) {
+                        if (view instanceof FrameLayout) {
+                            FrameLayout frameLayout = (FrameLayout) view;
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("idPuzzle", puzzles.get(index).getId());
+                            ForACarouselOfPuzzlesFragment forACarouselOfPuzzlesFragment = new ForACarouselOfPuzzlesFragment();
+                            forACarouselOfPuzzlesFragment.setArguments(bundle);
+                            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                            transaction.replace(frameLayout.getId(), forACarouselOfPuzzlesFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            frameLayout.setTag(puzzles.get(index));
+                        }
+                    }
+                    
+                    @Override
+                    public void onNewItem(int index) {
+                    }
+                    
+                });
             }
             
-            @Override
-            public void onNewItem(int index) {
-            }
-            
-        });
     }
     private void openFairies(Fairies value){
         fairiesToInstall = value;
@@ -231,6 +237,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         textViewPriceFairies.setText(String.valueOf(value.getPrice()));
     }
     private void openPuzzle(Puzzle val){
+        textViewHint.setVisibility(View.GONE);
         motion.setVisibility(View.GONE);
         motionPuzzle.setVisibility(View.GONE);
         textViewPuzzleGreeting.setVisibility(View.GONE);

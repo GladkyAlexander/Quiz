@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import ru.great_larder.sportquiz.domain.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     
@@ -12,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_PUZZLE = "puzzle";
     public static final String TABLE_FAIRIES = "fairies";
     private static final String DATABASE_NAME = "sport.db";
-    private static final int SCHEMA = 3;
+    private static final int SCHEMA = 6;
     /*------------------------------------------------ User ------------------------------------------------------*/
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name" ;
@@ -23,6 +22,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_GLASSES = "glasses";
     public static final String COLUMN_THEME_INSTALL = "themeInstalledNow";
     
+    /**
+     * 'DATE_OF_BIRTH'- The column was added in 4 versions of the database
+     */
+    public static final String COLUMN_DATE_OF_BIRTH = "birthday" ;
+    /**
+     * 'AWATAR'- The column was added in 5 versions of the database
+     */
+    public static final String COLUMN_AWATAR = "awatar";
     /*--------------------------------------------------- Puzzle --------------------------------------------------*/
     public static final String COLUMN_ID_PUZZLE = "id";
     public static final String COLUMN_ID_DRAWABLE_RESOURCE = "id_drawable_resource" ;
@@ -105,17 +112,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQLiteUser.CREATE_TABLE_USER);
+        onUpgrade(db, 0, SCHEMA);
+        /*db.execSQL(SQLiteUser.CREATE_TABLE_USER);
         db.execSQL(SQLitePuzzle.CREATE_TABLE_PUZZLE);
-        db.execSQL(SQLiteFairies.CREATE_TABLE_FAIRIES);
+        db.execSQL(SQLiteFairies.CREATE_TABLE_FAIRIES);*/
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(!existsColumnInTable(db, TABLE_USERS, COLUMN_CITY)){
-            db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_CITY + " TEXT DEFAULT null");
+        if(oldVersion < 1){
+            db.execSQL(SQLiteUser.CREATE_TABLE_USER);
         }
-        db.execSQL(SQLitePuzzle.CREATE_TABLE_PUZZLE);
-        db.execSQL(SQLiteFairies.CREATE_TABLE_FAIRIES);
+        // add new columns to migrate to version 2
+        if (oldVersion < 2) {
+            if(existsColumnInTable(db, TABLE_USERS, COLUMN_CITY)){
+                db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_CITY + " TEXT DEFAULT null");
+            }
+        }
+        // add new columns to migrate to version 3
+        if (oldVersion < 3) {
+            db.execSQL(SQLitePuzzle.CREATE_TABLE_PUZZLE);
+            db.execSQL(SQLiteFairies.CREATE_TABLE_FAIRIES);
+        }
+        // add new columns to migrate to version 4
+        if (oldVersion < 6) {
+            if (existsColumnInTable(db, TABLE_USERS, COLUMN_DATE_OF_BIRTH)) {
+                db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_DATE_OF_BIRTH + " TEXT DEFAULT null");
+            }
+            if (existsColumnInTable(db, TABLE_USERS, COLUMN_AWATAR)) {
+                db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_AWATAR + " TEXT DEFAULT null");
+            }
+        }
     }
     private boolean existsColumnInTable(SQLiteDatabase inDatabase, String inTable, String columnToCheck) {
         Cursor cursor = null;
@@ -125,12 +151,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             
             // getColumnIndex() gives us the index (0 to ...) of the column - otherwise we get a -1
             if (cursor.getColumnIndex(columnToCheck) != -1)
-                return true;
-            else
                 return false;
+            else
+                return true;
             
         } catch (Exception Exp) {
-            return false;
+            return true;
         } finally {
             if (cursor != null) cursor.close();
         }

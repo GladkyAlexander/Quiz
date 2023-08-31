@@ -1,17 +1,43 @@
 package ru.great_larder.sportquiz.domain;
 
+import com.mysql.jdbc.Blob;
+
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+
 public class User {
     long id;
     String name;
     String city;
     int glasses;
     int themeInstalledNow;
+    String date_of_birth;
+    byte[] awatar;
     
-    public User(String name, String city, int glasses, int themeInstalledNow) {
+    public User(String name, String city, int glasses, int themeInstalledNow, String date_of_birth, byte[] awatar) {
         this.name = name;
         this.city = city;
         this.glasses = glasses;
         this.themeInstalledNow = themeInstalledNow;
+        this.date_of_birth = date_of_birth;
+        this.awatar = awatar;
+    }
+    public User(long id, String name, String city, int glasses, int themeInstalledNow, String date_of_birth, byte[] awatar) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.glasses = glasses;
+        this.themeInstalledNow = themeInstalledNow;
+        this.date_of_birth = date_of_birth;
+        this.awatar = awatar;
+    }
+    
+    public String getDate_of_birth() {
+        return date_of_birth;
+    }
+    
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
     
     public User() {
@@ -57,6 +83,14 @@ public class User {
         this.themeInstalledNow = themeInstalledNow;
     }
     
+    public byte[] getAwatar() {
+        return awatar;
+    }
+    
+    public void setAwatar(byte[] awatar) {
+        this.awatar = awatar;
+    }
+    
     @Override
     public String toString() {
         return "User{" +
@@ -65,6 +99,8 @@ public class User {
             ", city='" + city + '\'' +
             ", glasses=" + glasses +
             ", themeInstalledNow=" + themeInstalledNow +
+            ", date_of_birth='" + date_of_birth + '\'' +
+            ", awatar=" + Arrays.toString(awatar) +
             '}';
     }
 }
