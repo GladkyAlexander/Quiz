@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.FragmentTransaction;
+import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.OfTheGameFragment;
 import ru.great_larder.sportquiz.databinding.FragmentTrafficLawsBinding;
@@ -20,7 +21,7 @@ public class FragmentTrafficLaws extends Fragment {
     ImageView imageViewPdd;
     Button btnStartPdd;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentTrafficLawsBinding binding = FragmentTrafficLawsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -45,7 +46,7 @@ public class FragmentTrafficLaws extends Fragment {
             frameLayoutTrafficLaws.setVisibility(View.VISIBLE);
             OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("getGuestion", "Traffic Laws");
+            bundle.putString("getQuestion", "Traffic Laws");
             ofTheGameFragment.setArguments(bundle);
             ofTheGameFragment.setCont(this);
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

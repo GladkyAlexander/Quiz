@@ -46,7 +46,7 @@ public class SportsFragment extends Fragment{
             imageViewSportz.setVisibility(View.GONE);
             OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("getGuestion", "Sports");
+            bundle.putString("getQuestion", "Sports");
             ofTheGameFragment.setArguments(bundle);
             ofTheGameFragment.setCont(this);
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

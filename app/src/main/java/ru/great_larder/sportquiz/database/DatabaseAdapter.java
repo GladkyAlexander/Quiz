@@ -31,7 +31,7 @@ public class DatabaseAdapter {
     private Cursor getAllEntries(){
         String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_NAME, DatabaseHelper.COLUMN_CITY
             , DatabaseHelper.COLUMN_GLASSES, DatabaseHelper.COLUMN_THEME_INSTALL, DatabaseHelper.COLUMN_DATE_OF_BIRTH
-            , DatabaseHelper.COLUMN_AWATAR};
+            , DatabaseHelper.COLUMN_AWATAR, DatabaseHelper.COLUMN_LASTNAME};
         return  database.query(DatabaseHelper.TABLE_USERS, columns, null, null, null, null, null);
     }
     
@@ -49,6 +49,7 @@ public class DatabaseAdapter {
             user.setThemeInstalledNow(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_THEME_INSTALL)));
             user.setDate_of_birth(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE_OF_BIRTH)));
             user.setAwatar(cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.COLUMN_AWATAR)));
+            user.setLastName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LASTNAME)));
             users.add(user);
         }
         cursor.close();
@@ -72,6 +73,7 @@ public class DatabaseAdapter {
             user.setThemeInstalledNow(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_THEME_INSTALL)));
             user.setDate_of_birth(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE_OF_BIRTH)));
             user.setAwatar(cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.COLUMN_AWATAR)));
+            user.setLastName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LASTNAME)));
         }
         cursor.close();
         return  user;
@@ -86,6 +88,7 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_THEME_INSTALL, user.getThemeInstalledNow());
         cv.put(DatabaseHelper.COLUMN_DATE_OF_BIRTH, user.getDate_of_birth());
         cv.put(DatabaseHelper.COLUMN_AWATAR, user.getAwatar());
+        cv.put(DatabaseHelper.COLUMN_LASTNAME, user.getLastName());
         
         return  database.insert(DatabaseHelper.TABLE_USERS, null, cv);
     }
@@ -107,6 +110,7 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_THEME_INSTALL, user.getThemeInstalledNow());
         cv.put(DatabaseHelper.COLUMN_DATE_OF_BIRTH, user.getDate_of_birth());
         cv.put(DatabaseHelper.COLUMN_AWATAR, user.getAwatar());
+        cv.put(DatabaseHelper.COLUMN_LASTNAME, user.getLastName());
 
         return database.update(DatabaseHelper.TABLE_USERS, cv, whereClause, null);
     }

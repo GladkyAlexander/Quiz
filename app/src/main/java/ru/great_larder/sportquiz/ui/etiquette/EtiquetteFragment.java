@@ -53,7 +53,7 @@ public class EtiquetteFragment extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Etiquette Secular");
+                bundle.putString("getQuestion", "Etiquette Secular");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -70,7 +70,7 @@ public class EtiquetteFragment extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Etiquette Business");
+                bundle.putString("getQuestion", "Etiquette Business");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

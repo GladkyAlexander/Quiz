@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_PUZZLE = "puzzle";
     public static final String TABLE_FAIRIES = "fairies";
     private static final String DATABASE_NAME = "sport.db";
-    private static final int SCHEMA = 6;
+    private static final int SCHEMA = 7;
     /*------------------------------------------------ User ------------------------------------------------------*/
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name" ;
@@ -30,6 +30,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * 'AWATAR'- The column was added in 5 versions of the database
      */
     public static final String COLUMN_AWATAR = "awatar";
+    /**
+     * 'AWATAR'- The column was added in 7 versions of the database
+     */
+    public static final String COLUMN_LASTNAME = "lastname";
     /*--------------------------------------------------- Puzzle --------------------------------------------------*/
     public static final String COLUMN_ID_PUZZLE = "id";
     public static final String COLUMN_ID_DRAWABLE_RESOURCE = "id_drawable_resource" ;
@@ -124,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         // add new columns to migrate to version 2
         if (oldVersion < 2) {
-            if(existsColumnInTable(db, TABLE_USERS, COLUMN_CITY)){
+            if(existsColumnInTable(db, COLUMN_CITY)){
                 db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_CITY + " TEXT DEFAULT null");
             }
         }
@@ -135,30 +139,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         // add new columns to migrate to version 4
         if (oldVersion < 6) {
-            if (existsColumnInTable(db, TABLE_USERS, COLUMN_DATE_OF_BIRTH)) {
+            if (existsColumnInTable(db, COLUMN_DATE_OF_BIRTH)) {
                 db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_DATE_OF_BIRTH + " TEXT DEFAULT null");
             }
-            if (existsColumnInTable(db, TABLE_USERS, COLUMN_AWATAR)) {
+            if (existsColumnInTable(db, COLUMN_AWATAR)) {
                 db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_AWATAR + " TEXT DEFAULT null");
             }
         }
+        // add new columns to migrate to version 7
+        if (oldVersion < 7) {
+            if(existsColumnInTable(db, COLUMN_LASTNAME)){
+                db.execSQL("ALTER TABLE " + TABLE_USERS + " ADD COLUMN " + COLUMN_LASTNAME + " TEXT DEFAULT null");
+            }
+        }
     }
-    private boolean existsColumnInTable(SQLiteDatabase inDatabase, String inTable, String columnToCheck) {
-        Cursor cursor = null;
-        try {
+    private boolean existsColumnInTable(SQLiteDatabase inDatabase, String columnToCheck) {
+        try (Cursor cursor = inDatabase.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USERS + " LIMIT 0", null)) {
             // Query 1 row
-            cursor = inDatabase.rawQuery("SELECT * FROM " + inTable + " LIMIT 0", null);
             
             // getColumnIndex() gives us the index (0 to ...) of the column - otherwise we get a -1
-            if (cursor.getColumnIndex(columnToCheck) != -1)
-                return false;
-            else
-                return true;
+            return cursor.getColumnIndex(columnToCheck) == -1;
             
         } catch (Exception Exp) {
             return true;
-        } finally {
-            if (cursor != null) cursor.close();
         }
     }
 }

@@ -19,6 +19,7 @@ import ru.great_larder.sportquiz.*;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentHomeBinding;
 import ru.great_larder.sportquiz.domain.User;
+import ru.great_larder.sportquiz.services.GetNamesVictik;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 import java.io.ByteArrayOutputStream;
@@ -28,7 +29,7 @@ public class HomeFragment extends Fragment {
     
     private FragmentHomeBinding binding;
     private LinearLayout tableLayoutHi;
-    private EditText editTextTextPersonName;
+    private EditText editTextTextPersonName, editTextTextLastName;
     private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity, textFieldVictorinok, textViewSlogan;
     private LinearLayout linearLayoutHello;
     private LinearLayout linearLayoutGlasses;
@@ -81,6 +82,7 @@ public class HomeFragment extends Fragment {
         textViewSlogan = binding.textViewSlogan;
         
         editTextTextPersonName = binding.editTextTextPersonName;
+        editTextTextLastName = binding.editTextTextLastName;
         
         tableLayoutHi = binding.tableLayoutHi;
         
@@ -97,14 +99,7 @@ public class HomeFragment extends Fragment {
         imageViewAddImage.setOnClickListener(d -> loadImage());
         
         user = GlobalLinkUser.getUser();
-        /*if (user == null) {
-            tableLayoutHi.setVisibility(View.VISIBLE);
-            loadFragment();
-        } else {
-            tableLayoutHi.setVisibility(View.GONE);
-            loadFragment();
-        }*/
-        
+     
         loadFragment();
         
         buttonDone.setOnClickListener(v -> {
@@ -119,9 +114,7 @@ public class HomeFragment extends Fragment {
             GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
             loadFragment();
         });
-        imageViewSettings.setOnClickListener(d -> {
-           openSettings();
-        });
+        imageViewSettings.setOnClickListener(d -> openSettings());
         
         return root;
     }
@@ -155,7 +148,7 @@ public class HomeFragment extends Fragment {
             linearLayoutGlasses.setVisibility(View.VISIBLE);
             textViewNameUser.setText(user.getName());
             textViewGlasses.setText(String.valueOf(user.getGlasses()));
-            textFieldVictorinok.setText(getTextVic(user.getGlasses()));
+            textFieldVictorinok.setText(new GetNamesVictik().getVictik(user.getGlasses()));
             imgStartDetki.setVisibility(View.VISIBLE);
             textViewSlogan.setVisibility(View.VISIBLE);
             
@@ -164,13 +157,6 @@ public class HomeFragment extends Fragment {
             frameAnimation.setOneShot(true);
             frameAnimation.start();
         }
-    }
-    
-    private String getTextVic(int t) {
-        String res = "Виктиков";
-        if (t == 1) return "Виктик";
-        if (t == 2 || t == 3 || t == 4) return "Виктика";
-        return res;
     }
     
     private void callTimePicker() {
@@ -212,6 +198,7 @@ public class HomeFragment extends Fragment {
         userRecord.setGlasses(0);
         userRecord.setThemeInstalledNow(0);
         userRecord.setDate_of_birth(String.valueOf(editTextDate.getText()));
+        userRecord.setLastName(String.valueOf(editTextTextLastName.getText()));
         
         if(flagChooseAwatar){
             Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
@@ -244,6 +231,7 @@ public class HomeFragment extends Fragment {
         user.setGlasses(0);
         user.setThemeInstalledNow(0);
         user.setDate_of_birth(String.valueOf(editTextDate.getText()));
+        user.setLastName(String.valueOf(editTextTextLastName.getText()));
         
         Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -272,6 +260,7 @@ public class HomeFragment extends Fragment {
                 
                 textViewLets.setText("Внесите изменения");
                 editTextTextPersonName.setText(user.getName());
+                editTextTextLastName.setText(user.getLastName());
                 textViewCity.setText(user.getCity());
                 editTextDate.setText(user.getDate_of_birth());
                 

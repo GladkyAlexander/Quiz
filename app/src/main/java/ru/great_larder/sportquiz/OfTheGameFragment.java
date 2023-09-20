@@ -17,6 +17,7 @@ import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.question.*;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
+import ru.great_larder.sportquiz.ui.city.CityFragment;
 import ru.great_larder.sportquiz.ui.etiquette.EtiquetteFragment;
 import ru.great_larder.sportquiz.ui.language_quiz.LanguageQuizFragment;
 import ru.great_larder.sportquiz.ui.school.FragmentSchool;
@@ -41,6 +42,9 @@ public class OfTheGameFragment extends Fragment {
     private FragmentSchool fragmentSchool;
     private SportsFragment sportsFragment;
     private FragmentTrafficLaws fragmentTrafficLaws;
+    private CityFragment cityFragment;
+    
+    String nameCity;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,11 +82,12 @@ public class OfTheGameFragment extends Fragment {
             chronometer.cancel();
             back(GlobalLinkUser.getUser());
             requireActivity().onBackPressed();
-           /* requireActivity().getSupportFragmentManager().popBackStack();
-            requireActivity().getSupportFragmentManager().popBackStack();*/
         });
         if (getArguments() != null) {
-            questionList = getQuestionList(getArguments().getString("getGuestion"));
+            if(getArguments().getString("nameCity") != null){
+                nameCity = getArguments().getString("nameCity");
+            }
+            questionList = getQuestionList(getArguments().getString("getQuestion"));
             startQuiz();
         }
         
@@ -180,6 +185,12 @@ public class OfTheGameFragment extends Fragment {
             getQuestion = new GetEtiquetteSecularImpl();
             return getQuestion.getListQuestion(null);
         }
+        if(arg.equals("City")){
+            getQuestion = new GetQuestionCityImpl();
+            if(nameCity != null){
+                return getQuestion.getListQuestion(nameCity);
+            }
+        }
         return null;
     }
     private void stageLoading(String q, List<String> list, String right_answer){
@@ -246,7 +257,6 @@ public class OfTheGameFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
             
             }
-            
             public void onFinish() {
                 view.setVisibility(View.GONE);
                 buttonView.setBackgroundResource(R.drawable.check_box_false);
@@ -298,7 +308,9 @@ public class OfTheGameFragment extends Fragment {
         if(fragment instanceof EtiquetteFragment){
             this.etiquetteFragment = (EtiquetteFragment) fragment;
         }
-        
+        if(fragment instanceof CityFragment){
+            this.cityFragment = (CityFragment) fragment;
+        }
     }
     private void back(User user) {
         if(sportsFragment != null){
@@ -316,9 +328,12 @@ public class OfTheGameFragment extends Fragment {
         if(etiquetteFragment != null){
             etiquetteFragment.loadFragment(user);
         }
+        if(cityFragment != null){
+            cityFragment.loadFragment();
+        }
     }
     public void setHint(String link){
-        if(link != null){
+        if(link != null && !link.isEmpty()){
             img_hint.setVisibility(View.VISIBLE);
             img_hint.setClickable(true);
             img_hint.setOnClickListener(n ->{

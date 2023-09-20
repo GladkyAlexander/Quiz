@@ -75,7 +75,7 @@ public class FragmentSchool extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Biology");
+                bundle.putString("getQuestion", "Biology");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -93,7 +93,7 @@ public class FragmentSchool extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "History");
+                bundle.putString("getQuestion", "History");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -111,7 +111,7 @@ public class FragmentSchool extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Geography");
+                bundle.putString("getQuestion", "Geography");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -129,7 +129,7 @@ public class FragmentSchool extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Physics");
+                bundle.putString("getQuestion", "Physics");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -147,7 +147,7 @@ public class FragmentSchool extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Mathematics");
+                bundle.putString("getQuestion", "Mathematics");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

@@ -36,6 +36,10 @@
                 android:id="@+id/nav_etiquette"
                 android:icon="@drawable/etiquette"
                 android:title="@string/etiquette"/>
+        <item
+                android:id="@+id/nav_city"
+                android:icon="@drawable/location"
+                android:title="@string/city"/>
     </group>
     <group android:id="@+id/menu_drawer_bottom"
            android:checkableBehavior="single">

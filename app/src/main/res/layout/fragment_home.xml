@@ -9,11 +9,15 @@
         android:id="@+id/fra"
         android:shrinkColumns="0, true"
         android:layout_margin="5dp"
-        android:padding="5dp" android:gravity="center|top" android:orientation="vertical">
+        android:padding="5dp"
+        android:gravity="center|top"
+        android:orientation="vertical">
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:gravity="end" android:layout_margin="5dp">
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_margin="5dp">
         <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -26,8 +30,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/tableLayoutHi"
-            android:gravity="center"
-    >
+            android:gravity="center">
             <TextView
                     android:text="@string/lets"
                     android:layout_width="match_parent"
@@ -44,9 +47,19 @@
                     android:ems="10"
                     android:id="@+id/editTextTextPersonName"
                     android:minHeight="48dp"
-                    android:autofillHints="@string/name"
-                    android:hint="@string/name"
+                    android:autofillHints="@string/firstname"
+                    android:hint="@string/firstname"
                     tools:ignore="LabelFor"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editTextTextLastName"
+                android:minHeight="48dp"
+                android:autofillHints="@string/lastname"
+                android:hint="@string/lastname"
+                tools:ignore="LabelFor"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,7 +118,9 @@
                     android:textColor="#090909"
                     android:textStyle="bold"
                     android:layout_margin="15dp"
-                    style="?android:attr/buttonBarButtonStyle"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"/>
             <Button android:text="@string/done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,7 +132,9 @@
                     android:textColor="#090909"
                     android:textStyle="bold"
                     android:layout_margin="15dp"
-                    style="?android:attr/buttonBarButtonStyle"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -195,5 +212,8 @@
               android:id="@+id/textViewSlogan"
               android:text="@string/slogan"
               android:gravity="center"
-              android:textColor="@color/black" android:textStyle="bold"/>
+              android:textColor="@color/black"
+              android:textStyle="bold"
+              android:textSize="20sp"
+              android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 </LinearLayout>

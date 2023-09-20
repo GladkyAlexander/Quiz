@@ -45,13 +45,9 @@ public class LanguageQuizFragment extends Fragment {
         if(user == null){
             linearLayoutButtonRuEn.setVisibility(View.VISIBLE);
             frameLayoutLanguage.setVisibility(View.GONE);
-            button_language_en.setOnClickListener(b->{
-                Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
-            });
+            button_language_en.setOnClickListener(b-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
             
-            button_language_ru.setOnClickListener(g->{
-                Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
-            });
+            button_language_ru.setOnClickListener(g-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
         } else {
             linearLayoutButtonRuEn.setVisibility(View.VISIBLE);
             frameLayoutLanguage.setVisibility(View.GONE);
@@ -59,9 +55,8 @@ public class LanguageQuizFragment extends Fragment {
                 linearLayoutButtonRuEn.setVisibility(View.GONE);
                 frameLayoutLanguage.setVisibility(View.VISIBLE);
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
-                
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "English language");
+                bundle.putString("getQuestion", "English language");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -78,7 +73,7 @@ public class LanguageQuizFragment extends Fragment {
                 OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
                 
                 Bundle bundle = new Bundle();
-                bundle.putString("getGuestion", "Russian language");
+                bundle.putString("getQuestion", "Russian language");
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

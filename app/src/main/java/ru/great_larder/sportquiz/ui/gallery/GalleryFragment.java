@@ -21,6 +21,7 @@ import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.DoubleClickListener;
+import ru.great_larder.sportquiz.services.GetNamesVictik;
 import ru.great_larder.sportquiz.services.fairies.GetFairies;
 import ru.great_larder.sportquiz.services.fairies.GetFairiesImpl;
 import ru.great_larder.sportquiz.services.puzzle_listener.DataPuzzle;
@@ -36,7 +37,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
     
     private FragmentGalleryBinding binding;
     private TextView textViewNameGalleryFragment, textViewPuzzleGreeting, textViewFairiesGretting;
-    private TextView textViewPointsGF, textViewPriceFairies, textViewHint;
+    private TextView textViewPointsGF, textViewPriceFairies, textViewHint, textViewPointsGalleryFragment;
     private ImageView img3, imgMax;
     private FrameLayout frameLayoutFairies, frameLayoutPuzzleImage, imgPuzzle3;
     private Carousel carousel, carouselPuzzle;
@@ -68,6 +69,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         textViewPuzzleGreeting = binding.textViewPuzzleGreeting;
         textViewFairiesGretting = binding.textViewFairiesGreeting;
         textViewHint = binding.textViewHint;
+        textViewPointsGalleryFragment = binding.textViewPointsGalleryFragment;
         
         carousel = binding.carousel;
         motion = binding.motion;
@@ -149,6 +151,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
             
             textViewNameGalleryFragment.setText(user.getName());
             textViewPointsGF.setText(String.valueOf(user.getGlasses()));
+            textViewPointsGalleryFragment.setText(new GetNamesVictik().getVictik(user.getGlasses()));
             adapterPuzzle.open();
             puzzles = adapterPuzzle.getPuzzles();
             adapterPuzzle.close();

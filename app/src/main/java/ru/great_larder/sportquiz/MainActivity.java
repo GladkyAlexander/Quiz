@@ -1,29 +1,27 @@
 package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import com.google.android.material.navigation.NavigationView;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
-import ru.great_larder.sportquiz.database.ExternalDB;
 import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.CheckNetClass;
+import ru.great_larder.sportquiz.services.load.LoadDataAppService;
+import ru.great_larder.sportquiz.services.load.LoadDataAppShop;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
@@ -45,10 +43,14 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     private DrawerLayout drawer;
     public TextView textViewBar, tg;
     private ImageView img, imageViewAwatar;
-    private ImageView img_fairies;
+    public ImageView img_fairies;
     private ProgressBar progressBar;
     HandlerUserListener handlerUserListener = new HandlerUserListener();
     FairiesDatabaseAdapter fairiesDatabaseAdapter;
+    
+    public ImageView getImg_fairies() {
+        return img_fairies;
+    }
     
     @SuppressLint("UnsafeIntentLaunch")
     @Override
@@ -66,9 +68,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         adapter.close();
         if (!users.isEmpty()) {
             GlobalLinkUser.setUser(users.get(0));
-            LoadDataApp loadDataApp = new LoadDataApp(this);
-            loadDataApp.setFairies();
-            loadDataApp.setPuzzle();
+                WorkManager workManagerShop = WorkManager.getInstance(this);
+                workManagerShop.enqueue(OneTimeWorkRequest.from(LoadDataAppShop.class));
         } else GlobalLinkUser.setUser(null);
         
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         
         img_fairies = binding.appBarMain.imgFairies;
         progressBar = binding.appBarMain.progressBar;
+        
+        img_fairies.setVisibility(View.VISIBLE);
         
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -92,14 +95,15 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         if (GlobalLinkUser.getUser() != null) {
             loadMainAct(GlobalLinkUser.getUser());
             if (new CheckNetClass().getConnectionType(this) > 0) {
-                new ExternalDB(GlobalLinkUser.getUser(), this);
+                WorkManager workManager = WorkManager.getInstance(this);
+                workManager.enqueue(OneTimeWorkRequest.from(LoadDataAppService.class));
             } else {
                 Toast.makeText(this, "Нет интернета!", Toast.LENGTH_LONG).show();
             }
         }
         mAppBarConfiguration = new AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_language_quiz, R.id.nav_sports_quiz
-            , R.id.nav_school, R.id.nav_traffic_laws, R.id.nav_etiquette, R.id.nav_partners)
+            , R.id.nav_school, R.id.nav_traffic_laws, R.id.nav_etiquette, R.id.nav_city, R.id.nav_partners)
             .setOpenableLayout(drawer)
             .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -190,5 +194,5 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         }
         return 0;
     }
-  
+    
 }

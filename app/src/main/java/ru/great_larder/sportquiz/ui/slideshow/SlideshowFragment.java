@@ -6,12 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import ru.great_larder.sportquiz.GlobalLinkUser;
+import ru.great_larder.sportquiz.database.mysql.SetQuestion;
+import ru.great_larder.sportquiz.database.mysql.request_set_mysql.SetQuestionMathematicsImpl;
+import ru.great_larder.sportquiz.database.mysql.request_set_mysql.SetQuestionSportsImpl;
 import ru.great_larder.sportquiz.databinding.FragmentSlideshowBinding;
+import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionMathematics;
 
 public class SlideshowFragment extends Fragment {
     

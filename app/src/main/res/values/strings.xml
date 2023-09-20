@@ -11,7 +11,6 @@
     <string name="menu_slideshow">Информация</string>
 
     <string name="lets">Давай познакомимся</string>
-    <string name="name">Твое имя</string>
     <string name="done">готово</string>
     <string name="hello">Привет</string>
     <string name="start">начинаем ?</string>
@@ -53,7 +52,7 @@
     <string name="etiquette">Этикет</string>
     <string name="our_partners">Наши партнеры</string>
     <string name="zamanuha">Здесь можете оказаться Вы</string>
-    <string name="city">Твой город</string>
+    <string name="city">Город</string>
     <string name="link">info@great-larder.ru</string>
     <string name="enlist_patronage">Заручиться покровительством</string>
     <string name="buy">Купить</string>
@@ -69,6 +68,28 @@
     </string>
     <string name="date_of_birth">Дата рождения</string>
     <string name="choose">Выбрать</string>
-
+    <string name="domodedovo">Домодедово</string>
+    <string name="our_authors">Наши авторы</string>
+    <string name="do_you_want_to_become_an_author">Хотите стать автором и предложить вопрос ?</string>
+    <string name="obuhovskay_dariy">Обуховская Дарья\n</string>
+    <string name="right_answer">Правильный ответ</string>
+    <string name="answer_option_1">Вариант ответа 1</string>
+    <string name="answer_option_2">Вариант ответа 2</string>
+    <string name="answer_option_3">Вариант ответа 3</string>
+    <string name="link_to_the_detailed_answer_in_the_community_quiz_in_vk">Ссылка на развернутый ответ в сообществе
+        Викторинка в ВК
+    </string>
+    <string name="gretting_fragment_questions_from_the_author">Здравствуйте. Заполните поля ниже и нажмите кнопку отправить.
+        После проверки Ваш вопрос войдет в список вопросов.
+    </string>
+    <string name="section">Раздел</string>
+    <string name="sending_data">Вместе с вопросом отправятся следующие данные : Фамилия, Имя, возраст,
+        город, аватар.
+    </string>
+    <string name="optional_data">Не обязательные данные :</string>
+    <string name="send">Отправить</string>
+    <string name="lastname">Фамилия</string>
+    <string name="firstname">Имя</string>
+    <string name="to_select_an_image_double_click_on_it">чтобы выбрать картинку нажмите дважды на нее</string>
 
 </resources>

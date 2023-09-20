@@ -8,7 +8,8 @@ public interface SQLiteUser {
         "    'glasses'                  INTEGER," +
         "    'themeInstalledNow'        INTEGER," +
         "    'birthday'                 TEXT," +
-        "    'awatar'                   BLOB);";
+        "    'awatar'                   BLOB" +
+        "    'lastname'                 TEXT);";
     
     String INSERT_TABLE_USER = "INSERT INTO user ( " +
         "    name," +
@@ -16,8 +17,9 @@ public interface SQLiteUser {
         "    glasses," +
         "    themeInstalledNow," +
         "    birthday," +
-        "    awatar) " +
-        " VALUES (?,?,?,?,?,?)";
+        "    awatar" +
+        "    lastname) " +
+        " VALUES (?,?,?,?,?,?,?)";
     
     String UPDATE_USER = "UPDATE 'user' SET " +
         "    name = ?," +
@@ -25,7 +27,8 @@ public interface SQLiteUser {
         "    glasses = ?," +
         "    themeInstalledNow = ?," +
         "    birthday = ?," +
-        "    awatar WHERE id = ? ";
+        "    awatar = ?," +
+        "    lastname = ? WHERE id = ? ";
     
     String READ_TABLE_USER = "SELECT * FROM user";
 }

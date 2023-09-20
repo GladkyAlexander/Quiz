@@ -4,81 +4,74 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               tools:context=".ui.partners.PartnersFragment"
-              android:orientation="vertical" android:gravity="center">
+              android:orientation="vertical"
+              android:layout_margin="5dp"
+              android:gravity="center">
 
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayoutFragmentPartners"
+            android:visibility="gone">
+
+    </FrameLayout>
+    <!--<LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|end"
+            android:layout_margin="10dp">
+        <ImageView
+                android:src="@drawable/author"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageViewAuthorFrPartOpen"
+                android:contentDescription="@string/todo"/>
+    </LinearLayout>-->
+    <TextView
+            android:text="@string/our_authors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewOurAuthors"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#070707"
+            android:gravity="center"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/recycleViewAuthors"/>
+    <Button
+            android:text="@string/do_you_want_to_become_an_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonDYWTB_anAuthor"
+            android:textColor="@color/black"
+            android:elevation="15dp"
+            android:scaleType="fitCenter"
+            android:stateListAnimator="@null"
+            android:padding="10dp"
+            android:background="@drawable/button_lihguistics"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"/>
     <TextView
             android:text="@string/our_partners"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textViewPartners" android:textSize="16sp"
-            android:textStyle="bold" android:textColor="#070707" android:gravity="center"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewPartners"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#070707"
+            android:gravity="center"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/linearLayoutPeople" android:paddingTop="10dp" android:paddingBottom="10dp"
-            android:scrollbarStyle="outsideOverlay">
-
-        <ImageButton
-                android:id="@+id/buttonPeople1"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:padding="10dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="fitCenter"
-                android:stateListAnimator="@null"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"/>
-
-        <ImageButton
-                android:id="@+id/buttonPeople2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="15dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="centerInside"
-                android:stateListAnimator="@null"/>
-        <ImageButton
-                android:id="@+id/buttonPeople3"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="fitCenter"
-                android:stateListAnimator="@null"/>
-        <ImageButton
-                android:id="@+id/buttonPeople4"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="15dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="centerInside"
-                android:stateListAnimator="@null"/>
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:id="@+id/linearLayoutCompany" android:paddingTop="10dp" android:paddingBottom="10dp"
+            android:id="@+id/linearLayoutCompany"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
     >
 
         <ImageButton
@@ -151,12 +144,5 @@
             android:textSize="16sp"
             android:textColor="#070707"
             android:gravity="center"/>
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/frameLayoutEtiquette"
-            android:visibility="gone">
-
-    </FrameLayout>
 
 </LinearLayout>

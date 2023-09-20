@@ -5,7 +5,7 @@ import ru.great_larder.sportquiz.database.mysql.sintax_mysql.BiologyMySQL;
 public class BiologyMySQLImpl implements BiologyMySQL {
     @Override
     public String CREATE(String nameDB) {
-        return "CREATE TABLE if not exists`" + nameDB + "`.`biology` (id int" +
+        return "CREATE TABLE if not exists`" + nameDB + "`.`biology` (id int AUTO_INCREMENT primary key NOT NULL" +
             ", question text" +
             ", right_answer text" +
             ", wrong_answer_1 text" +
@@ -17,7 +17,14 @@ public class BiologyMySQLImpl implements BiologyMySQL {
     
     @Override
     public String INSERT(String nameDB) {
-        return null;
+        return "INSERT INTO `" + nameDB + "`.`biology` (" +
+            " question," +
+            " right_answer," +
+            " wrong_answer_1," +
+            " wrong_answer_2," +
+            " wrong_answer_3," +
+            " link," +
+            " level) VALUES (?,?,?,?,?,?,?)";
     }
     
     @Override

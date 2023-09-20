@@ -3,9 +3,11 @@ package ru.great_larder.sportquiz.database;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import ru.great_larder.sportquiz.database.mysql.GetListQuestionCityMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.request_mysql.*;
 import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionCity;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.question.load_question.*;
 
@@ -55,6 +57,9 @@ public class ExternalDB {
             GetListQuestionMySQL getListTrafficLawsQuestion = new GetListTrafficLawsQuestionMySQLImpl();
             List<Question> questionsTrafficLaws = getListTrafficLawsQuestion.getListQuestion(user, context);
             
+            GetListQuestionCityMySQL getListCityQuestion = new GetListCityQuestionMySQLImpl();
+            List<QuestionCity> questionsCity = getListCityQuestion.getListQuestion(user, context);
+            
             handler.post(() -> {
                 ListRuLanguageLoad.setQuestionList(questionsRu);
                 ListBiologyLoad.setQuestionList(questionsBiology);
@@ -67,6 +72,7 @@ public class ExternalDB {
                 ListPhysicsLoad.setQuestionList(questionsPhysics);
                 ListSportsLoad.setQuestionList(questionsSports);
                 ListTrafficLawsLoad.setQuestionList(questionsTrafficLaws);
+                ListCityLoad.setQuestionList(questionsCity);
             });
         });
     }

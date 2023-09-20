@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.submit.SubmitAQuizToTheDatabaseFragment"
+        android:orientation="vertical"
+        android:id="@+id/scrollViewSubmit">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="10dp">
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerChapter"
+                android:minHeight="48dp"
+        />
+
+        <ImageView
+                android:src="@drawable/upphoto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/imageViewChoosePhoto"
+                android:contentDescription="@string/todo"/>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewCityFragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city"
+                    android:minHeight="48dp"
+            android:visibility="gone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewQuestionFragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/question"
+                    android:minHeight="48dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewRightAnswerFragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/right_answer"
+                    android:minHeight="48dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewAnswerOption1FragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/answer_option_1"
+                    android:minHeight="48dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewAnswerOption2FragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/answer_option_2"
+                    android:minHeight="48dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewAnswerOption3FragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/answer_option_3"
+                    android:minHeight="48dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textViewLinkFragmentQuestionsFromAuthorFragmentSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/link_to_the_detailed_answer_in_the_community_quiz_in_vk"
+                    android:minHeight="48dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+                android:text="@string/send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonSendFSQD"
+                android:background="@drawable/button"
+                android:contentDescription="@string/todo"
+                android:scaleType="fitCenter"
+                android:elevation="10dp"
+                android:stateListAnimator="@null"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_margin="30dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

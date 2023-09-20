@@ -13,16 +13,18 @@ public class User {
     int themeInstalledNow;
     String date_of_birth;
     byte[] awatar;
+    String lastName;
     
-    public User(String name, String city, int glasses, int themeInstalledNow, String date_of_birth, byte[] awatar) {
+    public User(String name, String city, int glasses, int themeInstalledNow, String date_of_birth, byte[] awatar, String lastName) {
         this.name = name;
         this.city = city;
         this.glasses = glasses;
         this.themeInstalledNow = themeInstalledNow;
         this.date_of_birth = date_of_birth;
         this.awatar = awatar;
+        this.lastName = lastName;
     }
-    public User(long id, String name, String city, int glasses, int themeInstalledNow, String date_of_birth, byte[] awatar) {
+    public User(long id, String name, String city, int glasses, int themeInstalledNow, String date_of_birth, byte[] awatar, String lastName) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -30,6 +32,15 @@ public class User {
         this.themeInstalledNow = themeInstalledNow;
         this.date_of_birth = date_of_birth;
         this.awatar = awatar;
+        this.lastName = lastName;
+    }
+    
+    public String getLastName() {
+        return lastName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     
     public String getDate_of_birth() {
@@ -101,6 +112,7 @@ public class User {
             ", themeInstalledNow=" + themeInstalledNow +
             ", date_of_birth='" + date_of_birth + '\'' +
             ", awatar=" + Arrays.toString(awatar) +
+            ", lastName='" + lastName + '\'' +
             '}';
     }
 }

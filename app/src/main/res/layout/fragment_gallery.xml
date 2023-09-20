@@ -12,11 +12,13 @@
         android:gravity="center|top"
         android:id="@+id/llStart">
     <TextView
-            android:text="чтобы выбрать картинку нажмите дважды на нее"
+            android:text="@string/to_select_an_image_double_click_on_it"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:gravity="center_horizontal" android:id="@+id/textViewHint"/>
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/textViewHint"/>
     <TextView
-            android:text="@string/name"
+            android:text="@string/firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewNameGalleryFragment"
@@ -50,7 +52,9 @@
                 android:textColor="#070707"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:paddingStart="10dp" android:paddingEnd="10dp" android:layout_margin="5dp"/>
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_margin="5dp"/>
         <TextView
                 android:text="@string/viktikov"
                 android:layout_width="wrap_content"
