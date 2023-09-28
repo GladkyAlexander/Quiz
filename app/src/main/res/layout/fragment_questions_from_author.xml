@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.questions_from_the_author.QuestionsFromAuthorFragment"
@@ -152,17 +152,40 @@
             android:hint="@string/phone"
             android:autofillHints="@string/phone"
             android:minHeight="48dp"/>
-    <Button
+    <TextView
             android:text="@string/send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonSendFQFA"
-            android:background="@drawable/button_lihguistics"
-            android:contentDescription="@string/todo"
-            android:elevation="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ru"
-            android:stateListAnimator="@null"
-            android:layout_margin="25dp"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+    />
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/imageViewEmail"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/email"
+                android:contentDescription="@string/todo"/>
+        <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/imageViewWattsap"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/wotsapp"
+                android:contentDescription="@string/todo"/>
+        <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/imageViewTelegram"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/telegramm"
+                android:contentDescription="@string/todo"/>
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

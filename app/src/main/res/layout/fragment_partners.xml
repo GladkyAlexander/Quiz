@@ -15,19 +15,6 @@
             android:visibility="gone">
 
     </FrameLayout>
-    <!--<LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|end"
-            android:layout_margin="10dp">
-        <ImageView
-                android:src="@drawable/author"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imageViewAuthorFrPartOpen"
-                android:contentDescription="@string/todo"/>
-    </LinearLayout>-->
     <TextView
             android:text="@string/our_authors"
             android:layout_width="match_parent"
@@ -41,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/recycleViewAuthors"/>
+            android:id="@+id/recycleViewAuthors"
+            android:layout_gravity="center|center_horizontal"/>
     <Button
             android:text="@string/do_you_want_to_become_an_author"
             android:layout_width="wrap_content"
@@ -64,70 +52,12 @@
             android:textStyle="bold"
             android:textColor="#070707"
             android:gravity="center"/>
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/linearLayoutCompany"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-    >
-
-        <ImageButton
-                android:id="@+id/buttonCompany1"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="fitCenter"
-                android:stateListAnimator="@null"/>
-
-        <ImageButton
-                android:id="@+id/buttonCompany2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="15dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="centerInside"
-                android:stateListAnimator="@null"/>
-        <ImageButton
-                android:id="@+id/buttonCompany3"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="fitCenter"
-                android:stateListAnimator="@null"/>
-        <ImageButton
-                android:id="@+id/buttonCompany4"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:padding="15dp"
-                android:background="@drawable/button_lihguistics"
-                android:contentDescription="@string/todo"
-                android:elevation="15dp"
-                android:scaleType="centerInside"
-                android:stateListAnimator="@null"/>
-    </LinearLayout>
+            android:id="@+id/recyclerViewCompany"
+            android:layout_gravity="center|center_horizontal"/>
     <TextView
             android:text="@string/zamanuha"
             android:layout_width="match_parent"

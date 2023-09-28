@@ -1,14 +1,11 @@
-package ru.great_larder.sportquiz.database.mysql.request_mysql;
+package ru.great_larder.sportquiz.database.mysql.request_get_mysql;
 
 import android.content.Context;
 import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListAuthor;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.AuthorMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.CityMySQL;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.AuthorMySQLImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.CityMySQLImpl;
 import ru.great_larder.sportquiz.domain.Author;
-import ru.great_larder.sportquiz.domain.QuestionCity;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.sql.Blob;

@@ -6,8 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,8 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.MainActivity;
 import ru.great_larder.sportquiz.R;
 import ru.great_larder.sportquiz.database.author_and_partners.ListLoadAuthor;
+import ru.great_larder.sportquiz.database.author_and_partners.ListLoadCompanyPartners;
 import ru.great_larder.sportquiz.databinding.FragmentPartnersBinding;
 import ru.great_larder.sportquiz.domain.Author;
+import ru.great_larder.sportquiz.domain.CompanyPartners;
 import ru.great_larder.sportquiz.ui.questions_from_the_author.QuestionsFromAuthorFragment;
 import ru.great_larder.sportquiz.ui.submit.SubmitAQuizToTheDatabaseFragment;
 
@@ -30,12 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PartnersFragment extends Fragment implements RecyclerViewAdapterAuthor.ItemClickListener{
+public class PartnersFragment extends Fragment implements RecyclerViewAdapterAuthor.ItemClickListener, RecyclerViewAdapterCompanyPartners.ItemClickListener{
 
     private RecyclerViewAdapterAuthor adapterAuthor;
-    public RecyclerView recycleViewAuthors;
+    private RecyclerViewAdapterCompanyPartners adapterCompany;
+    public RecyclerView recycleViewAuthors, recyclerViewCompany;
     public FrameLayout frameLayoutFragmentPartners;
-//    public ImageView imageViewAuthorFrPartOpen;
     public static PartnersFragment newInstance(String param1, String param2) {
         PartnersFragment fragment = new PartnersFragment();
         Bundle args = new Bundle();
@@ -53,12 +53,9 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
         View root = binding.getRoot();
         
         recycleViewAuthors = binding.recycleViewAuthors;
+        recyclerViewCompany = binding.recyclerViewCompany;
         Button buttonDYWTB_anAuthor = binding.buttonDYWTBAnAuthor;
         frameLayoutFragmentPartners = binding.frameLayoutFragmentPartners;
-
-        /*imageViewAuthorFrPartOpen = binding.imageViewAuthorFrPartOpen;
-        imageViewAuthorFrPartOpen.setClickable(true);
-        imageViewAuthorFrPartOpen.setOnClickListener(c-> openAuthorPane());*/
         
         loadFragment();
         
@@ -70,57 +67,69 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
     @SuppressLint("UseCompatLoadingForDrawables")
     public void loadFragment() {
         List<Author> authorsExternal = ListLoadAuthor.getAuthors();
+        List<CompanyPartners> companyesExternal = ListLoadCompanyPartners.getCompanyPartners();
+        
+        loadRecyclerAuthors(authorsExternal);
+        loadRecyclerCompany(companyesExternal);
+    }
+    
+    private void loadRecyclerCompany(List<CompanyPartners> companyesExternal) {
+        if(companyesExternal != null && !companyesExternal.isEmpty()) {
+            LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
+                , LinearLayoutManager.HORIZONTAL, false);
+            recyclerViewCompany.setLayoutManager(horizontalLayoutManager);
+            adapterCompany = new RecyclerViewAdapterCompanyPartners(requireActivity(), companyesExternal);
+        } else {
+            List<CompanyPartners> companyPartners = new ArrayList<>();
+            companyPartners.add(new CompanyPartners());
+            companyPartners.add(new CompanyPartners());
+            companyPartners.add(new CompanyPartners());
+            companyPartners.add(new CompanyPartners());
+            LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
+                , LinearLayoutManager.HORIZONTAL, false);
+            recyclerViewCompany.setLayoutManager(horizontalLayoutManager);
+            adapterCompany = new RecyclerViewAdapterCompanyPartners(requireActivity(), companyPartners);
+        }
+        adapterCompany.setClickListener(this);
+        recyclerViewCompany.setAdapter(adapterCompany);
+    }
+    
+    private void loadRecyclerAuthors(List<Author> authorsExternal) {
         if(authorsExternal != null && !authorsExternal.isEmpty()) {
-            List<String> nameAuthor = new ArrayList<>();
-            List<String> lastNameAuthor = new ArrayList<>();
-            List<byte[]> photoAuthor = new ArrayList<>();
-            for (Author author : authorsExternal) {
-                nameAuthor.add(author.getFirstNameAuthor());
-                lastNameAuthor.add(author.getLastNameAuthor());
-                photoAuthor.add(author.getPhoto());
-            }
-            
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
             recycleViewAuthors.setLayoutManager(horizontalLayoutManager);
-            adapterAuthor = new RecyclerViewAdapterAuthor(requireActivity(), nameAuthor, lastNameAuthor, photoAuthor);
+            adapterAuthor = new RecyclerViewAdapterAuthor(requireActivity(), authorsExternal);
         } else {
             List<Author> authors = new ArrayList<>();
-            authors.add(new Author("Обуховская", "Дарья", null));
             @SuppressLint("UseCompatLoadingForDrawables")
             Bitmap bitmap = ((BitmapDrawable) Objects.requireNonNull(ContextCompat.getDrawable(requireActivity(), R.drawable.a_s_gl))).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             
             authors.add(new Author("Гладкий", "Александр", stream.toByteArray()));
-            authors.add(new Author("", "", null));
-            authors.add(new Author("", "", null));
-            
-            List<String> nameAuthor = new ArrayList<>();
-            List<String> lastNameAuthor = new ArrayList<>();
-            List<byte[]> photoAuthor = new ArrayList<>();
-            for (Author author : authors) {
-                nameAuthor.add(author.getFirstNameAuthor());
-                lastNameAuthor.add(author.getLastNameAuthor());
-                photoAuthor.add(author.getPhoto());
-            }
+            authors.add(new Author("Обуховская", "Дарья", null));
+            authors.add(new Author());
+            authors.add(new Author());
             
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
             recycleViewAuthors.setLayoutManager(horizontalLayoutManager);
-            adapterAuthor = new RecyclerViewAdapterAuthor(requireActivity(), nameAuthor, lastNameAuthor, photoAuthor);
+            adapterAuthor = new RecyclerViewAdapterAuthor(requireActivity(), authors);
         }
         adapterAuthor.setClickListener(this);
         recycleViewAuthors.setAdapter(adapterAuthor);
     }
     
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClickAuthor(View view, int position, Author author) {
 //        Toast.makeText(requireActivity(), "Вы нажали " + adapterAuthor.getItem(position) + " по позиции элемента " + position, Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onItemClickCompanyPartners(View view, int position, CompanyPartners companyPartners) {
     
+    }
     private void openFormQuestionsFromAuthor() {
-        
         QuestionsFromAuthorFragment questionsFromAuthorFragment = new QuestionsFromAuthorFragment();
         questionsFromAuthorFragment.setPartnersFragment(this);
         ((MainActivity) requireActivity()).getImg_fairies().setVisibility(View.GONE);

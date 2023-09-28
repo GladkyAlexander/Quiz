@@ -21,15 +21,6 @@
     <string name="out">Выйти</string>
     <string name="timer">Время :</string>
     <string name="todo">TODO</string>
-    <!--<string name="points_1">5 виктиков</string>
-    <string name="points_2">10 виктиков</string>
-    <string name="points_3">15 виктиков</string>
-    <string name="points_4">20 виктиков</string>
-    <string name="points_5">25 виктиков</string>
-    <string name="points_6">30 виктиков</string>
-    <string name="points_7">35 виктиков</string>
-    <string name="points_8">40 виктиков</string>
-    <string name="points_9">45 виктиков</string>-->
 
     <string name="message">Сообщение</string>
     <string name="yes">да</string>
@@ -83,8 +74,8 @@
         После проверки Ваш вопрос войдет в список вопросов.
     </string>
     <string name="section">Раздел</string>
-    <string name="sending_data">Вместе с вопросом отправятся следующие данные : Фамилия, Имя, возраст,
-        город, аватар.
+    <string name="sending_data">Вместе с вопросом отправятся следующие данные: Фамилия, Имя, возраст,
+        город.
     </string>
     <string name="optional_data">Не обязательные данные :</string>
     <string name="send">Отправить</string>

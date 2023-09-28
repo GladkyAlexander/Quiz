@@ -18,9 +18,9 @@ public class GetQuestionBiologyImpl implements GetQuestion {
             
             List<Question> list = new ArrayList<>();
             list.add(new Question("Муж овцы?", "Баран"
-                , "Козел.", "Овчар.", "Овцебык", null, 1));
+                , "Козел", "Овчар", "Овцебык", null, 1));
             list.add(new Question("Чем питаются колибри?", "Нектаром и мелкими насекомыми"
-                , "Цветами и фруктами.", "Мелкой рыбой.", "Семенами трав", null, 1));
+                , "Цветами и фруктами", "Мелкой рыбой", "Семенами трав", null, 1));
             list.add(new Question("Какая бабочка вредит людям тем, что портит одежду?", "Моль"
                 , "Капустница", "Махаон", "Огнёвка", "https://vk.com/wall-221127130_12", 1));
             list.add(new Question("Какой рыбы не существует?", "Рыба-плоскогубцы"
@@ -49,6 +49,7 @@ public class GetQuestionBiologyImpl implements GetQuestion {
                 , "Полярные", "Летучие", "Морские", null, 1));
             list.add(new Question("Как называются самые крупные рыбы на планете?", "Акулы"
                 , "Моржи", "Дельфины", "Киты", "https://vk.com/wall-221127130_26", 1));
+            
             list.add(new Question("Что означает название «птерозавр»?", "Летающий ящер"
                 , "Рогатый ящер", "Быстрый охотник", "Рыбоящер", "https://vk.com/wall-221127130_27", 1));
             

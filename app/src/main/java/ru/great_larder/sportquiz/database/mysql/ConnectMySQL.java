@@ -30,6 +30,7 @@ public class ConnectMySQL {
     TrafficLawsMySQL trafficLawsMySQL = new TrafficLawsMySQLImpl();
     CityMySQL cityMySQL = new CityMySQLImpl();
     AuthorMySQL authorMySQL = new AuthorMySQLImpl();
+    CompanyPartnersMySQL companyPartnersMySQL = new CompanyPartnersMySQLImpl();
     
     public ConnectMySQL(User user, Context context) {
         this.user = user;
@@ -185,6 +186,16 @@ public class ConnectMySQL {
         try {
             statementMySQL = connectionMySQL.createStatement();
             statementMySQL.execute(authorMySQL.CREATE(nameDB));
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    
+    public void createTableCompanyPartnersMySQL() {
+        setConnectionMySQL();
+        try {
+            statementMySQL = connectionMySQL.createStatement();
+            statementMySQL.execute(companyPartnersMySQL.CREATE(nameDB));
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }

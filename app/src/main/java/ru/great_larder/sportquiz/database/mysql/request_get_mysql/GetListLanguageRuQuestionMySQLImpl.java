@@ -1,4 +1,4 @@
-package ru.great_larder.sportquiz.database.mysql.request_mysql;
+package ru.great_larder.sportquiz.database.mysql.request_get_mysql;
 
 import android.content.Context;
 import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;

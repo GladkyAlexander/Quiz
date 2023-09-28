@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import ru.great_larder.sportquiz.database.author_and_partners.ListLoadAuthor;
 import ru.great_larder.sportquiz.database.mysql.GetListAuthor;
-import ru.great_larder.sportquiz.database.mysql.request_mysql.GetListAuthorImpl;
+import ru.great_larder.sportquiz.database.mysql.request_get_mysql.GetListAuthorImpl;
 import ru.great_larder.sportquiz.domain.Author;
 import ru.great_larder.sportquiz.domain.User;
 

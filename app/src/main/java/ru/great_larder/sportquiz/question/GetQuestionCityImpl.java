@@ -12,10 +12,8 @@ public class GetQuestionCityImpl implements GetQuestion {
     @Override
     public List<Question> getListQuestion(String value) {
         if(ListCityLoad.getQuestionList() != null && !ListCityLoad.getQuestionList().isEmpty()){
-            
-            List<Question> retList = new ArrayList<>();
+           List<Question> retList = new ArrayList<>();
             List<QuestionCity> inList = ListCityLoad.getQuestionList();
-            
             for (QuestionCity q : inList){
                 if (value.equals(q.getCity())){
                    retList.add(q);

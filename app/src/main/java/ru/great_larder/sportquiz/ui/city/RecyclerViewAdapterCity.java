@@ -2,31 +2,27 @@ package ru.great_larder.sportquiz.ui.city;
 
 import android.content.Context;
 import android.graphics.*;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
-import ru.great_larder.sportquiz.OfTheGameFragment;
 import ru.great_larder.sportquiz.R;
+import ru.great_larder.sportquiz.domain.QuestionCity;
 
 import java.util.List;
 
 public class RecyclerViewAdapterCity extends RecyclerView.Adapter<RecyclerViewAdapterCity.ViewHolder> {
-    private List<String> nameCityList;
-    private List<byte[]> logoCityList;
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
+    private final List<QuestionCity> questionCities;
     private RecyclerViewAdapterCity.ItemClickListener mClickListener;
     
-    public RecyclerViewAdapterCity(Context context, List<String> nameCityList, List<byte[]> logoCityList) {
+    public RecyclerViewAdapterCity(Context context, List<QuestionCity> questionCities) {
         this.mInflater = LayoutInflater.from(context);
-        this.nameCityList = nameCityList;
-        this.logoCityList = logoCityList;
+        this.questionCities = questionCities;
     }
     
     @NonNull
@@ -39,23 +35,19 @@ public class RecyclerViewAdapterCity extends RecyclerView.Adapter<RecyclerViewAd
     
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerViewAdapterCity.ViewHolder holder, int position) {
-        String name = nameCityList.get(position);
+        String name = questionCities.get(position).getCity();
         holder.nameCity.setText(name);
-        if(logoCityList != null && !logoCityList.isEmpty()) {
-            byte[] animal = logoCityList.get(position);
-            if(animal != null && animal.length > 0) {
-                holder.logoCity.setImageBitmap(getRoundedRectBitmap(BitmapFactory.decodeByteArray(animal, 0, animal.length)));
+        if(questionCities.get(position).getLabel() != null && questionCities.get(position).getLabel().length > 0){
+                holder.logoCity.setImageBitmap(getRoundedRectBitmap(BitmapFactory.decodeByteArray(
+                    questionCities.get(position).getLabel(), 0, questionCities.get(position).getLabel().length)));
             }else {
-                holder.logoCity.setImageBitmap(getRoundedRectBitmap(BitmapFactory.decodeResource(mInflater.getContext().getResources(), R.drawable.city_quiz)));
-            }
-        } else {
             holder.logoCity.setImageBitmap(getRoundedRectBitmap(BitmapFactory.decodeResource(mInflater.getContext().getResources(), R.drawable.city_quiz)));
         }
     }
     
     @Override
     public int getItemCount() {
-        return nameCityList.size();
+        return questionCities.size();
     }
     
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -76,7 +68,7 @@ public class RecyclerViewAdapterCity extends RecyclerView.Adapter<RecyclerViewAd
     }
     
     public String getItem(int id) {
-        return nameCityList.get(id);
+        return questionCities.get(id).getCity();
     }
     
     // allows clicks events to be caught

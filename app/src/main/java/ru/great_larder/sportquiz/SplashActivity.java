@@ -14,8 +14,6 @@ import android.os.Bundle;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     
-    /*Handler mHandler;
-    Runnable mRunnable;*/
     ImageView imageViewSplash;
     Animation rotate_anim;
     

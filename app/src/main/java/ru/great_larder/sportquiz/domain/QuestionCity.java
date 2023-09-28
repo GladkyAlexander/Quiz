@@ -38,7 +38,6 @@ public class QuestionCity extends Question{
         this.label = label;
     }
     
-    @NotNull
     @Override
     public String toString() {
         return "QuestionCity{" +

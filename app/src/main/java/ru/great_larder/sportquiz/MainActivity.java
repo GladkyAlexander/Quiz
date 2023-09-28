@@ -1,12 +1,16 @@
 package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,14 +37,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static android.app.PendingIntent.getActivity;
-
 
 public class MainActivity extends AppCompatActivity implements ObserverUser {
     
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
-    private DrawerLayout drawer;
     public TextView textViewBar, tg;
     private ImageView img, imageViewAwatar;
     public ImageView img_fairies;
@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
                 workManagerShop.enqueue(OneTimeWorkRequest.from(LoadDataAppShop.class));
         } else GlobalLinkUser.setUser(null);
         
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ru.great_larder.sportquiz.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         textViewBar = binding.appBarMain.textViewRight;
         img = binding.appBarMain.imageViewVik;
-        drawer = binding.drawerLayout;
+        DrawerLayout drawer = binding.drawerLayout;
         
         img_fairies = binding.appBarMain.imgFairies;
         progressBar = binding.appBarMain.progressBar;

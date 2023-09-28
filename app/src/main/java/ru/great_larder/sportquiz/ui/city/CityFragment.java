@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+import ru.great_larder.sportquiz.GetQuestion;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.OfTheGameFragment;
 import ru.great_larder.sportquiz.databinding.FragmentCityBinding;
@@ -25,10 +26,7 @@ import ru.great_larder.sportquiz.question.GetQuestionCityImpl;
 import ru.great_larder.sportquiz.services.CheckNetClass;
 import ru.great_larder.sportquiz.services.load.LoadDataAppService;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class CityFragment extends Fragment implements RecyclerViewAdapterCity.ItemClickListener{
@@ -37,7 +35,7 @@ public class CityFragment extends Fragment implements RecyclerViewAdapterCity.It
     private RecyclerView recyclerViewFragmentCity;
     User user = GlobalLinkUser.getUser();
     RecyclerViewAdapterCity adapterCity;
-    private List<String> listNameCity;
+    List<QuestionCity> questionCityList;
     
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -64,37 +62,36 @@ public class CityFragment extends Fragment implements RecyclerViewAdapterCity.It
             GetQuestionCityImpl getQuestion = new GetQuestionCityImpl();
             List<Question> questionCities = getQuestion.getListAll();
             if(questionCities != null && !questionCities.isEmpty()){
-                Set<String> nameCity = new HashSet<>();
-                Set<byte[]> logo = new HashSet<>();
-                for (Question questionCity : questionCities){
-                    nameCity.add(((QuestionCity)questionCity).getCity());
-                    logo.add(((QuestionCity)questionCity).getLabel());
+                List<QuestionCity> jk = new ArrayList<>();
+                for (Question q : questionCities){
+                    jk.add((QuestionCity) q);
                 }
-                listNameCity = new ArrayList<>(nameCity);
-                List<byte[]> listLogo = new ArrayList<>(logo);
+                
+                TreeSet<QuestionCity> outList = new TreeSet<>(Comparator.comparing(QuestionCity::getCity));
+                outList.addAll(jk);
+                
+                questionCityList = new ArrayList<>(outList);
                 
                 LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.VERTICAL, false);
                 recyclerViewFragmentCity.setLayoutManager(verticalLayoutManager);
                 
-                adapterCity = new RecyclerViewAdapterCity(requireActivity() ,listNameCity, listLogo);
+                adapterCity = new RecyclerViewAdapterCity(requireActivity(), questionCityList/*listNameCity, listLogo*/);
                 adapterCity.setClickListener(this);
                 recyclerViewFragmentCity.setAdapter(adapterCity);
                 
-            } else {
-                Toast.makeText(requireActivity(), "Вопросы еще не загрузились. Подождите", Toast.LENGTH_LONG).show();
-                if (new CheckNetClass().getConnectionType(requireActivity()) > 0) {
+            } else if(new CheckNetClass().getConnectionType(requireActivity()) > 0){
+                    Toast.makeText(requireActivity(), "Вопросы еще не загрузились. Подождите", Toast.LENGTH_LONG).show();
                     WorkManager workManager = WorkManager.getInstance(requireActivity());
                     workManager.enqueue(OneTimeWorkRequest.from(LoadDataAppService.class));
-                } else {
+            } else if(new CheckNetClass().getConnectionType(requireActivity()) < 0){
                     Toast.makeText(requireActivity(), "Нет интернета!", Toast.LENGTH_LONG).show();
                 }
-            }
         } else Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
     }
     @Override
     public void onItemClick(View view, int position) {
-       startVictory(listNameCity.get(position));
+       startVictory(questionCityList.get(position).getCity());
     }
     
     private void startVictory(String city) {
