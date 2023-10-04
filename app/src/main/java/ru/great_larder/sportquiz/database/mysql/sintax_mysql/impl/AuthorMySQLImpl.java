@@ -5,9 +5,11 @@ import ru.great_larder.sportquiz.database.mysql.sintax_mysql.AuthorMySQL;
 public class AuthorMySQLImpl implements AuthorMySQL {
     @Override
     public String CREATE(String nameDB) {
-        return "CREATE TABLE if not exists`" + nameDB + "`.`author` (id int" +
+        return "CREATE TABLE if not exists`" + nameDB + "`.`author` (id int AUTO_INCREMENT primary key NOT NULL" +
             ", lastNameAuthor text" +
             ", firstNameAuthor text" +
+            ", aboutMe text" +
+            ", link text" +
             ", photo longblob) ENGINE = InnoDB";
     }
     

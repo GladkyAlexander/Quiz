@@ -31,6 +31,8 @@ public class GetListCompanyPartnersImpl implements GetListCompanyPartners {
                 
                 CompanyPartners partners = new CompanyPartners();
                 partners.setNameCompany(connectMySQL.resultSetMySQL.getString("name"));
+                partners.setAboutMe(connectMySQL.resultSetMySQL.getString("aboutMe"));
+                partners.setLink(connectMySQL.resultSetMySQL.getString("link"));
                 
                 Blob blob = connectMySQL.resultSetMySQL.getBlob("logo");
                 int blobLength = (int) blob.length();

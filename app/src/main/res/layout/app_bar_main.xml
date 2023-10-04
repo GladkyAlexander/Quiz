@@ -71,15 +71,22 @@
                        android:padding="10dp"
                        android:contentDescription="@string/todo"/>
         </FrameLayout>
-<!--
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fabCustomSize="100dp"
+            app:maxImageSize="100dp"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="16dp"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
--->
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/hint"
+            android:contentDescription="@string/todo"
+            app:elevation="0dp"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="0dp"/>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

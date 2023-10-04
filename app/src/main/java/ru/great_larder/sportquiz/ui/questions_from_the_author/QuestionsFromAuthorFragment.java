@@ -3,7 +3,6 @@ package ru.great_larder.sportquiz.ui.questions_from_the_author;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,22 +18,11 @@ import ru.great_larder.sportquiz.MainActivity;
 import ru.great_larder.sportquiz.services.CheckNetClass;
 import ru.great_larder.sportquiz.ui.partners.PartnersFragment;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
 public class QuestionsFromAuthorFragment extends Fragment {
     private TextInputEditText textViewQuestion, textViewRightAnswer, textViewAnswerOption1, textViewAnswerOption2
         , textViewAnswerOption3, textViewLinkFragmentQuestionsFromAuthor, textViewSection, textInputEditTextLastName
         , textInputEditTextFirstName;
-    private EditText editTextTextEmailAddressFQFA, editTextPhoneFQFA;
-    private ImageView imageViewEmail, imageViewWattsap, imageViewTelegram;
+    private ImageView imageViewEmail, imageViewWattsap;
     private QuestionsFromAuthorViewModel mViewModel;
     
     private PartnersFragment partnersFragment;
@@ -69,13 +57,8 @@ public class QuestionsFromAuthorFragment extends Fragment {
         textViewLinkFragmentQuestionsFromAuthor = binding.textViewLinkFragmentQuestionsFromAuthor;
         textViewSection = binding.textViewSection;
         
-        editTextTextEmailAddressFQFA = binding.editTextTextEmailAddressFQFA;
-        editTextPhoneFQFA = binding.editTextPhoneFQFA;
-        
         imageViewEmail = binding.imageViewEmail;
         imageViewEmail.setClickable(true);
-        imageViewTelegram = binding.imageViewTelegram;
-        imageViewTelegram.setClickable(true);
         imageViewWattsap = binding.imageViewWattsap;
         imageViewWattsap.setClickable(true);
         
@@ -85,10 +68,6 @@ public class QuestionsFromAuthorFragment extends Fragment {
     }
     
     private void loadFragment() {
-        if(GlobalLinkUser.getUser() != null){
-            textInputEditTextLastName.setText(GlobalLinkUser.getUser().getLastName());
-            textInputEditTextFirstName.setText(GlobalLinkUser.getUser().getName());
-        }
         imageViewEmail.setOnClickListener(v ->{
             if(GlobalLinkUser.getUser() != null) {
                 if (new CheckNetClass().getConnectionType(requireActivity()) > 0) {
@@ -111,25 +90,11 @@ public class QuestionsFromAuthorFragment extends Fragment {
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
             }
         });
-        imageViewTelegram.setOnClickListener(v ->{
-            if(GlobalLinkUser.getUser() != null) {
-                if (new CheckNetClass().getConnectionType(requireActivity()) > 0) {
-                    sendTelegram();
-                } else {
-                    Toast.makeText(requireActivity(), "Нет интернета! Проверьте подключение", Toast.LENGTH_LONG).show();
-                }
-            } else {
-                Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
-            }
-        });
     }
     
     private String getMailText() {
-        return "Здравствуйте. Это " + GlobalLinkUser.getUser().getName() + " . "
-            + " " + GlobalLinkUser.getUser().getLastName() + " . "
-            + " " + GlobalLinkUser.getUser().getDate_of_birth() + " года рождения . "
-            + "  Мой адрес электронной почты : " + editTextTextEmailAddressFQFA.getText() + " . "
-            + "  Мой телефон : " + editTextPhoneFQFA.getText() + " . "
+        return "Здравствуйте. Это " +  " ................... "
+            +    GlobalLinkUser.getUser().getDate_of_birth() + " года рождения . "
             + "  Я предлагаю вопрос к разделу : " + textViewSection.getText() + " . "
             + "  Вопрос : " + textViewQuestion.getText() + " . "
             + "  Правильный ответ : " + textViewRightAnswer.getText() + " . "
@@ -151,32 +116,19 @@ public class QuestionsFromAuthorFragment extends Fragment {
             getPartnersFragment().frameLayoutFragmentPartners.setVisibility(View.GONE);
             getPartnersFragment().loadFragment();
             ((MainActivity) requireActivity()).getImg_fairies().setVisibility(View.VISIBLE);
+            ((MainActivity) requireActivity()).getProgressBar().setVisibility(View.VISIBLE);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(requireActivity(), "Почтовые клиенты не установлены.", Toast.LENGTH_SHORT).show();
         }
     }
     private void sendWatsap(){
-        String link = "https://chat.whatsapp.com/Fhnbm4sNmG6E0z4fwiEx7W";
+        String link = "+79990012595";
         startActivity(
             new Intent(Intent.ACTION_VIEW,
                 Uri.parse(
-                    String.format("https://api.whatsapp.com/send?phone=%s&text=%s", link /*phoneNumberWithCountryCode*/, getMailText())
+                    String.format("https://api.whatsapp.com/send?phone=%s&text=%s", link, getMailText())
                 )
             )
         );
     }
-    private void sendTelegram() {
-        Intent sendIntent = new Intent();
-        sendIntent.setDataAndType(Uri.parse("https://t.me/@a_s_gladky"),"text/plain");
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT,getMailText());
-        sendIntent.setPackage("org.telegram.messenger");
-        try{
-            startActivity(sendIntent);
-        }
-        catch (android.content.ActivityNotFoundException ex){
-            Toast.makeText(getContext(),"Install Telegram",Toast.LENGTH_LONG).show();
-        }
-    }
-    
 }

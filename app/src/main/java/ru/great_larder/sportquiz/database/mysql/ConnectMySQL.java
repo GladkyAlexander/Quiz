@@ -18,7 +18,7 @@ public class ConnectMySQL {
     public ResultSet resultSetMySQL;
     
     LanguageRuMySQL languageRuMySQL = new LanguageRuMySQLImpl();
-    LanguageRuMySQL languageEnMySQL = new LanguageRuMySQLImpl();
+    LanguageEnMySQL languageEnMySQL = new LanguageEnMySQLImpl();
     BiologyMySQL biologyMySQL = new BiologyMySQLImpl();
     EtiquetteBusinessMySQL etiquetteBusinessMySQL = new EtiquetteBusinessMySQLImpl();
     EtiquetteSecularMySQL etiquetteSecularMySQL = new EtiquetteSecularMySQLImpl();

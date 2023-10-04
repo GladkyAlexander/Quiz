@@ -2,10 +2,10 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:motion="http://schemas.android.com/apk/res-auto">
     <Transition
-            motion:constraintSetStart="@id/start"
-            motion:constraintSetEnd="@+id/next"
+            motion:constraintSetStart="@id/startPazl"
+            motion:constraintSetEnd="@+id/nextPazl"
             motion:duration="1000"
-            android:id="@+id/forward">
+            android:id="@+id/forwardPazl">
         <KeyFrameSet>
         </KeyFrameSet>
         <OnSwipe
@@ -14,9 +14,9 @@
     </Transition>
 
     <Transition
-            motion:constraintSetStart="@+id/start"
-            motion:constraintSetEnd="@+id/previous"
-            android:id="@+id/backward">
+            motion:constraintSetStart="@+id/startPazl"
+            motion:constraintSetEnd="@+id/previousPazl"
+            android:id="@+id/backwardPazl">
 
         <OnSwipe
                 motion:dragDirection="dragRight"
@@ -25,7 +25,7 @@
     </Transition>
 
 
-    <ConstraintSet android:id="@+id/previous">
+    <ConstraintSet android:id="@+id/previousPazl">
         <Constraint
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -71,7 +71,7 @@
                 android:alpha="0.5" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/start">
+    <ConstraintSet android:id="@+id/startPazl">
         <Constraint
                 motion:layout_constraintEnd_toEndOf="@id/guidelinePazl2"
                 android:layout_width="0dp"
@@ -110,7 +110,7 @@
                 android:alpha="0.5" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/next">
+    <ConstraintSet android:id="@+id/nextPazl">
         <Constraint
                 android:layout_width="100dp"
                 android:layout_height="100dp"

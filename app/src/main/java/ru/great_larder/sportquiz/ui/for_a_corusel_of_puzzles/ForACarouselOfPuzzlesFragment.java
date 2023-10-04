@@ -45,7 +45,10 @@ public class ForACarouselOfPuzzlesFragment extends Fragment {
             fl.removeAllViews();
             imgPZL.setImageResource(puzzle.getId_drawable_resource());
             fl.addView(imgPZL);
-            for (ImageView im : getListImg(puzzle)){
+            
+            List<ImageView> imageViewList = getListImg(puzzle);
+            
+            for (ImageView im : imageViewList){
                 fl.addView(im);
             }
         }

@@ -44,7 +44,8 @@ public class SlideshowFragment extends Fragment {
             startActivity(browserIntent);
         });
         imageButtonTelegram.setOnClickListener(v -> {
-            Intent browserTelegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/+buSTBjoX_D9kMGQy"));
+            //Intent browserTelegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/+buSTBjoX_D9kMGQy"));
+            Intent browserTelegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/@a_s_gladky"));
             startActivity(browserTelegram);
         });
         return root;

@@ -20,7 +20,7 @@ public class GetQuestionTrafficLawsImpl implements GetQuestion {
             List<Question> list = new ArrayList<>();
             
             list.add(new Question("Документ на одну поездку в общественном транспорте?", "Билет"
-                , "Договор", "Визитка.", "Бумажка.", null, 1));
+                , "Договор", "Визитка", "Бумажка", null, 1));
             list.add(new Question("Животное, которое вспоминают, измеряя единицы мощности автомобиля?", "Лошадь"
                 , "Корова", "Овца", "Осел", null, 1));
             list.add(new Question("«Обувь» для колес?", "Шины"
@@ -35,7 +35,7 @@ public class GetQuestionTrafficLawsImpl implements GetQuestion {
                 , "Белый", "Желтый", "Красный", null, 1));
             list.add(new Question("Подземный общественный транспорт?", "Метро"
                 , "Трамвай", "Автобус", "Машина", null, 1));
-            list.add(new Question("Животное лежащее на пешеходном переходе?", "Зебра."
+            list.add(new Question("Животное лежащее на пешеходном переходе?", "Зебра"
                 , "Кошка", "Суслик", "Корова", null, 1));
             list.add(new Question("Что ищет водитель, если дорога закрыта на ремонт?", "Объезд"
                 , "Тоннель", "Переезд", "Съезд", null, 1));

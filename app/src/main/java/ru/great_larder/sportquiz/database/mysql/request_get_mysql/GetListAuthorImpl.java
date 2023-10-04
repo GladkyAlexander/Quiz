@@ -29,6 +29,8 @@ public class GetListAuthorImpl implements GetListAuthor {
                 Author author = new Author();
                 author.setLastNameAuthor(connectMySQL.resultSetMySQL.getString("lastNameAuthor"));
                 author.setFirstNameAuthor(connectMySQL.resultSetMySQL.getString("firstNameAuthor"));
+                author.setAboutMe(connectMySQL.resultSetMySQL.getString("aboutMe"));
+                author.setLink(connectMySQL.resultSetMySQL.getString("link"));
                 
                 Blob blob = connectMySQL.resultSetMySQL.getBlob("photo");
                 int blobLength = (int) blob.length();

@@ -1,5 +1,7 @@
 package ru.great_larder.sportquiz.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Chapter {
     String name;
     Integer idResources;
@@ -25,6 +27,7 @@ public class Chapter {
         this.idResources = idResources;
     }
     
+    @NotNull
     @Override
     public String toString() {
         return "Chapter{" +

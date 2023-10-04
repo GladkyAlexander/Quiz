@@ -1,6 +1,8 @@
 package ru.great_larder.sportquiz.domain;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 public class Fairies {
@@ -91,6 +93,7 @@ public class Fairies {
         this.activity_fairies = activity_fairies;
     }
     
+    @NotNull
     @Override
     public String toString() {
         return "Fairies{" +

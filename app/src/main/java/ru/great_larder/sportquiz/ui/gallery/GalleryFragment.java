@@ -37,7 +37,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
     
     private FragmentGalleryBinding binding;
     private TextView textViewNameGalleryFragment, textViewPuzzleGreeting, textViewFairiesGretting;
-    private TextView textViewPointsGF, textViewPriceFairies, textViewHint, textViewPointsGalleryFragment;
+    private TextView textViewPointsGF, textViewPriceFairies, textViewHint, textViewPointsGalleryFragment, outTest;
     private ImageView img3, imgMax;
     private FrameLayout frameLayoutFairies, frameLayoutPuzzleImage, imgPuzzle3;
     private Carousel carousel, carouselPuzzle;
@@ -70,6 +70,8 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         textViewFairiesGretting = binding.textViewFairiesGreeting;
         textViewHint = binding.textViewHint;
         textViewPointsGalleryFragment = binding.textViewPointsGalleryFragment;
+        
+        outTest = binding.outTest;
         
         carousel = binding.carousel;
         motion = binding.motion;
@@ -118,7 +120,6 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                         adapterFairies.open();
                         adapterFairies.update(g);
                         adapterFairies.close();
-                        //-------------------------------
                     }
                     adapterFairies.open();
                     adapterFairies.update(fairiesToInstall);
@@ -129,7 +130,6 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                     userAdapter.update(user);
                     userAdapter.close();
                     GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
-                   
                 } else Toast.makeText(requireActivity(), "Не достаточно Виктиков!", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
@@ -207,6 +207,7 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                         return getNumImagesPuzzle;
                     }
                     
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void populate(View view, int index) {
                         if (view instanceof FrameLayout) {
@@ -222,7 +223,6 @@ public class GalleryFragment extends Fragment implements ObserverUser {
                             frameLayout.setTag(puzzles.get(index));
                         }
                     }
-                    
                     @Override
                     public void onNewItem(int index) {
                     }
@@ -257,9 +257,9 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    
     @Override
     public void updateUser(DataUser dataUser) {
         loadFragment(dataUser.getUser());
     }
+    
 }

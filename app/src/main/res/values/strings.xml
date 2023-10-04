@@ -36,7 +36,7 @@
     <string name="language_quiz">Лингвистика</string>
     <string name="sports_quiz">Спортивные</string>
     <string name="school">Школьные</string>
-    <string name="traffic_laws">ПДД</string>
+    <string name="traffic_laws">Транспорт</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="partners">Партнеры</string>
@@ -74,13 +74,17 @@
         После проверки Ваш вопрос войдет в список вопросов.
     </string>
     <string name="section">Раздел</string>
-    <string name="sending_data">Вместе с вопросом отправятся следующие данные: Фамилия, Имя, возраст,
-        город.
-    </string>
     <string name="optional_data">Не обязательные данные :</string>
     <string name="send">Отправить</string>
     <string name="lastname">Фамилия</string>
     <string name="firstname">Имя</string>
     <string name="to_select_an_image_double_click_on_it">чтобы выбрать картинку нажмите дважды на нее</string>
-
+    <string name="textSend">Вместе с вопросом отправятся следующие данные: Ваш ник, возраст,
+        город. Добавьте фото(или картинку) для оформления иконки. Если напишите немного о себе -
+        пользователи это увидят. Отправляя введенные данные Вы соглашаетесь с тем, что они будут отображены в приложении.
+    </string>
+<string name="introduce_yourself">Представьтесь</string>
+    <string name="this_is_not_a_mandatory_action">"Это не обязательное действие. Все введенные данные хранятся на этом
+        устройстве. "
+    </string>
 </resources>

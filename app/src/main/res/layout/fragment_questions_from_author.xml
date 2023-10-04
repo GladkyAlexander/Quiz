@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_weight="1">
 
-            <com.google.android.material.textfield.TextInputEditText
+           <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textInputEditTextLastName"
@@ -124,34 +124,15 @@
                 android:minHeight="48dp"/>
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
-            android:text="@string/sending_data"
+            android:text="@string/textSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
-            android:gravity="center"/>
-    <TextView
-            android:text="@string/optional_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView11" android:textStyle="bold"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/editTextTextEmailAddressFQFA"
-            android:hint="@string/email"
-            android:autofillHints="@string/email"
-            android:minHeight="48dp"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:ems="10"
-            android:id="@+id/editTextPhoneFQFA"
-            android:hint="@string/phone"
-            android:autofillHints="@string/phone"
-            android:minHeight="48dp"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+    />
+
     <TextView
             android:text="@string/send"
             android:layout_width="match_parent"
@@ -161,10 +142,12 @@
             android:textSize="20sp"
             android:gravity="center_horizontal"
     />
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp">
         <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -178,13 +161,6 @@
                 android:id="@+id/imageViewWattsap"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/wotsapp"
-                android:contentDescription="@string/todo"/>
-        <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:id="@+id/imageViewTelegram"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/telegramm"
                 android:contentDescription="@string/todo"/>
     </LinearLayout>
 </LinearLayout>

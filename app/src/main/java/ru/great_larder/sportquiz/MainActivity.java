@@ -1,11 +1,15 @@
 package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +22,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.CheckNetClass;
+import ru.great_larder.sportquiz.services.GetActiveFairies;
 import ru.great_larder.sportquiz.services.load.LoadDataAppService;
 import ru.great_larder.sportquiz.services.load.LoadDataAppShop;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     private ImageView img, imageViewAwatar;
     public ImageView img_fairies;
     private ProgressBar progressBar;
+    private FloatingActionButton fabHideFab;
+    private Animation animShowFab, animHideFab;
     HandlerUserListener handlerUserListener = new HandlerUserListener();
     FairiesDatabaseAdapter fairiesDatabaseAdapter;
     
@@ -52,7 +60,11 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         return img_fairies;
     }
     
-    @SuppressLint("UnsafeIntentLaunch")
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+    
+    @SuppressLint({"UnsafeIntentLaunch", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,19 +80,23 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         adapter.close();
         if (!users.isEmpty()) {
             GlobalLinkUser.setUser(users.get(0));
-                WorkManager workManagerShop = WorkManager.getInstance(this);
-                workManagerShop.enqueue(OneTimeWorkRequest.from(LoadDataAppShop.class));
+            WorkManager workManagerShop = WorkManager.getInstance(this);
+            workManagerShop.enqueue(OneTimeWorkRequest.from(LoadDataAppShop.class));
         } else GlobalLinkUser.setUser(null);
         
         ru.great_larder.sportquiz.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         textViewBar = binding.appBarMain.textViewRight;
+        
+        fabHideFab = binding.appBarMain.fab;
+        animShowFab = AnimationUtils.loadAnimation(this, R.animator.fab_show);
+        animHideFab = AnimationUtils.loadAnimation(this, R.animator.fab_hide);
+        fabHideFab.startAnimation(animHideFab);
+        
         img = binding.appBarMain.imageViewVik;
         DrawerLayout drawer = binding.drawerLayout;
         
         img_fairies = binding.appBarMain.imgFairies;
         progressBar = binding.appBarMain.progressBar;
-        
-        img_fairies.setVisibility(View.VISIBLE);
         
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -110,31 +126,17 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         
+        Toast.makeText(this, "Для выбора разделов Викторинки зайдите в меню навигации (левый верхний угол)", Toast.LENGTH_LONG).show();
     }
     
     public void loadMainAct(User userIn) {
         if(userIn != null) {
-            Fairies fairies;
-            fairiesDatabaseAdapter.open();
-            fairies = fairiesDatabaseAdapter.getFairiesByActive();
-            fairiesDatabaseAdapter.close();
+            GetActiveFairies getActiveFairies = new GetActiveFairies(this, progressBar);
+            Fairies fairies = getActiveFairies.getFairies();
+            if(fairies != null){
+                img_fairies.setImageResource(fairies.getImageI());
+            } else img_fairies.setImageResource(R.drawable.logo_victorinka);
             
-            if (fairies != null) {
-                if (getDifferenceInDays(fairies) <= fairies.getPrice()) {
-                    if (getDifferenceInDays(fairies) == 0) {
-                        progressBar.setMax(100);
-                    } else {
-                        progressBar.setProgress(100 / getDifferenceInDays(fairies));
-                    }
-                    img_fairies.setImageResource(fairies.getImageI());
-                } else {
-                    progressBar.setProgress(0);
-                    img_fairies.setImageResource(R.drawable.logo_victorinka);
-                }
-            } else {
-                progressBar.setProgress(0);
-                img_fairies.setImageResource(R.drawable.logo_victorinka);
-            }
             setTBarDate(GlobalLinkUser.getUser());
             tg.setText(GlobalLinkUser.getUser().getName());
             if (GlobalLinkUser.getUser().getAwatar() != null && GlobalLinkUser.getUser().getAwatar().length > 0) {
@@ -143,12 +145,6 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
             }
         }
     }
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
     
     @Override
     public boolean onSupportNavigateUp() {
@@ -178,21 +174,14 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     public void updateUser(DataUser dataUser) {
         loadMainAct(dataUser.getUser());
     }
-    
-    private int getDifferenceInDays(Fairies g) {
-        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        try {
-            Date dateCurrent = dateFormat.parse(currentDate);
-            Date fd = g.getDateStart();
-            assert dateCurrent != null;
-            assert fd != null;
-            long milliseconds = dateCurrent.getTime() - fd.getTime();
-            return (int) (milliseconds / (24 * 60 * 60 * 1000));
-        } catch (ParseException e) {
-            e.getStackTrace();
-        }
-        return 0;
+    public void setHintButton(String s){
+        if(s != null && !s.isEmpty()) {
+            fabHideFab.startAnimation(animShowFab);
+            fabHideFab.setOnClickListener(v -> {
+                fabHideFab.startAnimation(animHideFab);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
+                startActivity(browserIntent);
+            });
+        } else fabHideFab.startAnimation(animHideFab);
     }
-    
 }

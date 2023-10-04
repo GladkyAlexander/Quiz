@@ -31,11 +31,10 @@ public class OfTheGameFragment extends Fragment {
     LinearLayout llAnswersGame, llButtonsGame, linearLayoutGame;
     CheckBox checkBoxGame1, checkBoxGame2, checkBoxGame3, checkBoxGame4;
     Button buttonResumeGame, buttonOutGame;
-    ImageView img1, img2, img3, img4, imageViewFinish;
+    ImageView img1, img2, img3, img4, imageViewFinish, view;
     private CountDownTimer chronometer = null;
     GetQuestion getQuestion;
     Map<CheckBox, ImageView> map = new HashMap<>();
-    ImageView view, img_hint;
     List<Question> questionList;
     private EtiquetteFragment etiquetteFragment;
     private LanguageQuizFragment languageQuizFragment;
@@ -69,7 +68,6 @@ public class OfTheGameFragment extends Fragment {
         buttonResumeGame = binding.buttonResumeGame;
         buttonOutGame = binding.buttonOutGame;
         
-        img_hint = binding.imgHint;
         imageViewFinish = binding.imageViewFinish;
         
         map.put(checkBoxGame1, img1 = binding.imgCB1);
@@ -102,7 +100,6 @@ public class OfTheGameFragment extends Fragment {
             llAnswersGame.setVisibility(View.VISIBLE);
             linearLayoutGame.setVisibility(View.VISIBLE);
             textViewQuestionGame.setVisibility(View.VISIBLE);
-            img_hint.setVisibility(View.VISIBLE);
             imageViewFinish.setVisibility(View.GONE);
             
             Question b = questionList.get(random.nextInt(questionList.size()));
@@ -113,7 +110,7 @@ public class OfTheGameFragment extends Fragment {
             l.add(b.getWrongAnswer2());
             l.add(b.getWrongAnswer3());
             Collections.shuffle(l);
-            setHint(b.getLink());
+            ((MainActivity)requireActivity()).setHintButton(b.getLink());
             
             stageLoading(b.getQuestion(), l, b.getRightAnswer());
             
@@ -124,7 +121,6 @@ public class OfTheGameFragment extends Fragment {
                 }
                 
                 public void onFinish() {
-                    img_hint.setVisibility(View.GONE);
                     startQuiz();
                 }
             }.start();
@@ -133,7 +129,6 @@ public class OfTheGameFragment extends Fragment {
             llAnswersGame.setVisibility(View.GONE);
             linearLayoutGame.setVisibility(View.GONE);
             textViewQuestionGame.setVisibility(View.GONE);
-            img_hint.setVisibility(View.GONE);
         }
     }
     
@@ -295,6 +290,7 @@ public class OfTheGameFragment extends Fragment {
         checkBoxGame4.setChecked(false);
         checkBoxGame4.setClickable(true);
         checkBoxGame4.setBackgroundResource(R.drawable.check_box);
+        /*((MainActivity)requireActivity()).setHintButton(null);*/
     }
     
     public void setCont(Fragment fragment) {
@@ -338,16 +334,6 @@ public class OfTheGameFragment extends Fragment {
         if (cityFragment != null) {
             cityFragment.loadFragment();
         }
-    }
-    
-    public void setHint(String link) {
-        if (link != null && !link.isEmpty()) {
-            img_hint.setVisibility(View.VISIBLE);
-            img_hint.setClickable(true);
-            img_hint.setOnClickListener(n -> {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                startActivity(browserIntent);
-            });
-        } else img_hint.setVisibility(View.GONE);
+        ((MainActivity)requireActivity()).setHintButton(null);
     }
 }

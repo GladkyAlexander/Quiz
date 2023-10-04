@@ -7,6 +7,8 @@ public class CompanyPartnersMySQLImpl implements CompanyPartnersMySQL {
     public String CREATE(String nameDB) {
         return "CREATE TABLE if not exists`" + nameDB + "`.`company` (id int" +
             ", name text" +
+            ", aboutMe text" +
+            ", link text" +
             ", logo longblob) ENGINE = InnoDB";
     }
     

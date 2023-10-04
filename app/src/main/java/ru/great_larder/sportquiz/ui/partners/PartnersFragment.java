@@ -31,9 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PartnersFragment extends Fragment implements RecyclerViewAdapterAuthor.ItemClickListener, RecyclerViewAdapterCompanyPartners.ItemClickListener{
-
-    private RecyclerViewAdapterAuthor adapterAuthor;
-    private RecyclerViewAdapterCompanyPartners adapterCompany;
+    
     public RecyclerView recycleViewAuthors, recyclerViewCompany;
     public FrameLayout frameLayoutFragmentPartners;
     public static PartnersFragment newInstance(String param1, String param2) {
@@ -74,6 +72,7 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
     }
     
     private void loadRecyclerCompany(List<CompanyPartners> companyesExternal) {
+        RecyclerViewAdapterCompanyPartners adapterCompany;
         if(companyesExternal != null && !companyesExternal.isEmpty()) {
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
@@ -95,6 +94,7 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
     }
     
     private void loadRecyclerAuthors(List<Author> authorsExternal) {
+        RecyclerViewAdapterAuthor adapterAuthor;
         if(authorsExternal != null && !authorsExternal.isEmpty()) {
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
@@ -107,8 +107,8 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             
-            authors.add(new Author("Гладкий", "Александр", stream.toByteArray()));
-            authors.add(new Author("Обуховская", "Дарья", null));
+            authors.add(new Author("Гладкий", "Александр", null, null, stream.toByteArray()));
+            authors.add(new Author("Обуховская", "Дарья", null, null, null));
             authors.add(new Author());
             authors.add(new Author());
             
@@ -133,6 +133,7 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
         QuestionsFromAuthorFragment questionsFromAuthorFragment = new QuestionsFromAuthorFragment();
         questionsFromAuthorFragment.setPartnersFragment(this);
         ((MainActivity) requireActivity()).getImg_fairies().setVisibility(View.GONE);
+        ((MainActivity) requireActivity()).getProgressBar().setVisibility(View.GONE);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         frameLayoutFragmentPartners.setVisibility(View.VISIBLE);
         transaction.replace(frameLayoutFragmentPartners.getId(), questionsFromAuthorFragment);
@@ -144,6 +145,7 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
         SubmitAQuizToTheDatabaseFragment submitAQuizToTheDatabaseFragment = new SubmitAQuizToTheDatabaseFragment();
         
         ((MainActivity) requireActivity()).getImg_fairies().setVisibility(View.GONE);
+        ((MainActivity) requireActivity()).getProgressBar().setVisibility(View.GONE);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         frameLayoutFragmentPartners.setVisibility(View.VISIBLE);
         transaction.replace(frameLayoutFragmentPartners.getId(), submitAQuizToTheDatabaseFragment);

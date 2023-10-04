@@ -23,7 +23,8 @@
                 android:layout_height="25dp"
                 app:srcCompat="@drawable/settings"
                 android:id="@+id/imageViewSettings"
-                android:layout_marginEnd="5dp" android:contentDescription="@string/todo"/>
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/todo"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -48,9 +49,11 @@
                     android:id="@+id/editTextTextPersonName"
                     android:minHeight="48dp"
                     android:autofillHints="@string/firstname"
-                    android:hint="@string/firstname"
-                    tools:ignore="LabelFor"/>
-            <EditText
+                    android:hint="@string/introduce_yourself"
+                    tools:ignore="LabelFor"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"/>
+          <!--  <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -59,7 +62,7 @@
                 android:minHeight="48dp"
                 android:autofillHints="@string/lastname"
                 android:hint="@string/lastname"
-                tools:ignore="LabelFor"/>
+                tools:ignore="LabelFor"/>-->
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +72,9 @@
                     android:minHeight="48dp"
                     android:autofillHints="@string/city"
                     android:hint="@string/city"
-                    tools:ignore="LabelFor"/>
+                    tools:ignore="LabelFor"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,7 +87,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:autofillHints=""
-                    android:minHeight="48dp"/>
+                    android:minHeight="48dp"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"/>
             <Button
                     android:id="@+id/btn_date"
                     android:layout_width="wrap_content"
@@ -102,6 +109,10 @@
                     android:id="@+id/imageViewaddImage"
                     android:src="@drawable/upphoto"
                     android:contentDescription="@string/todo"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/this_is_not_a_mandatory_action"
+        android:gravity="center"/>
         <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"

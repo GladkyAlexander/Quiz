@@ -1,14 +1,14 @@
 package ru.great_larder.sportquiz.ui.home;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -20,27 +20,28 @@ import ru.great_larder.sportquiz.database.DatabaseAdapter;
 import ru.great_larder.sportquiz.databinding.FragmentHomeBinding;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.GetNamesVictik;
+import ru.great_larder.sportquiz.services.HideKeyboard;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class HomeFragment extends Fragment {
     
     private FragmentHomeBinding binding;
     private LinearLayout tableLayoutHi;
-    private EditText editTextTextPersonName, editTextTextLastName;
+    private EditText editTextTextPersonName/*, editTextTextLastName*/;
     private TextView textViewNameUser, textViewGlasses, textViewLets, textViewCity, textFieldVictorinok, textViewSlogan;
     private LinearLayout linearLayoutHello;
     private LinearLayout linearLayoutGlasses;
-    private ImageView imageViewAnimCoins;
-    private ImageView imgStartDetki;
+    private ImageView imageViewAnimCoins, imgStartDetki, imageViewAddImage;
     private User user;
     DatabaseAdapter adapter;
     
     private Button btnTimePicker, buttonDone, buttonChangeUser;
     private EditText editTextDate, editTextTime;
-    ImageView imageViewAddImage;
     boolean flagChooseAwatar = false;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
         uri -> {
@@ -82,7 +83,7 @@ public class HomeFragment extends Fragment {
         textViewSlogan = binding.textViewSlogan;
         
         editTextTextPersonName = binding.editTextTextPersonName;
-        editTextTextLastName = binding.editTextTextLastName;
+//        editTextTextLastName = binding.editTextTextLastName;
         
         tableLayoutHi = binding.tableLayoutHi;
         
@@ -107,12 +108,14 @@ public class HomeFragment extends Fragment {
             GlobalLinkUser.setUser(user);
             GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
             loadFragment();
+            new HideKeyboard(requireActivity(), tableLayoutHi);
         });
         buttonChangeUser.setOnClickListener(d ->{
             user = changeUser();
             GlobalLinkUser.setUser(user);
             GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(user));
             loadFragment();
+            new HideKeyboard(requireActivity(), tableLayoutHi);
         });
         imageViewSettings.setOnClickListener(d -> openSettings());
         
@@ -198,7 +201,7 @@ public class HomeFragment extends Fragment {
         userRecord.setGlasses(0);
         userRecord.setThemeInstalledNow(0);
         userRecord.setDate_of_birth(String.valueOf(editTextDate.getText()));
-        userRecord.setLastName(String.valueOf(editTextTextLastName.getText()));
+        userRecord.setLastName("");
         
         if(flagChooseAwatar){
             Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
@@ -221,7 +224,6 @@ public class HomeFragment extends Fragment {
         adapter.open();
         User userReturn = adapter.getUserById(idUs);
         adapter.close();
-        
         return userReturn;
     }
     private User changeUser(){
@@ -231,7 +233,7 @@ public class HomeFragment extends Fragment {
         user.setGlasses(0);
         user.setThemeInstalledNow(0);
         user.setDate_of_birth(String.valueOf(editTextDate.getText()));
-        user.setLastName(String.valueOf(editTextTextLastName.getText()));
+        user.setLastName("");
         
         Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -245,7 +247,6 @@ public class HomeFragment extends Fragment {
         adapter.open();
         User userReturn = adapter.getUserById(idUs);
         adapter.close();
-        
         return userReturn;
     }
     private void openSettings(){
@@ -257,10 +258,9 @@ public class HomeFragment extends Fragment {
             if (user != null) {
                 buttonDone.setVisibility(View.GONE);
                 buttonChangeUser.setVisibility(View.VISIBLE);
-                
                 textViewLets.setText("Внесите изменения");
                 editTextTextPersonName.setText(user.getName());
-                editTextTextLastName.setText(user.getLastName());
+//                editTextTextLastName.setText(user.getLastName());
                 textViewCity.setText(user.getCity());
                 editTextDate.setText(user.getDate_of_birth());
                 
