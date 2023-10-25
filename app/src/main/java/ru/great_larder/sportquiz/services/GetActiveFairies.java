@@ -2,7 +2,7 @@ package ru.great_larder.sportquiz.services;
 
 import android.content.Context;
 import android.widget.ProgressBar;
-import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.FairiesDatabaseAdapterSQLite;
 import ru.great_larder.sportquiz.domain.Fairies;
 
 import java.text.ParseException;
@@ -22,7 +22,7 @@ public class GetActiveFairies {
     
     public Fairies getFairies(){
         if(context != null){
-            FairiesDatabaseAdapter fairiesDatabaseAdapter = new FairiesDatabaseAdapter(context);
+            FairiesDatabaseAdapterSQLite fairiesDatabaseAdapter = new FairiesDatabaseAdapterSQLite(context);
             Fairies fairies;
             fairiesDatabaseAdapter.open();
             fairies = fairiesDatabaseAdapter.getFairiesByActive();

@@ -1,11 +1,14 @@
 package ru.great_larder.sportquiz.ui.partners;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,8 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.MainActivity;
 import ru.great_larder.sportquiz.R;
-import ru.great_larder.sportquiz.database.author_and_partners.ListLoadAuthor;
-import ru.great_larder.sportquiz.database.author_and_partners.ListLoadCompanyPartners;
+import ru.great_larder.sportquiz.database.repository.GetAuthors;
+import ru.great_larder.sportquiz.database.repository.GetCompanyPartners;
+import ru.great_larder.sportquiz.database.repository.get_live.ListAuthor;
+import ru.great_larder.sportquiz.database.repository.get_live.ListCompanyPartners;
+import ru.great_larder.sportquiz.database.repository.impl.GetAuthorImpl;
+import ru.great_larder.sportquiz.database.repository.impl.GetCompanyPartnersImpl;
 import ru.great_larder.sportquiz.databinding.FragmentPartnersBinding;
 import ru.great_larder.sportquiz.domain.Author;
 import ru.great_larder.sportquiz.domain.CompanyPartners;
@@ -34,6 +41,9 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
     
     public RecyclerView recycleViewAuthors, recyclerViewCompany;
     public FrameLayout frameLayoutFragmentPartners;
+    RecyclerViewAdapterAuthor adapterAuthor;
+    RecyclerViewAdapterCompanyPartners adapterCompany;
+    FragmentPartnersBinding binding;
     public static PartnersFragment newInstance(String param1, String param2) {
         PartnersFragment fragment = new PartnersFragment();
         Bundle args = new Bundle();
@@ -47,7 +57,7 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         
-        FragmentPartnersBinding binding = FragmentPartnersBinding.inflate(inflater, container, false);
+        binding = FragmentPartnersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
         recycleViewAuthors = binding.recycleViewAuthors;
@@ -64,15 +74,15 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
     
     @SuppressLint("UseCompatLoadingForDrawables")
     public void loadFragment() {
-        List<Author> authorsExternal = ListLoadAuthor.getAuthors();
-        List<CompanyPartners> companyesExternal = ListLoadCompanyPartners.getCompanyPartners();
+        List<Author> authorsExternal = ListAuthor.getAuthorsList();
+        List<CompanyPartners> companyesExternal = ListCompanyPartners.getCompanyPartners();
         
         loadRecyclerAuthors(authorsExternal);
         loadRecyclerCompany(companyesExternal);
     }
     
     private void loadRecyclerCompany(List<CompanyPartners> companyesExternal) {
-        RecyclerViewAdapterCompanyPartners adapterCompany;
+        
         if(companyesExternal != null && !companyesExternal.isEmpty()) {
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
@@ -94,7 +104,7 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
     }
     
     private void loadRecyclerAuthors(List<Author> authorsExternal) {
-        RecyclerViewAdapterAuthor adapterAuthor;
+        
         if(authorsExternal != null && !authorsExternal.isEmpty()) {
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
@@ -107,10 +117,8 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             
-            authors.add(new Author("Гладкий", "Александр", null, null, stream.toByteArray()));
-            authors.add(new Author("Обуховская", "Дарья", null, null, null));
-            authors.add(new Author());
-            authors.add(new Author());
+            authors.add(new Author(1,"Гладкий", "Александр", "", "", stream.toByteArray()));
+            authors.add(new Author(2,"Обуховская", "Дарья", "", "", null));
             
             LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(requireActivity()
                 , LinearLayoutManager.HORIZONTAL, false);
@@ -120,14 +128,21 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
         adapterAuthor.setClickListener(this);
         recycleViewAuthors.setAdapter(adapterAuthor);
     }
-    
     @Override
     public void onItemClickAuthor(View view, int position, Author author) {
-//        Toast.makeText(requireActivity(), "Вы нажали " + adapterAuthor.getItem(position) + " по позиции элемента " + position, Toast.LENGTH_SHORT).show();
+        String linkAuthor = adapterAuthor.getItem(position).getLink();
+        if(linkAuthor != null && !linkAuthor.isEmpty()) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkAuthor));
+            startActivity(browserIntent);
+        } else Toast.makeText(requireActivity(), "Извините, но автор не предоставил ссылку на свой ресурс", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onItemClickCompanyPartners(View view, int position, CompanyPartners companyPartners) {
-    
+        String linkCompanyPartners = adapterCompany.getItem(position).getLink();
+        if(linkCompanyPartners != null && !linkCompanyPartners.isEmpty()) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(linkCompanyPartners));
+            startActivity(browserIntent);
+        } else Toast.makeText(requireActivity(), "Извините, но партнер не предоставил ссылку на свой ресурс", Toast.LENGTH_SHORT).show();
     }
     private void openFormQuestionsFromAuthor() {
         QuestionsFromAuthorFragment questionsFromAuthorFragment = new QuestionsFromAuthorFragment();
@@ -151,5 +166,11 @@ public class PartnersFragment extends Fragment implements RecyclerViewAdapterAut
         transaction.replace(frameLayoutFragmentPartners.getId(), submitAQuizToTheDatabaseFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

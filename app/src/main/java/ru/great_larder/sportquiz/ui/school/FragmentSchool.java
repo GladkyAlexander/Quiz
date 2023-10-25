@@ -23,12 +23,13 @@ public class FragmentSchool extends Fragment {
     private LinearLayout linearLayout1, linearLayout2, linearLayout3;
     private FrameLayout frameLayoutShool;
     private ImageButton button_biolog, button_geografik, button_history, button_physics, button_mathematics;
+    FragmentSchoolBinding binding;
     
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ru.great_larder.sportquiz.databinding.FragmentSchoolBinding binding = FragmentSchoolBinding.inflate(inflater, container, false);
+        
+        binding = FragmentSchoolBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
         button_biolog = binding.buttonBiolog;
@@ -79,9 +80,8 @@ public class FragmentSchool extends Fragment {
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setReorderingAllowed(true);
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
-                
-                transaction.addToBackStack(null);
                 transaction.commit();
             });
             button_history.setOnClickListener(a->{
@@ -97,9 +97,8 @@ public class FragmentSchool extends Fragment {
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setReorderingAllowed(true);
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
-                
-                transaction.addToBackStack(null);
                 transaction.commit();
             });
             button_geografik.setOnClickListener(a->{
@@ -115,9 +114,8 @@ public class FragmentSchool extends Fragment {
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setReorderingAllowed(true);
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
-                
-                transaction.addToBackStack(null);
                 transaction.commit();
             });
             button_physics.setOnClickListener(a->{
@@ -133,9 +131,8 @@ public class FragmentSchool extends Fragment {
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setReorderingAllowed(true);
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
-                
-                transaction.addToBackStack(null);
                 transaction.commit();
             });
             button_mathematics.setOnClickListener(a->{
@@ -151,11 +148,16 @@ public class FragmentSchool extends Fragment {
                 ofTheGameFragment.setArguments(bundle);
                 ofTheGameFragment.setCont(this);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.setReorderingAllowed(true);
                 transaction.replace(frameLayoutShool.getId(), ofTheGameFragment);
-                
-                transaction.addToBackStack(null);
                 transaction.commit();
             });
         }
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

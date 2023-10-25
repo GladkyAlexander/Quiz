@@ -29,12 +29,9 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="20dp"
             android:padding="7dp"
-            android:background="@drawable/button"
+            android:background="@drawable/button_lihguistics"
             android:contentDescription="@string/todo"
             android:elevation="10dp"
             android:scaleType="fitCenter"
             android:stateListAnimator="@null"/>
-
-    <!--android:src="@drawable/cheat_sheet"-->
-
 </LinearLayout>

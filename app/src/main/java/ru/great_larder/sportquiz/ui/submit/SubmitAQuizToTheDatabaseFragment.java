@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,8 +13,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import com.google.android.material.textfield.TextInputEditText;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.R;
@@ -79,14 +76,6 @@ public class SubmitAQuizToTheDatabaseFragment extends Fragment {
         spinnerChapter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               /* if(chapters.get(position).getName().equals("Города")) {
-                    textViewCityFragmentSubmit.setVisibility(View.VISIBLE);
-                    imageViewChoosePhoto.setVisibility(View.VISIBLE);
-                } else {
-                    textViewCityFragmentSubmit.setVisibility(View.GONE);
-                    imageViewChoosePhoto.setVisibility(View.GONE);
-                }*/
-                
                 setQ(chapters.get(position).getName());
             }
             
@@ -136,7 +125,7 @@ public class SubmitAQuizToTheDatabaseFragment extends Fragment {
         Integer h = sendQuestion(question);
         if(h != null){
             clean();
-            requireActivity().onBackPressed();
+            requireActivity().getOnBackPressedDispatcher();
         } else {
             scrollViewSubmit.setBackgroundColor(Color.RED);
             Toast.makeText(requireActivity(), "Что-то пошло не так", Toast.LENGTH_LONG).show();
@@ -230,4 +219,9 @@ public class SubmitAQuizToTheDatabaseFragment extends Fragment {
         return null;
     }
     
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

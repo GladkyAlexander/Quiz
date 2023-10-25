@@ -87,4 +87,5 @@
     <string name="this_is_not_a_mandatory_action">"Это не обязательное действие. Все введенные данные хранятся на этом
         устройстве. "
     </string>
+    <string name="the_history_of_one_street">История одной улицы</string>
 </resources>

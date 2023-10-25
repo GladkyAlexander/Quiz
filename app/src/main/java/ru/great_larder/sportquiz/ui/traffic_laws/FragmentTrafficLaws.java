@@ -20,10 +20,12 @@ public class FragmentTrafficLaws extends Fragment {
     FrameLayout frameLayoutTrafficLaws;
     ImageView imageViewPdd;
     Button btnStartPdd;
+    FragmentTrafficLawsBinding binding;
+    
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentTrafficLawsBinding binding = FragmentTrafficLawsBinding.inflate(inflater, container, false);
+        binding = FragmentTrafficLawsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         frameLayoutTrafficLaws = binding.frameLayoutTrafficLaws;
         imageViewPdd = binding.imageViewPdd;
@@ -35,10 +37,12 @@ public class FragmentTrafficLaws extends Fragment {
         if(user == null){
             imageViewPdd.setVisibility(View.VISIBLE);
             btnStartPdd.setVisibility(View.GONE);
+            frameLayoutTrafficLaws.setVisibility(View.GONE);
             Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
         } else {
             imageViewPdd.setVisibility(View.VISIBLE);
             btnStartPdd.setVisibility(View.VISIBLE);
+            frameLayoutTrafficLaws.setVisibility(View.GONE);
         }
         btnStartPdd.setOnClickListener(v ->{
             imageViewPdd.setVisibility(View.GONE);
@@ -50,9 +54,16 @@ public class FragmentTrafficLaws extends Fragment {
             ofTheGameFragment.setArguments(bundle);
             ofTheGameFragment.setCont(this);
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(frameLayoutTrafficLaws.getId(), ofTheGameFragment);
+            transaction.setReorderingAllowed(true);
+            transaction.replace(frameLayoutTrafficLaws.getId(), ofTheGameFragment, null);
             transaction.addToBackStack(null);
             transaction.commit();
         });
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

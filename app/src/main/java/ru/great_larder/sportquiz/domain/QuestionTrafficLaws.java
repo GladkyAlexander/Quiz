@@ -1,8 +1,8 @@
 package ru.great_larder.sportquiz.domain;
 
 public class QuestionTrafficLaws extends Question{
-    public QuestionTrafficLaws(String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level) {
-        super(question, rightAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, link, level);
+    public QuestionTrafficLaws(Integer id, String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level) {
+        super(id, question, rightAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, link, level);
     }
     
     public QuestionTrafficLaws() {
@@ -11,7 +11,8 @@ public class QuestionTrafficLaws extends Question{
     @Override
     public String toString() {
         return "QuestionTrafficLaws{" +
-            "question='" + question + '\'' +
+            "id=" + id +
+            ", question='" + question + '\'' +
             ", rightAnswer='" + rightAnswer + '\'' +
             ", wrongAnswer1='" + wrongAnswer1 + '\'' +
             ", wrongAnswer2='" + wrongAnswer2 + '\'' +

@@ -1,32 +1,34 @@
 package ru.great_larder.sportquiz.ui.home;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.*;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import ru.great_larder.sportquiz.*;
-import ru.great_larder.sportquiz.database.DatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
 import ru.great_larder.sportquiz.databinding.FragmentHomeBinding;
 import ru.great_larder.sportquiz.domain.User;
+import ru.great_larder.sportquiz.services.CheckNetClass;
 import ru.great_larder.sportquiz.services.GetNamesVictik;
 import ru.great_larder.sportquiz.services.HideKeyboard;
+import ru.great_larder.sportquiz.services.load.LoadDataAppService;
+import ru.great_larder.sportquiz.services.load.LoadDataAppServiceLocal;
+import ru.great_larder.sportquiz.services.load.LoadDataAppShop;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class HomeFragment extends Fragment {
     
@@ -38,14 +40,13 @@ public class HomeFragment extends Fragment {
     private LinearLayout linearLayoutGlasses;
     private ImageView imageViewAnimCoins, imgStartDetki, imageViewAddImage;
     private User user;
-    DatabaseAdapter adapter;
+    DatabaseAdapterUserSQLite adapter;
     
-    private Button btnTimePicker, buttonDone, buttonChangeUser;
+    private Button btnTimePicker, buttonDone, buttonChangeUser, buttonOpenDrav;
     private EditText editTextDate, editTextTime;
     boolean flagChooseAwatar = false;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
         uri -> {
-            // Handle the returned Uri
             flagChooseAwatar = true;
             imageViewAddImage.setImageURI(uri);
         });
@@ -53,16 +54,17 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         
-        HomeViewModel homeViewModel =
-            new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+       /* HomeViewModel homeViewModel =
+            new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);*/
         
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
-        adapter = new DatabaseAdapter(requireActivity());
+        adapter = new DatabaseAdapterUserSQLite(requireActivity());
         
         buttonDone = binding.buttonDone;
         buttonChangeUser = binding.buttonChangeUser;
+        buttonOpenDrav = binding.buttonOpenDrav;
         
         ImageView imageViewSettings = binding.imageViewSettings;
         imageViewSettings.setClickable(true);
@@ -83,7 +85,6 @@ public class HomeFragment extends Fragment {
         textViewSlogan = binding.textViewSlogan;
         
         editTextTextPersonName = binding.editTextTextPersonName;
-//        editTextTextLastName = binding.editTextTextLastName;
         
         tableLayoutHi = binding.tableLayoutHi;
         
@@ -100,8 +101,25 @@ public class HomeFragment extends Fragment {
         imageViewAddImage.setOnClickListener(d -> loadImage());
         
         user = GlobalLinkUser.getUser();
-     
+        
         loadFragment();
+        
+        /* ----------------------------------------------------------- */
+        if(user != null) {
+            WorkManager workManagerShop = WorkManager.getInstance(requireActivity());
+            workManagerShop.enqueue(OneTimeWorkRequest.from(LoadDataAppShop.class));
+            WorkManager workManagerLocal = WorkManager.getInstance(requireActivity());
+            workManagerLocal.enqueue(OneTimeWorkRequest.from(LoadDataAppServiceLocal.class));
+            if (new CheckNetClass().getConnectionType(requireActivity()) != 0) {
+                 WorkManager workManager = WorkManager.getInstance(requireActivity());
+                 workManager.enqueue(OneTimeWorkRequest.from(LoadDataAppService.class));
+            } else {
+                Toast.makeText(requireActivity(), "Нет интернета!", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(requireActivity(), "Зарегистрируйтесь", Toast.LENGTH_LONG).show();
+        }
+        /* ----------------------------------------------------------- */
         
         buttonDone.setOnClickListener(v -> {
             user = saveUser();
@@ -118,15 +136,15 @@ public class HomeFragment extends Fragment {
             new HideKeyboard(requireActivity(), tableLayoutHi);
         });
         imageViewSettings.setOnClickListener(d -> openSettings());
+        buttonOpenDrav.setOnClickListener(f -> {
+            if(!((MainActivity)requireActivity()).drawer.isDrawerOpen(GravityCompat.START)) ((MainActivity)requireActivity()).drawer.openDrawer(GravityCompat.START);
+            else ((MainActivity)requireActivity()).drawer.closeDrawer(GravityCompat.END);
+        });
         
         return root;
     }
     
     private void loadImage() {
-        // Pass in the mime type you want to let the user select
-        // Передайте тип mime, который вы хотите, чтобы пользователь мог выбрать.
-        // as the input   в качестве входных данных
-        
         mGetContent.launch("image/*");
     }
     
@@ -260,7 +278,7 @@ public class HomeFragment extends Fragment {
                 buttonChangeUser.setVisibility(View.VISIBLE);
                 textViewLets.setText("Внесите изменения");
                 editTextTextPersonName.setText(user.getName());
-//                editTextTextLastName.setText(user.getLastName());
+                //editTextTextLastName.setText(user.getLastName());
                 textViewCity.setText(user.getCity());
                 editTextDate.setText(user.getDate_of_birth());
                 

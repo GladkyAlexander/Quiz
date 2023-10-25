@@ -27,6 +27,7 @@ public class GetListCityQuestionMySQLImpl implements GetListQuestionCityMySQL {
             while (connectMySQL.resultSetMySQL.next()){
                 
                 QuestionCity question = new QuestionCity();
+                question.setId(connectMySQL.resultSetMySQL.getInt("id"));
                 question.setQuestion(connectMySQL.resultSetMySQL.getString("question"));
                 question.setRightAnswer(connectMySQL.resultSetMySQL.getString("right_answer"));
                 question.setWrongAnswer1(connectMySQL.resultSetMySQL.getString("wrong_answer_1"));
@@ -35,7 +36,7 @@ public class GetListCityQuestionMySQLImpl implements GetListQuestionCityMySQL {
                 question.setLink(connectMySQL.resultSetMySQL.getString("link"));
                 question.setLevel(Integer.parseInt(connectMySQL.resultSetMySQL.getString("level")));
                 question.setCity(connectMySQL.resultSetMySQL.getString("city"));
-                
+                question.setLinkHistoryOneStreet(connectMySQL.resultSetMySQL.getNString("linkHistoryOneStreet"));
                 Blob blob = connectMySQL.resultSetMySQL.getBlob("label");
                 int blobLength = (int) blob.length();
                 

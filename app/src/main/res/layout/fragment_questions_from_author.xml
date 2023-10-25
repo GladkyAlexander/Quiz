@@ -129,7 +129,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="16sp"
             android:gravity="center_horizontal"
     />
 
@@ -139,7 +138,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="20sp"
             android:gravity="center_horizontal"
     />
 

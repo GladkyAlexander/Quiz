@@ -1,27 +1,37 @@
 package ru.great_larder.sportquiz.domain;
 
-import org.jetbrains.annotations.NotNull;
 
-import java.sql.Blob;
 import java.util.Arrays;
 
 public class QuestionCity extends Question{
     String city;
+    String linkHistoryOneStreet;
     byte[] label;
     
-    public QuestionCity(String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level, String city, byte[] label) {
-        super(question, rightAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, link, level);
+    public QuestionCity(Integer id, String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level, String city, String linkHistoryOneStreet, byte[] label) {
+        super(id, question, rightAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, link, level);
         this.city = city;
+        this.linkHistoryOneStreet = linkHistoryOneStreet;
         this.label = label;
     }
     
-    public QuestionCity(String city, byte[] label) {
+    public QuestionCity(String city, String linkHistoryOneStreet, byte[] label) {
         this.city = city;
+        this.linkHistoryOneStreet = linkHistoryOneStreet;
         this.label = label;
     }
     
     public QuestionCity() {
     }
+    
+    public String getLinkHistoryOneStreet() {
+        return linkHistoryOneStreet;
+    }
+    
+    public void setLinkHistoryOneStreet(String linkHistoryOneStreet) {
+        this.linkHistoryOneStreet = linkHistoryOneStreet;
+    }
+    
     public String getCity() {
         return city;
     }
@@ -42,7 +52,9 @@ public class QuestionCity extends Question{
     public String toString() {
         return "QuestionCity{" +
             "city='" + city + '\'' +
+            ", linkHistoryOneStreet='" + linkHistoryOneStreet + '\'' +
             ", label=" + Arrays.toString(label) +
+            ", id=" + id +
             ", question='" + question + '\'' +
             ", rightAnswer='" + rightAnswer + '\'' +
             ", wrongAnswer1='" + wrongAnswer1 + '\'' +

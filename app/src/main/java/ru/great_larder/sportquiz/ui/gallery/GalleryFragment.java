@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.*;
-import ru.great_larder.sportquiz.database.DatabaseAdapter;
-import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
-import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.FairiesDatabaseAdapterSQLite;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAdapterSQLite;
 import ru.great_larder.sportquiz.databinding.FragmentGalleryBinding;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.Puzzle;
@@ -24,13 +24,10 @@ import ru.great_larder.sportquiz.services.DoubleClickListener;
 import ru.great_larder.sportquiz.services.GetNamesVictik;
 import ru.great_larder.sportquiz.services.fairies.GetFairies;
 import ru.great_larder.sportquiz.services.fairies.GetFairiesImpl;
-import ru.great_larder.sportquiz.services.puzzle_listener.DataPuzzle;
-import ru.great_larder.sportquiz.services.puzzle_listener.ObserverPuzzle;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 import ru.great_larder.sportquiz.ui.for_a_corusel_of_puzzles.ForACarouselOfPuzzlesFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class GalleryFragment extends Fragment implements ObserverUser {
@@ -47,9 +44,9 @@ public class GalleryFragment extends Fragment implements ObserverUser {
     int getNumImagesPuzzle;
     Fairies fairiesToInstall;
     List<Puzzle> puzzles;
-    PuzzleDatabaseAdapter adapterPuzzle;
-    FairiesDatabaseAdapter adapterFairies;
-    DatabaseAdapter userAdapter;
+    PuzzleDatabaseAdapterSQLite adapterPuzzle;
+    FairiesDatabaseAdapterSQLite adapterFairies;
+    DatabaseAdapterUserSQLite userAdapter;
     
     @SuppressLint("DiscouragedApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,9 +58,9 @@ public class GalleryFragment extends Fragment implements ObserverUser {
         View root = binding.getRoot();
         
         GlobalLinkUser.getHandlerUserListener().registerObserverUser(this);
-        adapterPuzzle = new PuzzleDatabaseAdapter(this.requireActivity());
-        adapterFairies = new FairiesDatabaseAdapter(this.requireActivity());
-        userAdapter = new DatabaseAdapter(this.requireActivity());
+        adapterPuzzle = new PuzzleDatabaseAdapterSQLite(this.requireActivity());
+        adapterFairies = new FairiesDatabaseAdapterSQLite(this.requireActivity());
+        userAdapter = new DatabaseAdapterUserSQLite(this.requireActivity());
         textViewNameGalleryFragment = binding.textViewNameGalleryFragment;
         textViewPointsGF = binding.textViewPointsGF;
         textViewPuzzleGreeting = binding.textViewPuzzleGreeting;

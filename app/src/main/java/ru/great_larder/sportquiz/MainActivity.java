@@ -2,46 +2,40 @@ package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import ru.great_larder.sportquiz.database.DatabaseAdapter;
-import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
+import org.jetbrains.annotations.NotNull;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.FairiesDatabaseAdapterSQLite;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
-import ru.great_larder.sportquiz.services.CheckNetClass;
 import ru.great_larder.sportquiz.services.GetActiveFairies;
-import ru.great_larder.sportquiz.services.load.LoadDataAppService;
-import ru.great_larder.sportquiz.services.load.LoadDataAppShop;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements ObserverUser {
@@ -54,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
     private FloatingActionButton fabHideFab;
     private Animation animShowFab, animHideFab;
     HandlerUserListener handlerUserListener = new HandlerUserListener();
-    FairiesDatabaseAdapter fairiesDatabaseAdapter;
+    FairiesDatabaseAdapterSQLite fairiesDatabaseAdapter;
+    public DrawerLayout drawer;
     
     public ImageView getImg_fairies() {
         return img_fairies;
@@ -71,17 +66,16 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         
         handlerUserListener.registerObserverUser(this);
         GlobalLinkUser.setHandlerUserListener(handlerUserListener);
-        fairiesDatabaseAdapter = new FairiesDatabaseAdapter(this);
+        fairiesDatabaseAdapter = new FairiesDatabaseAdapterSQLite(this);
+        GlobalLinkUser.setMainActivity(this);
         
         List<User> users;
-        DatabaseAdapter adapter = new DatabaseAdapter(this);
+        DatabaseAdapterUserSQLite adapter = new DatabaseAdapterUserSQLite(this);
         adapter.open();
         users = adapter.getUsers();
         adapter.close();
         if (!users.isEmpty()) {
             GlobalLinkUser.setUser(users.get(0));
-            WorkManager workManagerShop = WorkManager.getInstance(this);
-            workManagerShop.enqueue(OneTimeWorkRequest.from(LoadDataAppShop.class));
         } else GlobalLinkUser.setUser(null);
         
         ru.great_larder.sportquiz.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         fabHideFab.startAnimation(animHideFab);
         
         img = binding.appBarMain.imageViewVik;
-        DrawerLayout drawer = binding.drawerLayout;
+        drawer = binding.drawerLayout;
         
         img_fairies = binding.appBarMain.imgFairies;
         progressBar = binding.appBarMain.progressBar;
@@ -110,13 +104,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         navigationView.setItemIconTintList(null);
         if (GlobalLinkUser.getUser() != null) {
             loadMainAct(GlobalLinkUser.getUser());
-            if (new CheckNetClass().getConnectionType(this) > 0) {
-                WorkManager workManager = WorkManager.getInstance(this);
-                workManager.enqueue(OneTimeWorkRequest.from(LoadDataAppService.class));
-            } else {
-                Toast.makeText(this, "Нет интернета!", Toast.LENGTH_LONG).show();
-            }
         }
+        
         mAppBarConfiguration = new AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_language_quiz, R.id.nav_sports_quiz
             , R.id.nav_school, R.id.nav_traffic_laws, R.id.nav_etiquette, R.id.nav_city, R.id.nav_partners)
@@ -126,9 +115,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         
-        Toast.makeText(this, "Для выбора разделов Викторинки зайдите в меню навигации (левый верхний угол)", Toast.LENGTH_LONG).show();
     }
-    
     public void loadMainAct(User userIn) {
         if(userIn != null) {
             GetActiveFairies getActiveFairies = new GetActiveFairies(this, progressBar);
@@ -175,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         loadMainAct(dataUser.getUser());
     }
     public void setHintButton(String s){
-        if(s != null && !s.isEmpty()) {
+        if (s != null && !s.isEmpty()) {
             fabHideFab.startAnimation(animShowFab);
             fabHideFab.setOnClickListener(v -> {
                 fabHideFab.startAnimation(animHideFab);

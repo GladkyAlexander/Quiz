@@ -1,6 +1,7 @@
 package ru.great_larder.sportquiz.domain;
 
 public class Question {
+    Integer id;
     String question;
     String rightAnswer;
     String wrongAnswer1;
@@ -9,7 +10,8 @@ public class Question {
     String link;
     int level;
     
-    public Question(String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level) {
+    public Question(Integer id, String question, String rightAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String link, int level) {
+        this.id = id;
         this.question = question;
         this.rightAnswer = rightAnswer;
         this.wrongAnswer1 = wrongAnswer1;
@@ -20,6 +22,14 @@ public class Question {
     }
     
     public Question() {
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     public String getQuestion() {
@@ -81,7 +91,8 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-            "question='" + question + '\'' +
+            "id=" + id +
+            ", question='" + question + '\'' +
             ", rightAnswer='" + rightAnswer + '\'' +
             ", wrongAnswer1='" + wrongAnswer1 + '\'' +
             ", wrongAnswer2='" + wrongAnswer2 + '\'' +

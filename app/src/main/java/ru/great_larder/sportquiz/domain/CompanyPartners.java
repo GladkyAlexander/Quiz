@@ -3,12 +3,14 @@ package ru.great_larder.sportquiz.domain;
 import java.util.Arrays;
 
 public class CompanyPartners {
+    Integer id;
     String nameCompany;
     String aboutMe;
     String link;
     byte[] logo;
     
-    public CompanyPartners(String nameCompany, String aboutMe, String link, byte[] logo) {
+    public CompanyPartners(Integer id, String nameCompany, String aboutMe, String link, byte[] logo) {
+        this.id = id;
         this.nameCompany = nameCompany;
         this.aboutMe = aboutMe;
         this.link = link;
@@ -16,6 +18,14 @@ public class CompanyPartners {
     }
     
     public CompanyPartners() {
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     public String getNameCompany() {
@@ -53,7 +63,8 @@ public class CompanyPartners {
     @Override
     public String toString() {
         return "CompanyPartners{" +
-            "nameCompany='" + nameCompany + '\'' +
+            "id=" + id +
+            ", nameCompany='" + nameCompany + '\'' +
             ", aboutMe='" + aboutMe + '\'' +
             ", link='" + link + '\'' +
             ", logo=" + Arrays.toString(logo) +

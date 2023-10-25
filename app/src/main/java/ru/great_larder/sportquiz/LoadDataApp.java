@@ -3,8 +3,8 @@ package ru.great_larder.sportquiz;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import ru.great_larder.sportquiz.database.FairiesDatabaseAdapter;
-import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.FairiesDatabaseAdapterSQLite;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAdapterSQLite;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.services.fairies.GetFairies;
@@ -18,12 +18,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoadDataApp {
-    PuzzleDatabaseAdapter puzzleDatabaseAdapter;
-    FairiesDatabaseAdapter fairiesDatabaseAdapter;
+    PuzzleDatabaseAdapterSQLite puzzleDatabaseAdapter;
+    FairiesDatabaseAdapterSQLite fairiesDatabaseAdapter;
     
     public LoadDataApp(Context context) {
-        puzzleDatabaseAdapter = new PuzzleDatabaseAdapter(context);
-        fairiesDatabaseAdapter = new FairiesDatabaseAdapter(context);
+        puzzleDatabaseAdapter = new PuzzleDatabaseAdapterSQLite(context);
+        fairiesDatabaseAdapter = new FairiesDatabaseAdapterSQLite(context);
     }
     
     public void setPuzzle() {

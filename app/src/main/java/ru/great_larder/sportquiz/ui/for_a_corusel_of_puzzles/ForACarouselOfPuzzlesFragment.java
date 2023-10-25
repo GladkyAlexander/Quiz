@@ -1,34 +1,43 @@
 package ru.great_larder.sportquiz.ui.for_a_corusel_of_puzzles;
 
-import android.annotation.SuppressLint;
+
 import android.os.Bundle;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import androidx.annotation.NonNull;
 import ru.great_larder.sportquiz.R;
-import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAdapterSQLite;
+import ru.great_larder.sportquiz.databinding.FragmentForACarouselOfPuzzlesBinding;
 import ru.great_larder.sportquiz.domain.Puzzle;
-
+import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ForACarouselOfPuzzlesFragment extends Fragment {
-    ImageView imgPZL;
-    FrameLayout fl;
+    
+    private ForACarouselOfPuzzlesViewModel mViewModel;
+    FragmentForACarouselOfPuzzlesBinding binding;
+    ImageView imgPuzzlCaurosel;
+    FrameLayout frameLayoutPuzzleCorusel;
     Puzzle puzzle;
-    PuzzleDatabaseAdapter adapter;
+    PuzzleDatabaseAdapterSQLite adapter;
     Integer idPuzzle;
-    @SuppressLint("MissingInflatedId")
+    public static ForACarouselOfPuzzlesFragment newInstance() {
+        return new ForACarouselOfPuzzlesFragment();
+    }
+    
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_for_a_carousel_of_puzzles, container, false);
-        imgPZL = root.findViewById(R.id.imgPZL);
-        fl = root.findViewById(R.id.fl);
-        adapter = new PuzzleDatabaseAdapter(requireActivity());
+        binding = FragmentForACarouselOfPuzzlesBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        
+        imgPuzzlCaurosel = binding.imgPuzzlCaurosel;
+        frameLayoutPuzzleCorusel = binding.frameLayoutPuzzleCorusel;
+        adapter = new PuzzleDatabaseAdapterSQLite(requireActivity());
         if(getArguments() != null){
             idPuzzle = getArguments().getInt("idPuzzle");
             adapter.open();
@@ -39,17 +48,16 @@ public class ForACarouselOfPuzzlesFragment extends Fragment {
         
         return root;
     }
-    
     private void loadFragment() {
         if(puzzle != null){
-            fl.removeAllViews();
-            imgPZL.setImageResource(puzzle.getId_drawable_resource());
-            fl.addView(imgPZL);
+            frameLayoutPuzzleCorusel.removeAllViews();
+            imgPuzzlCaurosel.setImageResource(puzzle.getId_drawable_resource());
+            frameLayoutPuzzleCorusel.addView(imgPuzzlCaurosel);
             
             List<ImageView> imageViewList = getListImg(puzzle);
             
             for (ImageView im : imageViewList){
-                fl.addView(im);
+                frameLayoutPuzzleCorusel.addView(im);
             }
         }
     }
@@ -206,5 +214,11 @@ public class ForACarouselOfPuzzlesFragment extends Fragment {
             imageViewList.add(imageView);
         }
         return imageViewList;
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

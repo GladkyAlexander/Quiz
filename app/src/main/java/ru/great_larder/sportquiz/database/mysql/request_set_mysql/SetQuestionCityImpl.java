@@ -34,7 +34,8 @@ public class SetQuestionCityImpl implements SetQuestion {
             ps.setString(6, question.getLink());
             ps.setString(7, String.valueOf(question.getLevel()));
             ps.setString(8, ((QuestionCity)question).getCity());
-            ps.setBlob(9, new ByteArrayInputStream(((QuestionCity) question).getLabel()));
+            ps.setString(9, ((QuestionCity) question).getLinkHistoryOneStreet());
+            ps.setBlob(10, new ByteArrayInputStream(((QuestionCity) question).getLabel()));
             
             if(ps.executeUpdate() > 0){
                 ResultSet rs = ps.getGeneratedKeys();

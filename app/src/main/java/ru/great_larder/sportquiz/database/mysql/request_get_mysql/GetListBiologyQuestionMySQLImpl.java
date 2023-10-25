@@ -29,12 +29,10 @@ public class GetListBiologyQuestionMySQLImpl implements GetListQuestionMySQL {
             while (connectMySQL.resultSetMySQL.next()){
                 questions.add(getQuestionService.getQuestion(connectMySQL.resultSetMySQL));
             }
-            
             connectMySQL.closeMySQLDatabase();
         } catch (SQLException e) {
             e.getStackTrace();
         }
-        
         return questions;
     }
 }

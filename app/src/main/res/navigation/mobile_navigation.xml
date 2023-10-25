@@ -19,9 +19,9 @@
 
     <fragment
             android:id="@+id/nav_slideshow"
-            android:name="ru.great_larder.sportquiz.ui.slideshow.SlideshowFragment"
+            android:name="ru.great_larder.sportquiz.ui.info.InfoFragment"
             android:label="@string/menu_slideshow"
-            tools:layout="@layout/fragment_slideshow"/>
+            tools:layout="@layout/fragment_info"/>
 
     <fragment android:id="@+id/nav_language_quiz"
               android:name="ru.great_larder.sportquiz.ui.language_quiz.LanguageQuizFragment"

@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-android:orientation="vertical"
-android:padding="5dp">
+              android:padding="5dp" android:orientation="vertical">
 
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/mameCompany"/>
+              android:id="@+id/mameCompany"
+              android:gravity="center"
+              android:lines = "2"
+    />
     <ImageView android:layout_width="70dp"
                android:layout_height="70dp"
                android:id="@+id/imageViewLogoItem"
@@ -15,7 +17,7 @@ android:padding="5dp">
                android:layout_marginEnd="15dp"
                android:layout_marginBottom="20dp"
                android:padding="7dp"
-               android:background="@drawable/button"
+               android:background="@drawable/button_lihguistics"
                android:contentDescription="@string/todo"
                android:elevation="10dp"
                android:scaleType="fitCenter"

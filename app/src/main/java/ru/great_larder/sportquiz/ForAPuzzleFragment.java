@@ -9,21 +9,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAdapterSQLite;
 import ru.great_larder.sportquiz.databinding.FragmentForAPuzzleBinding;
 import ru.great_larder.sportquiz.domain.Puzzle;
-import ru.great_larder.sportquiz.services.puzzle_listener.DataPuzzle;
-import ru.great_larder.sportquiz.services.puzzle_listener.GlobalLinkHandlerPuzzle;
-import ru.great_larder.sportquiz.services.puzzle_listener.HandlerPuzzleListener;
-import ru.great_larder.sportquiz.services.puzzle_listener.ObserverPuzzle;
 import ru.great_larder.sportquiz.ui.dialog_puzzle.DialogPuzzleFragment;
-import ru.great_larder.sportquiz.ui.gallery.GalleryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ForAPuzzleFragment extends Fragment {
     Puzzle puzzle;
+    FragmentForAPuzzleBinding binding;
     private ImageView imgP1, imgP2, imgP3, imgP4, imgP5, imgP6, imgP7, imgP8, imgP9, imgP10
         , imgP11, imgP12, imgP13, imgP14, imgP15, imgP16, imgP17, imgP18, imgP19, imgP20
         , imgP21, imgP22, imgP23, imgP24, imgP25, imgP26, imgP27, imgP28, imgP29, imgP30, imgStartForAPuzzle;
@@ -40,8 +36,7 @@ public class ForAPuzzleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        
-        FragmentForAPuzzleBinding binding = FragmentForAPuzzleBinding.inflate(inflater, container, false);
+        binding = FragmentForAPuzzleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
         /*HandlerPuzzleListener handlerPuzzleListener = new HandlerPuzzleListener();
@@ -149,7 +144,7 @@ public class ForAPuzzleFragment extends Fragment {
         
         Bundle bundle = this.getArguments();
         if (bundle != null){
-            PuzzleDatabaseAdapter adapter = new PuzzleDatabaseAdapter(requireActivity());
+            PuzzleDatabaseAdapterSQLite adapter = new PuzzleDatabaseAdapterSQLite(requireActivity());
             adapter.open();
             puzzle = adapter.getPuzzleById(bundle.getInt("getPuzzleId"));
             adapter.close();
@@ -258,4 +253,9 @@ public class ForAPuzzleFragment extends Fragment {
         loadFragment(puzzle);
     }
     
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

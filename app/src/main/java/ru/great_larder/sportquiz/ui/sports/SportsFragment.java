@@ -20,11 +20,13 @@ public class SportsFragment extends Fragment{
     FrameLayout frLayout;
     ImageView imageViewSportz;
     Button btnStartSport;
+    FragmentSportsBinding binding;
+    
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         SporsViewModel sporsViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SporsViewModel.class);
-        FragmentSportsBinding binding = FragmentSportsBinding.inflate(inflater, container, false);
+        binding = FragmentSportsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         frLayout = binding.frLayoutSports;
         imageViewSportz = binding.imageViewSportz;
@@ -33,17 +35,21 @@ public class SportsFragment extends Fragment{
         return root;
     }
     public void loadFragment(User user){
+        frLayout.removeAllViews();
         if(user == null){
             btnStartSport.setVisibility(View.GONE);
             imageViewSportz.setVisibility(View.VISIBLE);
+            frLayout.setVisibility(View.GONE);
             Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
         } else {
             btnStartSport.setVisibility(View.VISIBLE);
             imageViewSportz.setVisibility(View.VISIBLE);
+            frLayout.setVisibility(View.GONE);
         }
         btnStartSport.setOnClickListener(v ->{
             btnStartSport.setVisibility(View.GONE);
             imageViewSportz.setVisibility(View.GONE);
+            frLayout.setVisibility(View.VISIBLE);
             OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
             Bundle bundle = new Bundle();
             bundle.putString("getQuestion", "Sports");
@@ -54,5 +60,11 @@ public class SportsFragment extends Fragment{
             transaction.addToBackStack(null);
             transaction.commit();
         });
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

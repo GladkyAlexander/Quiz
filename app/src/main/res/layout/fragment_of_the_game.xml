@@ -86,6 +86,8 @@
                     android:elevation="5dp"
                     android:padding="15dp"
                     android:minHeight="48dp"
+                    android:button="@null"
+                    android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
             />
         </LinearLayout>
 
@@ -108,7 +110,9 @@
                     android:background="@drawable/check_box"
                     android:elevation="5dp"
                     android:padding="15dp"
-                    android:minHeight="48dp"/>
+                    android:minHeight="48dp"
+                    android:button="@null"
+                    android:drawableStart="?android:attr/listChoiceIndicatorMultiple"/>
         </LinearLayout>
 
         <LinearLayout
@@ -130,7 +134,9 @@
                     android:background="@drawable/check_box"
                     android:elevation="5dp"
                     android:padding="15dp"
-                    android:minHeight="48dp"/>
+                    android:minHeight="48dp"
+                    android:button="@null"
+                    android:drawableStart="?android:attr/listChoiceIndicatorMultiple"/>
         </LinearLayout>
 
         <LinearLayout
@@ -152,7 +158,9 @@
                     android:background="@drawable/check_box"
                     android:elevation="5dp"
                     android:padding="15dp"
-                    android:minHeight="48dp"/>
+                    android:minHeight="48dp"
+                    android:button="@null"
+                    android:drawableStart="?android:attr/listChoiceIndicatorMultiple"/>
         </LinearLayout>
 
         <LinearLayout

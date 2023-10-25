@@ -3,14 +3,14 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
-              android:layout_margin="20dp"
+              android:layout_margin="15dp"
               android:orientation="horizontal"
-              android:background="@drawable/button_lihguistics"
+              android:background="@drawable/button"
               android:contentDescription="@string/todo"
-              android:elevation="15dp"
+              android:elevation="10dp"
               android:scaleType="fitCenter"
-              android:padding="10dp">
-
+              android:paddingBottom="30dp"
+              android:padding="5dp">
     <ImageView
             android:src="@drawable/city_quiz"
             android:layout_width="70dp"

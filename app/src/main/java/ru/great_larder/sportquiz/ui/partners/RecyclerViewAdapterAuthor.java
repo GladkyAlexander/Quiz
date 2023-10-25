@@ -72,8 +72,8 @@ public class RecyclerViewAdapterAuthor extends RecyclerView.Adapter<RecyclerView
         }
     }
     
-   public String getItem(int id) {
-        return authors.get(id).getLastNameAuthor();
+   public Author getItem(int id) {
+        return authors.get(id);
     }
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;

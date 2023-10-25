@@ -37,7 +37,6 @@ public class ConnectMySQL {
     }
     public void setConnectionMySQL(){
         if (user != null){
-            /*String server = "31.31.198.112";*/
             String server = "www.great-larder.ru";
             String port = "3306";
             nameDB = "u1542203_victori";

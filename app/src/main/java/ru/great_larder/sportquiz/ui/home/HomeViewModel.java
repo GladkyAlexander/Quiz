@@ -4,6 +4,7 @@ package ru.great_larder.sportquiz.ui.home;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import ru.great_larder.sportquiz.GlobalLinkUser;
 
 public class HomeViewModel extends ViewModel {
     

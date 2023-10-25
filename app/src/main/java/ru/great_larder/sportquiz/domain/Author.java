@@ -3,13 +3,15 @@ package ru.great_larder.sportquiz.domain;
 import java.util.Arrays;
 
 public class Author {
+    Integer id;
     String lastNameAuthor;
     String firstNameAuthor;
     String aboutMe;
     String link;
     byte[] photo;
     
-    public Author(String lastNameAuthor, String firstNameAuthor, String aboutMe, String link, byte[] photo) {
+    public Author(Integer id, String lastNameAuthor, String firstNameAuthor, String aboutMe, String link, byte[] photo) {
+        this.id = id;
         this.lastNameAuthor = lastNameAuthor;
         this.firstNameAuthor = firstNameAuthor;
         this.aboutMe = aboutMe;
@@ -18,6 +20,14 @@ public class Author {
     }
     
     public Author() {
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     public String getAboutMe() {
@@ -63,7 +73,8 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-            "lastNameAuthor='" + lastNameAuthor + '\'' +
+            "id=" + id +
+            ", lastNameAuthor='" + lastNameAuthor + '\'' +
             ", firstNameAuthor='" + firstNameAuthor + '\'' +
             ", aboutMe='" + aboutMe + '\'' +
             ", link='" + link + '\'' +

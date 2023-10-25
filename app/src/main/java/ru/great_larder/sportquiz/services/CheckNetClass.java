@@ -1,9 +1,15 @@
 package ru.great_larder.sportquiz.services;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkCapabilities;
+import android.net.*;
 import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.URL;
+import java.util.concurrent.Executors;
 
 public class CheckNetClass {
     
@@ -16,14 +22,24 @@ public class CheckNetClass {
             NetworkCapabilities capabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
             if (capabilities != null) {
                 if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    result = 2;
+                        result = 2;
                 } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    result = 1;
+                        result = 1;
                 } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-                    result = 3;
+                        result = 3;
                 }
             }
         }
         return result;
+    }
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("www.google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+            
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -36,6 +36,8 @@ public class GetListLanguageRuQuestionMySQLImpl implements GetListQuestionMySQL 
             connectMySQL.closeMySQLDatabase();
         } catch (SQLException e) {
             e.getStackTrace();
+        } finally {
+            connectMySQL.closeMySQLDatabase();
         }
         return questions;
     }

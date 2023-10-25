@@ -10,6 +10,7 @@ public class GetQuestionServiceImpl implements GetQuestionService {
     public Question getQuestion(ResultSet resultSet) throws SQLException {
         
         Question question = new Question();
+        question.setId(resultSet.getInt("id"));
         question.setQuestion(resultSet.getString("question"));
         question.setRightAnswer(resultSet.getString("right_answer"));
         question.setWrongAnswer1(resultSet.getString("wrong_answer_1"));

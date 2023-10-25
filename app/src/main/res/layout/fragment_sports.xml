@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:tools="http://schemas.android.com/tools"
               tools:context=".ui.sports.SportsFragment"
               android:orientation="vertical"
               android:gravity="center">
@@ -10,10 +10,10 @@
     <ImageView
             android:src="@drawable/olimpik"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:id="@+id/imageViewSportz"
             android:contentDescription="@string/todo"
-            android:paddingTop="150dp"/>
+            android:layout_marginTop="25dp"/>
     <Button android:text="@string/start"
             android:id="@+id/btnStartSport"
             android:layout_width="match_parent"

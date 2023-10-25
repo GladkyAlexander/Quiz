@@ -8,9 +8,11 @@ import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.*;
-import ru.great_larder.sportquiz.database.DatabaseAdapter;
-import ru.great_larder.sportquiz.database.PuzzleDatabaseAdapter;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAdapterSQLite;
+import ru.great_larder.sportquiz.databinding.FragmentDialogPuzzleBinding;
 import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
@@ -20,21 +22,21 @@ public class DialogPuzzleFragment extends DialogFragment {
     Button btnYesBuyPuzzle, btnNoBuyPuzzle;
     Puzzle puzzle;
     int idPuzzle;
-    PuzzleDatabaseAdapter adapter;
-    DatabaseAdapter userAdapter;
+    PuzzleDatabaseAdapterSQLite adapter;
+    DatabaseAdapterUserSQLite userAdapter;
     int price;
-    private ForAPuzzleFragment forAPuzzleFragment;
+    FragmentDialogPuzzleBinding binding;
     
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        
-        View root = inflater.inflate(R.layout.fragment_dialog_puzzle, container, false);
-        adapter = new PuzzleDatabaseAdapter(requireActivity());
-        userAdapter = new DatabaseAdapter(requireActivity());
-        textViewOnTheAccount = root.findViewById(R.id.textViewOnTheAccount);
-        btnNoBuyPuzzle = root.findViewById(R.id.btnNoBuyPuzzle);
-        btnYesBuyPuzzle = root.findViewById(R.id.btnYesBuyPuzzle);
+        binding = FragmentDialogPuzzleBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        adapter = new PuzzleDatabaseAdapterSQLite(requireActivity());
+        userAdapter = new DatabaseAdapterUserSQLite(requireActivity());
+        textViewOnTheAccount = binding.textViewOnTheAccount;
+        btnNoBuyPuzzle = binding.btnNoBuyPuzzle;
+        btnYesBuyPuzzle = binding.btnYesBuyPuzzle;
         if(getArguments() != null){
             idPuzzle = getArguments().getInt("idP");
             price = getArguments().getInt("price");
@@ -109,4 +111,10 @@ public class DialogPuzzleFragment extends DialogFragment {
         }
         puzzle.setId_user((int) GlobalLinkUser.getUser().getId());
  }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

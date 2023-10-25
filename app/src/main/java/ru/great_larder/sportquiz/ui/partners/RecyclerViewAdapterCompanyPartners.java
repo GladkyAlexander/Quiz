@@ -66,8 +66,8 @@ public class RecyclerViewAdapterCompanyPartners extends RecyclerView.Adapter<Rec
             , companyPartnersList.get(getBindingAdapterPosition()));
         }
     }
-    public String getItem(int id) {
-        return companyPartnersList.get(id).getNameCompany();
+    public CompanyPartners getItem(int id) {
+        return companyPartnersList.get(id);
     }
     public void setClickListener(RecyclerViewAdapterCompanyPartners.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;

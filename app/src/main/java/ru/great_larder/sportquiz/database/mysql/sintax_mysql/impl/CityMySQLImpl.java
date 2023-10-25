@@ -14,6 +14,7 @@ public class CityMySQLImpl implements CityMySQL {
             ", link text" +
             ", level text" +
             ", city text" +
+            ", linkHistoryOneStreet text" +
             ", label longblob) ENGINE = InnoDB";
     }
     
@@ -28,7 +29,8 @@ public class CityMySQLImpl implements CityMySQL {
             " link," +
             " level," +
             " city," +
-            " label) VALUES (?,?,?,?,?,?,?,?,?)";
+            " linkHistoryOneStreet," +
+            " label) VALUES (?,?,?,?,?,?,?,?,?,?)";
     }
     
     @Override

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.MainActivity;
+import ru.great_larder.sportquiz.databinding.FragmentQuestionsFromAuthorBinding;
 import ru.great_larder.sportquiz.services.CheckNetClass;
 import ru.great_larder.sportquiz.ui.partners.PartnersFragment;
 
@@ -26,6 +27,7 @@ public class QuestionsFromAuthorFragment extends Fragment {
     private QuestionsFromAuthorViewModel mViewModel;
     
     private PartnersFragment partnersFragment;
+    FragmentQuestionsFromAuthorBinding binding;
     
     public PartnersFragment getPartnersFragment() {
         return partnersFragment;
@@ -43,7 +45,7 @@ public class QuestionsFromAuthorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         
-        ru.great_larder.sportquiz.databinding.FragmentQuestionsFromAuthorBinding binding = ru.great_larder.sportquiz.databinding.FragmentQuestionsFromAuthorBinding.inflate(inflater, container, false);
+        binding = ru.great_larder.sportquiz.databinding.FragmentQuestionsFromAuthorBinding.inflate(inflater, container, false);
         ViewGroup root = binding.getRoot();
         
         textInputEditTextFirstName = binding.textInputEditTextFirstName;
@@ -130,5 +132,11 @@ public class QuestionsFromAuthorFragment extends Fragment {
                 )
             )
         );
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

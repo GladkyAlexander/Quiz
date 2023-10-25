@@ -5,13 +5,13 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               tools:context=".ui.traffic_laws.FragmentTrafficLaws"
-              android:gravity="center">
+              android:gravity="center|top">
     <ImageView
             android:src="@drawable/pdd_img"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/imageViewPdd"
-            android:contentDescription="@string/todo"/>
+            android:contentDescription="@string/todo" android:layout_marginTop="150dp"/>
     <Button android:text="@string/start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

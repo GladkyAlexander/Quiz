@@ -1,13 +1,16 @@
 package ru.great_larder.sportquiz.ui.city;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.*;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.R;

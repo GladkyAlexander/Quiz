@@ -21,6 +21,7 @@ public class LanguageQuizFragment extends Fragment {
     private LinearLayout linearLayoutButtonRuEn;
     private FrameLayout frameLayoutLanguage;
     private ImageButton button_language_ru, button_language_en;
+    FragmentLanguageQuizBinding binding;
     
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -28,7 +29,7 @@ public class LanguageQuizFragment extends Fragment {
 
         LanguageQuizFragmentViewModel languageQuizFragmentViewModel = new ViewModelProvider(this, new ViewModelProvider
                 .NewInstanceFactory()).get(LanguageQuizFragmentViewModel.class);
-        FragmentLanguageQuizBinding binding = FragmentLanguageQuizBinding.inflate(inflater, container, false);
+        binding = FragmentLanguageQuizBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         
         button_language_ru = binding.buttonLanguageRu;
@@ -83,5 +84,11 @@ public class LanguageQuizFragment extends Fragment {
                 transaction.commit();
             });
         }
+    }
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
