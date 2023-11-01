@@ -85,7 +85,18 @@ public class CompanyPartnersAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_COMPANY, null, cv));
     }
-    
+    public boolean setList(List<CompanyPartners> companyPartnersList){
+        for (CompanyPartners companyPartners : companyPartnersList) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_ID_COMPANY_PARTNERS, companyPartners.getId());
+            cv.put(DatabaseHelper.COLUMN_NAME_COMPANY_PARTNERS, companyPartners.getNameCompany());
+            cv.put(DatabaseHelper.COLUMN_ABOUT_ME_COMPANY_PARTNERS, companyPartners.getAboutMe());
+            cv.put(DatabaseHelper.COLUMN_LINK_COMPANY_PARTNERS, companyPartners.getLink());
+            cv.put(DatabaseHelper.COLUMN_LOGO_COMPANY_PARTNERS, companyPartners.getLogo());
+            database.insert(DatabaseHelper.TABLE_COMPANY, null, cv);
+        }
+        return true;
+    }
     public Integer deleteUserById(Integer companyId){
         
         String whereClause = "id = ?";

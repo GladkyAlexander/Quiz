@@ -93,7 +93,20 @@ public class EtiquetteSecularAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_ETIQUETTE_SECULAR, null, cv));
     }
-    
+    public boolean setList(List<QuestionEtiquetteSecular> questionEtiquetteSecularList){
+        for (QuestionEtiquetteSecular questionEtiquetteBusiness : questionEtiquetteSecularList) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionEtiquetteBusiness.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionEtiquetteBusiness.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionEtiquetteBusiness.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionEtiquetteBusiness.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionEtiquetteBusiness.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionEtiquetteBusiness.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionEtiquetteBusiness.getLevel());
+            database.insert(DatabaseHelper.TABLE_ETIQUETTE_SECULAR, null, cv);
+        }
+        return true;
+    }
     public Integer deleteEtiquetteSecularById(Integer etiquetteSecularId){
         
         String whereClause = "id = ?";

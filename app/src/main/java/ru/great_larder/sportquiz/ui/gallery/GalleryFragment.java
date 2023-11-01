@@ -12,7 +12,9 @@ import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import ru.great_larder.sportquiz.*;
+import ru.great_larder.sportquiz.ForAPuzzleFragment;
+import ru.great_larder.sportquiz.GlobalLinkUser;
+import ru.great_larder.sportquiz.database.repository.get_live.ListPuzzlesLoad;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.FairiesDatabaseAdapterSQLite;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAdapterSQLite;
@@ -28,7 +30,8 @@ import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
 import ru.great_larder.sportquiz.ui.for_a_corusel_of_puzzles.ForACarouselOfPuzzlesFragment;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 public class GalleryFragment extends Fragment implements ObserverUser {
     
@@ -149,9 +152,10 @@ public class GalleryFragment extends Fragment implements ObserverUser {
             textViewNameGalleryFragment.setText(user.getName());
             textViewPointsGF.setText(String.valueOf(user.getGlasses()));
             textViewPointsGalleryFragment.setText(new GetNamesVictik().getVictik(user.getGlasses()));
-            adapterPuzzle.open();
+            /*adapterPuzzle.open();
             puzzles = adapterPuzzle.getPuzzles();
-            adapterPuzzle.close();
+            adapterPuzzle.close();*/
+            puzzles = ListPuzzlesLoad.getPuzzles();
             setupCarouselPuzzle();
         } else {
             motionPuzzle.setVisibility(View.GONE);

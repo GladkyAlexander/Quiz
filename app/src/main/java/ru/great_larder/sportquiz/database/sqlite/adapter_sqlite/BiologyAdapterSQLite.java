@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import ru.great_larder.sportquiz.database.sqlite.DatabaseHelper;
-import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionBiology;
 
 import java.util.ArrayList;
@@ -94,7 +93,20 @@ public class BiologyAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_BIOLOGY, null, cv));
     }
-    
+    public boolean setList(List<QuestionBiology> questionBiologies){
+        for (QuestionBiology questionBiology : questionBiologies) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionBiology.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionBiology.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionBiology.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionBiology.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionBiology.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionBiology.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionBiology.getLevel());
+            database.insert(DatabaseHelper.TABLE_BIOLOGY, null, cv);
+        }
+        return true;
+    }
     public Integer deleteBiologyById(Integer biologyId){
         
         String whereClause = "id = ?";

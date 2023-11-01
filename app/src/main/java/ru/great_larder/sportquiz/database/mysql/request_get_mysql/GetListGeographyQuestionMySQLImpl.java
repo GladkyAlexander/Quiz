@@ -8,6 +8,7 @@ import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionSer
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.GeographyMySQL;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.GeographyMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionGeography;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.sql.SQLException;
@@ -27,7 +28,8 @@ public class GetListGeographyQuestionMySQLImpl implements GetListQuestionMySQL {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(geographyMySQL.SELECT(connectMySQL.nameDB));
             
             while (connectMySQL.resultSetMySQL.next()){
-                questions.add(getQuestionService.getQuestion(connectMySQL.resultSetMySQL));
+                Question question = new QuestionGeography();
+                questions.add(getQuestionService.getQuestion(connectMySQL, question));
             }
             
             connectMySQL.closeMySQLDatabase();

@@ -15,6 +15,7 @@ import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.PuzzleDatabaseAd
 import ru.great_larder.sportquiz.databinding.FragmentDialogPuzzleBinding;
 import ru.great_larder.sportquiz.domain.Puzzle;
 import ru.great_larder.sportquiz.domain.User;
+import ru.great_larder.sportquiz.services.load.LoadDataPuzzlesSQLite;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 
 public class DialogPuzzleFragment extends DialogFragment {
@@ -62,6 +63,7 @@ public class DialogPuzzleFragment extends DialogFragment {
                         userAdapter.open();
                         userAdapter.update(us);
                         userAdapter.close();
+                        new LoadDataPuzzlesSQLite().load(requireActivity());
                         GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(us));
                         dismiss();
                     }

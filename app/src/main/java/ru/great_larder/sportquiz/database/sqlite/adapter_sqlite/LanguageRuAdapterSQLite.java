@@ -93,7 +93,20 @@ public class LanguageRuAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_LANGUAGE_RU, null, cv));
     }
-    
+    public boolean setList(List<QuestionRuLanguage> ruLanguages){
+        for (QuestionRuLanguage questionRuLanguage : ruLanguages) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionRuLanguage.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionRuLanguage.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionRuLanguage.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionRuLanguage.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionRuLanguage.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionRuLanguage.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionRuLanguage.getLevel());
+            database.insert(DatabaseHelper.TABLE_LANGUAGE_RU, null, cv);
+        }
+        return true;
+    }
     public Integer deleteRuLanguageById(Integer enLanguageId){
         
         String whereClause = "id = ?";

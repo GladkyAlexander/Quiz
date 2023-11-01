@@ -93,7 +93,20 @@ public class PhysicsAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_PHYSICS, null, cv));
     }
-    
+    public boolean setList(List<QuestionPhysics> physics){
+        for (QuestionPhysics questionPhysics : physics) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionPhysics.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionPhysics.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionPhysics.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionPhysics.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionPhysics.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionPhysics.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionPhysics.getLevel());
+            database.insert(DatabaseHelper.TABLE_PHYSICS, null, cv);
+        }
+        return true;
+    }
     public Integer deletePhysicsById(Integer physicsId){
         
         String whereClause = "id = ?";

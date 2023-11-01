@@ -8,6 +8,7 @@ import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionSer
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.HistoryMySQL;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.HistoryMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionHistory;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.sql.SQLException;
@@ -27,7 +28,8 @@ public class GetListHistoryQuestionMySQLImpl implements GetListQuestionMySQL {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(historyMySQL.SELECT(connectMySQL.nameDB));
             
             while (connectMySQL.resultSetMySQL.next()){
-                questions.add(getQuestionService.getQuestion(connectMySQL.resultSetMySQL));
+                Question question = new QuestionHistory();
+                questions.add(getQuestionService.getQuestion(connectMySQL, question));
             }
             
             connectMySQL.closeMySQLDatabase();

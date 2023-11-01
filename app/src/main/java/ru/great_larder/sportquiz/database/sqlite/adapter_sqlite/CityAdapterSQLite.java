@@ -108,7 +108,25 @@ public class CityAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_CITY, null, cv));
     }
-    
+    public boolean setList(List<QuestionCity> questionCities){
+        for (QuestionCity questionCity : questionCities) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_ID_QUESTION, questionCity.getId());
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionCity.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionCity.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionCity.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionCity.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionCity.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionCity.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionCity.getLevel());
+            
+            cv.put(DatabaseHelper.COLUMN_CITY_QUESTION, questionCity.getCity());
+            cv.put(DatabaseHelper.COLUMN_LINK_HISTORY_ONE_STREET, questionCity.getLinkHistoryOneStreet());
+            cv.put(DatabaseHelper.COLUMN_LABEL_QUESTION_CITY, questionCity.getLabel());
+            database.insert(DatabaseHelper.TABLE_CITY, null, cv);
+        }
+        return true;
+    }
     public Integer deleteCityById(Integer cityId){
         
         String whereClause = "id = ?";

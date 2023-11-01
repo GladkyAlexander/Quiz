@@ -93,7 +93,20 @@ public class TrafficLawsAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_TRAFFIC_LAWS, null, cv));
     }
-    
+    public boolean setList(List<QuestionTrafficLaws> trafficLaws){
+        for (QuestionTrafficLaws questionTrafficLaws : trafficLaws) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionTrafficLaws.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionTrafficLaws.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionTrafficLaws.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionTrafficLaws.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionTrafficLaws.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionTrafficLaws.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionTrafficLaws.getLevel());
+            database.insert(DatabaseHelper.TABLE_TRAFFIC_LAWS, null, cv);
+        }
+        return true;
+    }
     public Integer deleteTrafficLawsById(Integer trafficLawsId){
         
         String whereClause = "id = ?";

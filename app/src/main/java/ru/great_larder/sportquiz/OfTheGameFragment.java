@@ -1,20 +1,16 @@
 package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.database.repository.GetQuestion;
 import ru.great_larder.sportquiz.database.repository.impl.GetQuestionImpl;
@@ -95,7 +91,6 @@ public class OfTheGameFragment extends Fragment {
             questionList = getQuestion.getListQuestion(getContext(), getArguments().getString("getQuestion"), nameCity);
             startQuiz();
         }
-        
         return root;
     }
     
@@ -177,7 +172,6 @@ public class OfTheGameFragment extends Fragment {
                             f.setClickable(false);
                         }
                         new Handler(Looper.getMainLooper()).postDelayed(this::timerResume, 1000);
-                        
                     } else {
                         view = map.get(c);
                         assert view != null;

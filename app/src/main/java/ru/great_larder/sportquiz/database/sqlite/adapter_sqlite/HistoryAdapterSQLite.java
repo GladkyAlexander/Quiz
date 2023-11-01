@@ -93,7 +93,20 @@ public class HistoryAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_HISTORY, null, cv));
     }
-    
+    public boolean setList(List<QuestionHistory> histories){
+        for (QuestionHistory questionHistory : histories) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionHistory.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionHistory.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionHistory.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionHistory.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionHistory.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionHistory.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionHistory.getLevel());
+            database.insert(DatabaseHelper.TABLE_HISTORY, null, cv);
+        }
+        return true;
+    }
     public Integer deleteHistoryById(Integer historyId){
         
         String whereClause = "id = ?";

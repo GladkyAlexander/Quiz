@@ -93,7 +93,20 @@ public class LanguageEnAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_LANGUAGE_EN, null, cv));
     }
-    
+    public boolean setList(List<QuestionEnLanguage> enLanguages){
+        for (QuestionEnLanguage questionEnLanguage : enLanguages) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionEnLanguage.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionEnLanguage.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionEnLanguage.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionEnLanguage.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionEnLanguage.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionEnLanguage.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionEnLanguage.getLevel());
+            database.insert(DatabaseHelper.TABLE_LANGUAGE_EN, null, cv);
+        }
+        return true;
+    }
     public Integer deleteEnLanguageById(Integer enLanguageId){
         
         String whereClause = "id = ?";

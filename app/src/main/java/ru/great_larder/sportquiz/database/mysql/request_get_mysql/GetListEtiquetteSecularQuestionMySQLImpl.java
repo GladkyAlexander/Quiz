@@ -8,6 +8,7 @@ import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionSer
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.EtiquetteSecularMySQL;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.EtiquetteSecularMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionEtiquetteSecular;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.sql.SQLException;
@@ -27,7 +28,8 @@ public class GetListEtiquetteSecularQuestionMySQLImpl implements GetListQuestion
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(etiquetteSecularMySQL.SELECT(connectMySQL.nameDB));
             
             while (connectMySQL.resultSetMySQL.next()){
-                questions.add(getQuestionService.getQuestion(connectMySQL.resultSetMySQL));
+                Question question = new QuestionEtiquetteSecular();
+                questions.add(getQuestionService.getQuestion(connectMySQL, question));
             }
             
             connectMySQL.closeMySQLDatabase();

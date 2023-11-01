@@ -93,7 +93,20 @@ public class GeographyAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_GEOGRAPHY, null, cv));
     }
-    
+    public boolean setList(List<QuestionGeography> questionGeographies){
+        for (QuestionGeography questionGeography : questionGeographies) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionGeography.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionGeography.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionGeography.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionGeography.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionGeography.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionGeography.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionGeography.getLevel());
+            database.insert(DatabaseHelper.TABLE_GEOGRAPHY, null, cv);
+        }
+        return true;
+    }
     public Integer deleteGeographyById(Integer geographyId){
         
         String whereClause = "id = ?";

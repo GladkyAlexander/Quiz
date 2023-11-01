@@ -1,14 +1,12 @@
 package ru.great_larder.sportquiz.database.mysql;
 
 import android.content.Context;
-import android.widget.Toast;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.*;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.*;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.Properties;
 
 public class ConnectMySQL {
     public User user;
@@ -45,7 +43,7 @@ public class ConnectMySQL {
             connectionMySQL = null;
                 try {
                     Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
-                    connectionMySQL = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port ,  userDB , passwordDB);
+                    connectionMySQL = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "?useSSL=false" ,  userDB , passwordDB);
                 } catch (IllegalAccessException | InstantiationException | InvocationTargetException | SQLException |
                          ClassNotFoundException | NoSuchMethodException e) {
                    System.err.print(e.getMessage());

@@ -86,7 +86,19 @@ public class AuthorAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_AUTHOR, null, cv));
     }
-    
+    public boolean setList(List<Author> authors){
+        for (Author author : authors) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_ID_AUTHOR, author.getId());
+            cv.put(DatabaseHelper.COLUMN_FIRSTNAME_AUTHOR, author.getFirstNameAuthor());
+            cv.put(DatabaseHelper.COLUMN_LASTNAME_AUTHOR, author.getLastNameAuthor());
+            cv.put(DatabaseHelper.COLUMN_ABOUT_ME_AUTHOR, author.getAboutMe());
+            cv.put(DatabaseHelper.COLUMN_LINK_AUTHOR, author.getLink());
+            cv.put(DatabaseHelper.COLUMN_PHOTO_AUTHOR, author.getPhoto());
+            database.insert(DatabaseHelper.TABLE_AUTHOR, null, cv);
+        }
+        return true;
+    }
     public Integer deleteUserById(long authorId){
         
         String whereClause = "id = ?";

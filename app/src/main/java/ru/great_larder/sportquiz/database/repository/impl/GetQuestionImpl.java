@@ -3,11 +3,8 @@ package ru.great_larder.sportquiz.database.repository.impl;
 import android.content.Context;
 import ru.great_larder.sportquiz.database.repository.GetQuestion;
 import ru.great_larder.sportquiz.database.repository.get_live.*;
-import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.*;
 import ru.great_larder.sportquiz.domain.Question;
-import ru.great_larder.sportquiz.domain.QuestionBiology;
 import ru.great_larder.sportquiz.domain.QuestionCity;
-import ru.great_larder.sportquiz.question.*;
 
 import java.util.ArrayList;
 import java.util.List;

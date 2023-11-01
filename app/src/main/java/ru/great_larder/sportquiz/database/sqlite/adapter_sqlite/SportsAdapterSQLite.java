@@ -93,7 +93,20 @@ public class SportsAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_SPORTS, null, cv));
     }
-    
+    public boolean setList(List<QuestionSports> sports){
+        for (QuestionSports questionSports : sports) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionSports.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionSports.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionSports.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionSports.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionSports.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionSports.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionSports.getLevel());
+            database.insert(DatabaseHelper.TABLE_SPORTS, null, cv);
+        }
+        return true;
+    }
     public Integer deleteSportsById(Integer sportsId){
         
         String whereClause = "id = ?";

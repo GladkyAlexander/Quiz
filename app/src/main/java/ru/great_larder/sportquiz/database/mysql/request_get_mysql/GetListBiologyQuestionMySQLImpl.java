@@ -8,6 +8,7 @@ import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionSer
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.BiologyMySQL;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.BiologyMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionBiology;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.sql.SQLException;
@@ -27,7 +28,8 @@ public class GetListBiologyQuestionMySQLImpl implements GetListQuestionMySQL {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(biologyMySQL.SELECT(connectMySQL.nameDB));
             
             while (connectMySQL.resultSetMySQL.next()){
-                questions.add(getQuestionService.getQuestion(connectMySQL.resultSetMySQL));
+                Question question = new QuestionBiology();
+                questions.add(getQuestionService.getQuestion(connectMySQL, question));
             }
             connectMySQL.closeMySQLDatabase();
         } catch (SQLException e) {
@@ -35,4 +37,5 @@ public class GetListBiologyQuestionMySQLImpl implements GetListQuestionMySQL {
         }
         return questions;
     }
+    
 }

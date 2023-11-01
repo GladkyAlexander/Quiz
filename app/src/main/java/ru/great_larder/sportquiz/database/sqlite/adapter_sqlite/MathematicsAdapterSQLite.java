@@ -94,7 +94,20 @@ public class MathematicsAdapterSQLite {
         
         return Math.toIntExact(database.insert(DatabaseHelper.TABLE_MATHEMATICS, null, cv));
     }
-    
+    public boolean setList(List<QuestionMathematics> mathematics){
+        for (QuestionMathematics questionMathematics : mathematics) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COLUMN_QUESTION, questionMathematics.getQuestion());
+            cv.put(DatabaseHelper.COLUMN_RIGHT_ANSWER, questionMathematics.getRightAnswer());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_1, questionMathematics.getWrongAnswer1());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_2, questionMathematics.getWrongAnswer2());
+            cv.put(DatabaseHelper.COLUMN_WRONG_ANSWER_3, questionMathematics.getWrongAnswer3());
+            cv.put(DatabaseHelper.COLUMN_LINK_QUESTION, questionMathematics.getLink());
+            cv.put(DatabaseHelper.COLUMN_LEVEL_QUESTION, questionMathematics.getLevel());
+            database.insert(DatabaseHelper.TABLE_MATHEMATICS, null, cv);
+        }
+        return true;
+    }
     public Integer deleteMathematicsById(Integer mathematicsId){
         
         String whereClause = "id = ?";

@@ -5,35 +5,31 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
-import androidx.annotation.NonNull;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.FairiesDatabaseAdapterSQLite;
+import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
 import ru.great_larder.sportquiz.domain.Fairies;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.GetActiveFairies;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
 import ru.great_larder.sportquiz.services.user_listener.HandlerUserListener;
 import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
-import ru.great_larder.sportquiz.databinding.ActivityMainBinding;
 
 import java.util.List;
 
@@ -78,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
             GlobalLinkUser.setUser(users.get(0));
         } else GlobalLinkUser.setUser(null);
         
-        ru.great_larder.sportquiz.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        
         textViewBar = binding.appBarMain.textViewRight;
         
         fabHideFab = binding.appBarMain.fab;
@@ -92,19 +89,19 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         img_fairies = binding.appBarMain.imgFairies;
         progressBar = binding.appBarMain.progressBar;
         
-        setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarMain.toolbar);
-        
         NavigationView navigationView = binding.navView;
         View hView = navigationView.getHeaderView(0);
         
         tg = hView.findViewById(R.id.textViewNameNavHeader);
         imageViewAwatar = hView.findViewById(R.id.imageViewAwatar);
         
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.appBarMain.toolbar);
+        
         navigationView.setItemIconTintList(null);
-        if (GlobalLinkUser.getUser() != null) {
+        /*if (GlobalLinkUser.getUser() != null) {
             loadMainAct(GlobalLinkUser.getUser());
-        }
+        }*/
         
         mAppBarConfiguration = new AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_language_quiz, R.id.nav_sports_quiz
@@ -114,7 +111,9 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        
+        if (GlobalLinkUser.getUser() != null) {
+            loadMainAct(GlobalLinkUser.getUser());
+        }
     }
     public void loadMainAct(User userIn) {
         if(userIn != null) {
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements ObserverUser {
                 imageViewAwatar.setImageBitmap(BitmapFactory.decodeByteArray(GlobalLinkUser.getUser().getAwatar()
                     , 0, GlobalLinkUser.getUser().getAwatar().length));
             }
-        }
+        } else Toast.makeText(this, "Зарегистрируйтесь", Toast.LENGTH_LONG).show();
     }
     
     @Override

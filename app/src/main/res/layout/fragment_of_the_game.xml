@@ -56,7 +56,6 @@
             android:textColor="#050505"
             android:textSize="16sp"
             android:textStyle="bold"/>
-
     <LinearLayout
             android:id="@+id/llAnswersGame"
             android:layout_width="match_parent"
@@ -161,6 +160,7 @@
                     android:minHeight="48dp"
                     android:button="@null"
                     android:drawableStart="?android:attr/listChoiceIndicatorMultiple"/>
+
         </LinearLayout>
 
         <LinearLayout

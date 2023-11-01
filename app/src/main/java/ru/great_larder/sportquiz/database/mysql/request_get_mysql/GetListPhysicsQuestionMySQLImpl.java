@@ -8,6 +8,7 @@ import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionSer
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.PhysicsMySQL;
 import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.PhysicsMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
+import ru.great_larder.sportquiz.domain.QuestionPhysics;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.sql.SQLException;
@@ -28,7 +29,8 @@ public class GetListPhysicsQuestionMySQLImpl implements GetListQuestionMySQL {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(physicsMySQL.SELECT(connectMySQL.nameDB));
             
             while (connectMySQL.resultSetMySQL.next()){
-                questions.add(getQuestionService.getQuestion(connectMySQL.resultSetMySQL));
+                Question question = new QuestionPhysics();
+                questions.add(getQuestionService.getQuestion(connectMySQL, question));
             }
             
             connectMySQL.closeMySQLDatabase();
