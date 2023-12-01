@@ -159,107 +159,7 @@
                 app:carousel_touchUp_dampeningFactor="0.8"
                 app:constraint_referenced_ids="img1, img2, img3, img4, img5"/>
     </androidx.constraintlayout.motion.widget.MotionLayout>
-    <TextView
-            android:text="@string/PuzzleGreeting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewPuzzleGreeting"
-            android:textColor="#090909"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
     <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-    <androidx.constraintlayout.motion.widget.MotionLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:id="@+id/motionPazl"
-            app:layoutDescription="@xml/fragment_gallery_pazl_scene"
-            android:layout_marginTop="10dp">
-
-        <FrameLayout android:layout_width="100dp"
-                   android:layout_height="130dp"
-                   android:src="@drawable/pazl0"
-                   android:id="@+id/imgPazl1"
-                   android:contentDescription="@string/todo"
-                   android:layout_marginEnd="16dp"
-                   android:scaleType="fitCenter"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   app:layout_constraintEnd_toStartOf="@+id/imgPazl2"
-                   app:layout_constraintTop_toTopOf="parent"/>
-
-        <FrameLayout android:layout_width="100dp"
-                   android:layout_height="130dp"
-                   android:src="@drawable/pazl0"
-                   android:id="@+id/imgPazl2"
-                   android:contentDescription="@string/todo"
-                   android:layout_marginEnd="16dp"
-                   android:scaleType="fitCenter"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   app:layout_constraintEnd_toStartOf="@+id/imgPazl3"
-                   app:layout_constraintTop_toTopOf="parent"/>
-
-        <FrameLayout android:layout_width="120dp"
-                   android:layout_height="150dp"
-                   android:src="@drawable/pazl0"
-                   android:id="@+id/imgPazl3"
-                   android:contentDescription="@string/todo"
-                   android:scaleType="fitCenter"
-                   app:layout_constraintHorizontal_bias="0.5"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toTopOf="parent"
-        />
-
-        <FrameLayout android:layout_width="100dp"
-                   android:layout_height="130dp"
-                   android:src="@drawable/pazl0"
-                   android:id="@+id/imgPazl4"
-                   android:contentDescription="@string/todo"
-                   android:layout_marginStart="16dp"
-                   android:scaleType="fitCenter"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   app:layout_constraintStart_toEndOf="@+id/imgPazl3"
-                   app:layout_constraintTop_toTopOf="parent"/>
-
-        <FrameLayout android:layout_width="100dp"
-                   android:layout_height="130dp"
-                   android:id="@+id/imgPazl5"
-                   android:src="@drawable/pazl0"
-                   android:contentDescription="@string/todo"
-                   android:layout_marginStart="16dp"
-                   android:scaleType="fitCenter"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   app:layout_constraintStart_toEndOf="@+id/imgPazl4"
-                   app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelinePazl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="100dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelinePazl2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="100dp" />
-        <androidx.constraintlayout.helper.widget.Carousel
-                android:id="@+id/carousel_pazl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:carousel_forwardTransition="@+id/forward"
-                app:carousel_backwardTransition="@+id/backward"
-                app:carousel_previousState="@+id/previousPazl"
-                app:carousel_nextState="@+id/nextPazl"
-                app:carousel_firstView="@+id/imgPazl3"
-                app:carousel_touchUpMode="carryVelocity"
-                app:carousel_infinite="true"
-                app:carousel_touchUp_dampeningFactor="0.8"
-                app:constraint_referenced_ids="imgPazl1, imgPazl2, imgPazl3, imgPazl4, imgPazl5" />
-    </androidx.constraintlayout.motion.widget.MotionLayout>
     <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="match_parent"
@@ -309,7 +209,4 @@
                  android:id="@+id/frameLayoutPazl"
                  android:visibility="gone">
     </FrameLayout>
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-    android:id="@+id/outTest"/>
 </LinearLayout>

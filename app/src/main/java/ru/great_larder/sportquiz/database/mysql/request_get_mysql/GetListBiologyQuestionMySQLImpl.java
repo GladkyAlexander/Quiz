@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.BiologyMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.BiologyMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxBiology;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.BiologyMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionBiology;
 import ru.great_larder.sportquiz.domain.User;
@@ -22,7 +22,7 @@ public class GetListBiologyQuestionMySQLImpl implements GetListQuestionMySQL {
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableBiologyMySQL();
-        BiologyMySQL biologyMySQL = new BiologyMySQLImpl();
+        SyntaxBiology biologyMySQL = new BiologyMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(biologyMySQL.SELECT(connectMySQL.nameDB));

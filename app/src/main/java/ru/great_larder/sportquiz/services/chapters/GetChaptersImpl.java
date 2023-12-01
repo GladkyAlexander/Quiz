@@ -15,12 +15,15 @@ public class GetChaptersImpl implements GetChapters {
         chapters.add(new Chapter("Биология", R.drawable.biolog));
         chapters.add(new Chapter("География", R.drawable.geografik));
         chapters.add(new Chapter("История", R.drawable.history));
+        chapters.add(new Chapter("Обществознание", R.drawable.social_studies));
 //        chapters.add(new Chapter("Химия", R.drawable.himik));
         
         chapters.add(new Chapter("ПДД", R.drawable.pdd));
         
         chapters.add(new Chapter("Русский язык", R.drawable.ru));
         chapters.add(new Chapter("Английский язык", R.drawable.en));
+        chapters.add(new Chapter("Башкирский язык", R.drawable.bashkir_language));
+        chapters.add(new Chapter("Чувашский язык", R.drawable.chavash_language));
        /* chapters.add("Китайский язык");
         chapters.add("Немецкий язык");
         chapters.add("Французский язык ");
@@ -45,8 +48,6 @@ public class GetChaptersImpl implements GetChapters {
         chapters.add(new Chapter("Светский этикет", R.drawable.social_etiquette));
         
         chapters.add(new Chapter("Города", R.drawable.city_quiz));
-        
-        
         
         return chapters;
     }

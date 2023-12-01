@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.EtiquetteSecularMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.EtiquetteSecularMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxEtiquetteSecular;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.EtiquetteSecularMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionEtiquetteSecular;
 import ru.great_larder.sportquiz.domain.User;
@@ -22,7 +22,7 @@ public class GetListEtiquetteSecularQuestionMySQLImpl implements GetListQuestion
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableEtiquetteSecularMySQL();
-        EtiquetteSecularMySQL etiquetteSecularMySQL = new EtiquetteSecularMySQLImpl();
+        SyntaxEtiquetteSecular etiquetteSecularMySQL = new EtiquetteSecularMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(etiquetteSecularMySQL.SELECT(connectMySQL.nameDB));

@@ -1,10 +1,10 @@
 package ru.great_larder.sportquiz.database.mysql.request_get_mysql;
 
 import android.content.Context;
-import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.GetListCompanyPartnersExternalDB;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.CompanyPartnersMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.CompanyPartnersMySQLImpl;
+import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxCompanyPartners;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.CompanyPartnersMySQLImpl;
 import ru.great_larder.sportquiz.domain.CompanyPartners;
 import ru.great_larder.sportquiz.domain.User;
 
@@ -20,7 +20,7 @@ public class GetListCompanyPartnersImpl implements GetListCompanyPartnersExterna
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableCompanyPartnersMySQL();
-        CompanyPartnersMySQL companyPartnersMySQL = new CompanyPartnersMySQLImpl();
+        SyntaxCompanyPartners companyPartnersMySQL = new CompanyPartnersMySQLImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(companyPartnersMySQL.SELECT(connectMySQL.nameDB));
             

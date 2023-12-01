@@ -1,22 +1,22 @@
 package ru.great_larder.sportquiz.services;
 
 import android.content.Context;
-import android.net.*;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
+import rx.Single;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.URL;
-import java.util.concurrent.Executors;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class CheckNetClass {
-    
+    boolean out;
     @IntRange(from = 0, to = 3)
     public int getConnectionType(Context context) {
-        int result = 0; // Returns connection type. 0: none; 1: mobile data; 2: wifi; 3: vpn
-        //Возвращает тип соединения. 0: нет; 1: мобильные данные; 2: Wi-Fi; 3: VPN
+        int result = 0; //Возвращает тип соединения. 0: нет; 1: мобильные данные; 2: Wi-Fi; 3: VPN
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
             NetworkCapabilities capabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
@@ -32,14 +32,19 @@ public class CheckNetClass {
         }
         return result;
     }
-    public boolean isInternetAvailable() {
-        try {
-            InetAddress ipAddr = InetAddress.getByName("www.google.com");
-            //You can replace it with your name
-            return !ipAddr.equals("");
-            
-        } catch (Exception e) {
-            return false;
-        }
+    public Single<Boolean> isInternetAvailable() {
+        return  Single.fromCallable(()->{
+            try {
+                //int timeoutMs = 500;
+                Socket socket = new Socket();
+                InetSocketAddress socketAddress = new InetSocketAddress("8.8.8.8", 53);
+                
+                socket.connect(socketAddress/*, timeoutMs*/);
+                socket.close();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

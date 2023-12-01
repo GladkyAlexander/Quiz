@@ -1,7 +1,7 @@
 package ru.great_larder.sportquiz;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -71,7 +71,7 @@ public class OfTheGameFragment extends Fragment {
         
         imageViewFinish = binding.imageViewFinish;
         
-        map.put(checkBoxGame1, img1 = binding.imgCB1);
+	    map.put(checkBoxGame1, img1 = binding.imgCB1);
         map.put(checkBoxGame2, img2 = binding.imgCB2);
         map.put(checkBoxGame3, img3 = binding.imgCB3);
         map.put(checkBoxGame4, img4 = binding.imgCB4);
@@ -81,6 +81,7 @@ public class OfTheGameFragment extends Fragment {
             chronometer.cancel();
             back(GlobalLinkUser.getUser());
             requireActivity().getOnBackPressedDispatcher();
+            onDestroyView();
         });
         
         if (getArguments() != null) {
@@ -162,10 +163,22 @@ public class OfTheGameFragment extends Fragment {
         checkBoxList.add(checkBoxGame3);
         checkBoxList.add(checkBoxGame4);
         
+        final MediaPlayer[] mpYes = {MediaPlayer.create(requireContext(), R.raw.the_right_choice)};
+        final MediaPlayer[] mpNo = {MediaPlayer.create(requireContext(), R.raw.explosion_1)};
+        
         for (CheckBox c : checkBoxList) {
             c.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     if (buttonView.getText().equals(right_answer)) {
+                        
+                        try {
+                            if (mpYes[0].isPlaying()) {
+                                mpYes[0].stop();
+                                mpYes[0].release();
+                                mpYes[0] = MediaPlayer.create(requireContext(), R.raw.the_right_choice);
+                            } mpYes[0].start();
+                        } catch(Exception e) { System.err.println(e.getMessage()); }
+                        
                         setScoresPlus();
                         buttonView.setBackgroundResource(R.drawable.check_box);
                         for (CheckBox f : checkBoxList) {
@@ -173,27 +186,34 @@ public class OfTheGameFragment extends Fragment {
                         }
                         new Handler(Looper.getMainLooper()).postDelayed(this::timerResume, 1000);
                     } else {
-                        view = map.get(c);
+                        
+                        try {
+                            if (mpNo[0].isPlaying()) {
+                                mpNo[0].stop();
+                                mpNo[0].release();
+                                mpNo[0] = MediaPlayer.create(requireContext(), R.raw.explosion_1);
+                            } mpNo[0].start();
+                        } catch(Exception e) {System.err.println(e.getMessage());}
+                        
+                        /*view = map.get(c);
                         assert view != null;
                         view.setVisibility(View.VISIBLE);
                         view.setImageResource(R.drawable.animat);
                         AnimationDrawable frameAnimation = (AnimationDrawable) view.getDrawable();
                         frameAnimation.setOneShot(true);
-                        frameAnimation.start();
+                        frameAnimation.start();*/
                         setScoresMinus();
                         for (CheckBox f : checkBoxList) {
                             f.setClickable(false);
                         }
                         showHandler(buttonView);
                         new Handler(Looper.getMainLooper()).postDelayed(this::timerResume, 1000);
-                        
                     }
                 }
             });
             
         }
     }
-    
     private void setScoresMinus() {
         User u = GlobalLinkUser.getUser();
         int gl = u.getGlasses();
@@ -217,7 +237,7 @@ public class OfTheGameFragment extends Fragment {
             }
             
             public void onFinish() {
-                view.setVisibility(View.GONE);
+                //view.setVisibility(View.GONE);
                 buttonView.setBackgroundResource(R.drawable.check_box_false);
             }
         }.start();

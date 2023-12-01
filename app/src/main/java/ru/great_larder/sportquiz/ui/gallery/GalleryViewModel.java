@@ -4,9 +4,5 @@ import androidx.lifecycle.ViewModel;
 
 
 public class GalleryViewModel extends ViewModel {
-    
-    public GalleryViewModel() {
 
-    }
-    
 }

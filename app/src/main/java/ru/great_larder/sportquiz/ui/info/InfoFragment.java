@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,16 +26,15 @@ public class InfoFragment extends Fragment {
         
         /*final TextView textView = binding.textSlideshow;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
+        
         ImageButton imageButtonVK = binding.imageButtonVK;
         ImageButton imageButtonTelegram = binding.imageButtonTelegram;
-        TextView textViewMail = binding.textViewMail;
-        TextView textViewCall = binding.textViewCall;
         
         imageButtonVK.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/public221127130"));
             startActivity(browserIntent);
         });
-        imageButtonTelegram.setOnClickListener(v -> {
+        imageButtonTelegram.setOnClickListener(s -> {
             //Intent browserTelegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/+buSTBjoX_D9kMGQy"));
             Intent browserTelegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/@a_s_gladky"));
             startActivity(browserTelegram);

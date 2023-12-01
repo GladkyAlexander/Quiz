@@ -27,13 +27,3 @@
         </rotate>
     </item>
 </layer-list>
-        <!--
-               <stroke
-                    android:width="8dp"
-                    android:color="#DADADA"
-                    android:dashWidth="5dp"
-                    android:dashGap="5dp" />
-
-               android:centerColor="#FFEB3B"
-                                android:endColor="#00BCD4"
-                                android:startColor="#FF5722"-->

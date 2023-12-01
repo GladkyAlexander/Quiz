@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.LanguageRuMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.LanguageRuMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxLanguageRu;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.LanguageRuMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionRuLanguage;
 import ru.great_larder.sportquiz.domain.User;
@@ -24,7 +24,7 @@ public class GetListLanguageRuQuestionMySQLImpl implements GetListQuestionMySQL 
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableLanguageRuMySQL();
         
-        LanguageRuMySQL languageRuMySQL = new LanguageRuMySQLImpl();
+        SyntaxLanguageRu languageRuMySQL = new LanguageRuMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
        
         try {

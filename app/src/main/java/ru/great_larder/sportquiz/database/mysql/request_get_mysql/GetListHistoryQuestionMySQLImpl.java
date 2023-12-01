@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.HistoryMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.HistoryMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxHistory;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.HistoryMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionHistory;
 import ru.great_larder.sportquiz.domain.User;
@@ -22,7 +22,7 @@ public class GetListHistoryQuestionMySQLImpl implements GetListQuestionMySQL {
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableHistoryMySQL();
-        HistoryMySQL historyMySQL = new HistoryMySQLImpl();
+        SyntaxHistory historyMySQL = new HistoryMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(historyMySQL.SELECT(connectMySQL.nameDB));

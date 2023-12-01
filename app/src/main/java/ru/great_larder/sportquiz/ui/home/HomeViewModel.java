@@ -1,55 +1,48 @@
 package ru.great_larder.sportquiz.ui.home;
 
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import ru.great_larder.sportquiz.GlobalLinkUser;
-import ru.great_larder.sportquiz.services.CheckNetClass;
-import ru.great_larder.sportquiz.services.load.LoadDataFromMySQLForSQLite;
-import ru.great_larder.sportquiz.services.load.LoadDataFromSQLiteFolLocal;
-import ru.great_larder.sportquiz.services.load.LoadDataPuzzlesSQLite;
+import ru.great_larder.sportquiz.StartAppData;
+import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
+import ru.great_larder.sportquiz.domain.User;
+
+import java.util.List;
 
 public class HomeViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
+    private final MutableLiveData<User> mUser;
+    
+    public MutableLiveData<User> getmUser() {
+        return mUser;
+    }
     
     public HomeViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is home fragment");
+        mUser = new MutableLiveData<>();
+        mUser.setValue(loadUser());
     }
     
     public LiveData<String> getText() {
         return mText;
     }
-    
-    public void loadData(Context context, ProgressBar progressBarExternal){
-        new Handler(Looper.getMainLooper()).postDelayed(()-> loPuzzl(context), 2000);
-        new Handler(Looper.getMainLooper()).postDelayed(()-> loQuiz(context), 3000);
-        new Handler(Looper.getMainLooper()).postDelayed(()-> loExtern(context, progressBarExternal), 4000);
+    public User loadUser() {
+        List<User> users;
+        DatabaseAdapterUserSQLite adapter = new DatabaseAdapterUserSQLite(GlobalLinkUser.getMainActivity());
+        adapter.open();
+        users = adapter.getUsers();
+        adapter.close();
+        if (!users.isEmpty()) {
+            mUser.setValue(users.get(0));
+            return users.get(0);
+        } else return null;
     }
     
-    private void loExtern(Context context, ProgressBar progressBarExternal) {
-        if(GlobalLinkUser.getUser() != null) {
-            if (new CheckNetClass().getConnectionType(context) != 0) {
-                progressBarExternal.setVisibility(View.VISIBLE);
-                progressBarExternal.setIndeterminate(true);
-                new LoadDataFromMySQLForSQLite().load(GlobalLinkUser.getUser(), context, progressBarExternal);
-            } else Toast.makeText(context, "Нет интернета!", Toast.LENGTH_LONG).show();
-        } else Toast.makeText(context, "Зарегистрируйтесь", Toast.LENGTH_LONG).show();
+    public void loadDate() {
+        StartAppData startAppData = new StartAppData();
+        startAppData.loadData(GlobalLinkUser.getMainActivity());
     }
-    
-    private void loPuzzl(Context context) {
-        new LoadDataPuzzlesSQLite().load(context);
-    }
-    
-    private void loQuiz(Context context) {
-        new LoadDataFromSQLiteFolLocal().load(context);
-    }
-    
 }

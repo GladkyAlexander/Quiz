@@ -1,20 +1,22 @@
 package ru.great_larder.sportquiz.ui.sports;
 
 import android.os.Bundle;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.OfTheGameFragment;
 import ru.great_larder.sportquiz.databinding.FragmentSportsBinding;
 import ru.great_larder.sportquiz.domain.User;
-import ru.great_larder.sportquiz.services.user_listener.DataUser;
-import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
+import ru.great_larder.sportquiz.services.NameQuestion;
 
 public class SportsFragment extends Fragment{
     FrameLayout frLayout;
@@ -37,34 +39,42 @@ public class SportsFragment extends Fragment{
     public void loadFragment(User user){
         frLayout.removeAllViews();
         if(user == null){
-            btnStartSport.setVisibility(View.GONE);
-            imageViewSportz.setVisibility(View.VISIBLE);
-            frLayout.setVisibility(View.GONE);
-            Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
+            setVisibleLayout(true);
+            btnStartSport.setOnClickListener(v-> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
         } else {
-            btnStartSport.setVisibility(View.VISIBLE);
-            imageViewSportz.setVisibility(View.VISIBLE);
-            frLayout.setVisibility(View.GONE);
+           setVisibleLayout(true);
+            btnStartSport.setOnClickListener(v -> openQuestion(NameQuestion.SPORTS));
         }
-        btnStartSport.setOnClickListener(v ->{
-            btnStartSport.setVisibility(View.GONE);
-            imageViewSportz.setVisibility(View.GONE);
-            frLayout.setVisibility(View.VISIBLE);
-            OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("getQuestion", "Sports");
-            ofTheGameFragment.setArguments(bundle);
-            ofTheGameFragment.setCont(this);
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(frLayout.getId(), ofTheGameFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
     }
     
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    private void openQuestion(String s){
+        setVisibleLayout(false);
+        OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("getQuestion", s);
+        ofTheGameFragment.setArguments(bundle);
+        ofTheGameFragment.setCont(this);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
+        transaction.replace(frLayout.getId(), ofTheGameFragment, null);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    
+    private void setVisibleLayout(boolean b) {
+        if(b){
+            btnStartSport.setVisibility(View.VISIBLE);
+            imageViewSportz.setVisibility(View.VISIBLE);
+            frLayout.setVisibility(View.GONE);
+        } else {
+            btnStartSport.setVisibility(View.GONE);
+            imageViewSportz.setVisibility(View.GONE);
+            frLayout.setVisibility(View.VISIBLE);
+        }
     }
 }

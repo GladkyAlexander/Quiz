@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tools="http://schemas.android.com/tools"
       tools:showIn="navigation_view">
-
+    
     <group android:id="@+id/menu_drawer_top"
-            android:checkableBehavior="single">
+           android:checkableBehavior="single">
         <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/home_svgrepo_com"
@@ -51,5 +51,9 @@
                 android:id="@+id/nav_slideshow"
                 android:icon="@drawable/info_svgrepo_com"
                 android:title="@string/menu_slideshow"/>
+        <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/settings"
+                android:title="@string/menu_settings"/>
     </group>
 </menu>

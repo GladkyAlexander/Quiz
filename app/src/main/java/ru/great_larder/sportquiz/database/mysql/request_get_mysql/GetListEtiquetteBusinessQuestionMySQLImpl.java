@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.EtiquetteBusinessMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.EtiquetteBusinessMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxEtiquetteBusiness;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.EtiquetteBusinessMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionEtiquetteBusiness;
 import ru.great_larder.sportquiz.domain.User;
@@ -22,7 +22,7 @@ public class GetListEtiquetteBusinessQuestionMySQLImpl implements GetListQuestio
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableEtiquetteBusinessMySQL();
-        EtiquetteBusinessMySQL etiquetteBusinessMySQL = new EtiquetteBusinessMySQLImpl();
+        SyntaxEtiquetteBusiness etiquetteBusinessMySQL = new EtiquetteBusinessMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(etiquetteBusinessMySQL.SELECT(connectMySQL.nameDB));

@@ -8,8 +8,8 @@
         tools:context=".ui.info.InfoFragment"
         android:orientation="vertical"
         android:layout_margin="8dp"
-        android:gravity="center" android:background="#C9FAFAF7">
-
+        android:gravity="center"
+        android:background="#C9FAFAF7">
     <TextView
             android:id="@+id/text_slideshow"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/black"/>
-
+    
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                 android:elevation="15dp"
                 android:scaleType="centerInside"
                 android:stateListAnimator="@null"
-        android:layout_margin="30dp"/>
+                android:layout_margin="30dp"/>
         <ImageButton
                 android:id="@+id/imageButtonTelegram"
                 android:layout_width="80dp"

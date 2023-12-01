@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.GeographyMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.GeographyMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxGeography;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.GeographyMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionGeography;
 import ru.great_larder.sportquiz.domain.User;
@@ -22,7 +22,7 @@ public class GetListGeographyQuestionMySQLImpl implements GetListQuestionMySQL {
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableGeographyMySQL();
-        GeographyMySQL geographyMySQL = new GeographyMySQLImpl();
+        SyntaxGeography geographyMySQL = new GeographyMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(geographyMySQL.SELECT(connectMySQL.nameDB));

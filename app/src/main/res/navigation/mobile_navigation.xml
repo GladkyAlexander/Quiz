@@ -57,5 +57,10 @@
               android:name="ru.great_larder.sportquiz.ui.city.CityFragment"
               android:label="fragment_city"
               tools:layout="@layout/fragment_city"/>
+    
+    <fragment android:id="@+id/nav_settings"
+              android:name="ru.great_larder.sportquiz.ui.settings.SettingsFragment"
+              android:label="@string/menu_settings"
+              tools:layout="@layout/fragment_settings"/>
 
 </navigation>

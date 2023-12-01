@@ -1,8 +1,8 @@
 package ru.great_larder.sportquiz.database.mysql;
 
 import android.content.Context;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.*;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.*;
+import ru.great_larder.sportquiz.database.syntax_db.*;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.*;
 import ru.great_larder.sportquiz.domain.User;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,25 +15,10 @@ public class ConnectMySQL {
     public Statement statementMySQL;
     public ResultSet resultSetMySQL;
     
-    LanguageRuMySQL languageRuMySQL = new LanguageRuMySQLImpl();
-    LanguageEnMySQL languageEnMySQL = new LanguageEnMySQLImpl();
-    BiologyMySQL biologyMySQL = new BiologyMySQLImpl();
-    EtiquetteBusinessMySQL etiquetteBusinessMySQL = new EtiquetteBusinessMySQLImpl();
-    EtiquetteSecularMySQL etiquetteSecularMySQL = new EtiquetteSecularMySQLImpl();
-    GeographyMySQL geographyMySQL = new GeographyMySQLImpl();
-    HistoryMySQL historyMySQL = new HistoryMySQLImpl();
-    MathematicsMySQL mathematicsMySQL = new MathematicsMySQLImpl();
-    PhysicsMySQL physicsMySQL = new PhysicsMySQLImpl();
-    SportsMySQL sportsMySQL = new SportsMySQLImpl();
-    TrafficLawsMySQL trafficLawsMySQL = new TrafficLawsMySQLImpl();
-    CityMySQL cityMySQL = new CityMySQLImpl();
-    AuthorMySQL authorMySQL = new AuthorMySQLImpl();
-    CompanyPartnersMySQL companyPartnersMySQL = new CompanyPartnersMySQLImpl();
-    
     public ConnectMySQL(User user, Context context) {
         this.user = user;
     }
-    public void setConnectionMySQL(){
+    public synchronized void setConnectionMySQL(){
         if (user != null){
             String server = "www.great-larder.ru";
             String port = "3306";
@@ -60,139 +45,270 @@ public class ConnectMySQL {
             System.err.print(e.getMessage());
         }
     }
-    public void createTableLanguageRuMySQL(){
+    public synchronized void createTableLanguageRuMySQL(){
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(languageRuMySQL.CREATE(nameDB));
+            SyntaxLanguageRu languageRuMySQL = new LanguageRuMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(languageRuMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableLanguageEnMySQL() {
+    public synchronized void createTableLanguageEnMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(languageEnMySQL.CREATE(nameDB));
+            SyntaxLanguageEn languageEnMySQL = new LanguageEnMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(languageEnMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableBiologyMySQL() {
+    public synchronized void createTableBiologyMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(biologyMySQL.CREATE(nameDB));
+            SyntaxBiology biologyMySQL = new BiologyMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(biologyMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableEtiquetteBusinessMySQL() {
+    public synchronized void createTableEtiquetteBusinessMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(etiquetteBusinessMySQL.CREATE(nameDB));
+            SyntaxEtiquetteBusiness etiquetteBusinessMySQL = new EtiquetteBusinessMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(etiquetteBusinessMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableEtiquetteSecularMySQL() {
+    public synchronized void createTableEtiquetteSecularMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(etiquetteSecularMySQL.CREATE(nameDB));
+            SyntaxEtiquetteSecular etiquetteSecularMySQL = new EtiquetteSecularMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(etiquetteSecularMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableGeographyMySQL() {
+    public synchronized void createTableGeographyMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(geographyMySQL.CREATE(nameDB));
+            SyntaxGeography geographyMySQL = new GeographyMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(geographyMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableHistoryMySQL() {
+    public synchronized void createTableHistoryMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(historyMySQL.CREATE(nameDB));
+            SyntaxHistory historyMySQL = new HistoryMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(historyMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableMathematicsMySQL() {
+    public synchronized void createTableMathematicsMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(mathematicsMySQL.CREATE(nameDB));
+            SyntaxMathematics mathematicsMySQL = new MathematicsMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(mathematicsMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTablePhysicsMySQL() {
+    public synchronized void createTablePhysicsMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(physicsMySQL.CREATE(nameDB));
+            SyntaxPhysics physicsMySQL = new PhysicsMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(physicsMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableSportsMySQL() {
+    public synchronized void createTableSportsMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(sportsMySQL.CREATE(nameDB));
+            SyntaxSports sportsMySQL = new SportsMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(sportsMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    public synchronized void createTableCityMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxCity cityMySQL = new CityMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(cityMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    public synchronized void createTableAuthorMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxAuthor authorMySQL = new AuthorMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(authorMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableTrafficLawsMySQL() {
+    public synchronized void createTableCompanyPartnersMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(trafficLawsMySQL.CREATE(nameDB));
-        } catch (java.sql.SQLException e) {
-            System.err.print(e.getMessage());
-        }
-    }
-    public void createTableCityMySQL() {
-        setConnectionMySQL();
-        try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(cityMySQL.CREATE(nameDB));
-        } catch (java.sql.SQLException e) {
-            System.err.print(e.getMessage());
-        }
-    }
-    public void createTableAuthorMySQL() {
-        setConnectionMySQL();
-        try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(authorMySQL.CREATE(nameDB));
+            SyntaxCompanyPartners companyPartnersMySQL = new CompanyPartnersMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(companyPartnersMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }
     }
     
-    public void createTableCompanyPartnersMySQL() {
+    public synchronized void createTableSocialStudiesMySQL() {
         setConnectionMySQL();
         try {
-            statementMySQL = connectionMySQL.createStatement();
-            statementMySQL.execute(companyPartnersMySQL.CREATE(nameDB));
+            SyntaxSocialStudies socialStudiesMySQL = new SocialStudiesMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(socialStudiesMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    public synchronized void createTableLanguageBashkirMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxLanguageBashkir languageBashkirMySQL = new LanguageBashkirMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(languageBashkirMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    public synchronized void createTableLanguageChuvashMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxLanguageChuvash languageChuvashMySQL = new LanguageChuvashMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(languageChuvashMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+	
+	public void createTableAviationTransportMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxAviationTransport aviationTransportMySQL = new AviationTransportMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(aviationTransportMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+	}
+    
+    public void createTableLanguageChechenMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxLanguageChechen languageChechenMySQL = new LanguageChechenMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(languageChechenMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    
+    public void createTableLanguageTatarMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxLanguageTatar languageTatarMySQL = new LanguageTatarMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(languageTatarMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    
+    public void createTableRailwayTransportMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxRailwayTransport railwayTransportMySQL = new RailwayTransportMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(railwayTransportMySQL.CREATE(nameDB));
+            }
+        } catch (java.sql.SQLException e) {
+            System.err.print(e.getMessage());
+        }
+    }
+    
+    public void createTableRoadTransportMySQL() {
+        setConnectionMySQL();
+        try {
+            SyntaxRoadTransport roadTransportMySQL = new RoadTransportMySQLImpl();
+            if(connectionMySQL != null) {
+                statementMySQL = connectionMySQL.createStatement();
+                statementMySQL.execute(roadTransportMySQL.CREATE(nameDB));
+            }
         } catch (java.sql.SQLException e) {
             System.err.print(e.getMessage());
         }

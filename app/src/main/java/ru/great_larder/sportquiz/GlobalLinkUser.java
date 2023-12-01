@@ -26,12 +26,12 @@ public class GlobalLinkUser {
     public static void setUser(User user){
         GlobalLinkUser.user = user;
     }
+	
+	public static void setMainActivity(MainActivity mainActivity) {
+        GlobalLinkUser.mainActivity = mainActivity;
+	}
     
     public static MainActivity getMainActivity() {
         return mainActivity;
-    }
-    
-    public static void setMainActivity(MainActivity mainActivity) {
-        GlobalLinkUser.mainActivity = mainActivity;
     }
 }

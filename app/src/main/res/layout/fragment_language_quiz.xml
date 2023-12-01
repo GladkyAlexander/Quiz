@@ -5,43 +5,121 @@
               android:layout_height="match_parent"
               tools:context=".ui.language_quiz.LanguageQuizFragment"
               android:orientation="vertical" android:gravity="center">
-
+    
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
             android:id="@+id/linearLayoutButtonRuEn">
-
+        
         <ImageButton
                 android:id="@+id/button_language_ru"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_margin="30dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/button_lihguistics"
                 android:contentDescription="@string/todo"
-                android:elevation="15dp"
+                android:elevation="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ru"
                 android:stateListAnimator="@null"/>
-
+        
         <ImageButton
-                android:id="@+id/button2_language_en"
+                android:id="@+id/button_language_en"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/button_lihguistics"
                 android:contentDescription="@string/todo"
-                android:elevation="15dp"
+                android:elevation="10dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/en"
                 android:stateListAnimator="@null"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal"
+                  android:id="@+id/linearLayoutButtonBA"
+    >
+        <ImageButton
+                android:id="@+id/button_language_bashkir"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bashkir_language"
+                android:stateListAnimator="@null"
+                android:padding="10dp"/>
+        <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/buttonLanguageChuvash"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/button_lihguistics"
+                android:contentDescription="@string/todo"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/chavash_language"
+                android:stateListAnimator="@null"
+                android:padding="20dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:gravity="center"
+                  android:id="@+id/linearLayoutButtonTatCh">
+        <ImageButton android:id="@+id/button_language_tatar"
+                android:layout_width="150dp"
+                     android:layout_height="150dp"
+                     android:layout_marginBottom="25dp"
+                     android:layout_marginTop="25dp"
+                     android:layout_marginStart="15dp"
+                     android:layout_marginEnd="15dp"
+                     android:background="@drawable/button_lihguistics"
+                     android:contentDescription="@string/todo"
+                     android:elevation="10dp"
+                     android:scaleType="fitCenter"
+                     android:src="@drawable/tatar_lang"
+                     android:stateListAnimator="@null"
+                     android:padding="25dp"/>
+        <ImageButton android:id="@+id/button_language_chechen"
+                android:layout_width="150dp"
+                     android:layout_height="150dp"
+                     android:layout_marginBottom="25dp"
+                     android:layout_marginTop="25dp"
+                     android:layout_marginStart="15dp"
+                     android:layout_marginEnd="15dp"
+                     android:background="@drawable/button_lihguistics"
+                     android:contentDescription="@string/todo"
+                     android:elevation="10dp"
+                     android:scaleType="fitCenter"
+                     android:src="@drawable/chechensky_lang"
+                     android:stateListAnimator="@null"
+                     android:padding="20dp"/>
     </LinearLayout>
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/frameLayoutLanguage"
             android:visibility="gone">
-
+    
     </FrameLayout>
 
 </LinearLayout>

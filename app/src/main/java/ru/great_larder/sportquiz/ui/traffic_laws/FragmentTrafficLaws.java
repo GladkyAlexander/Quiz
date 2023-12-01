@@ -1,26 +1,31 @@
 package ru.great_larder.sportquiz.ui.traffic_laws;
 
 import android.os.Bundle;
-import android.widget.*;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import org.jetbrains.annotations.NotNull;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.OfTheGameFragment;
 import ru.great_larder.sportquiz.databinding.FragmentTrafficLawsBinding;
 import ru.great_larder.sportquiz.domain.User;
-import ru.great_larder.sportquiz.services.user_listener.DataUser;
-import ru.great_larder.sportquiz.services.user_listener.ObserverUser;
+import ru.great_larder.sportquiz.services.NameQuestion;
+
+import java.util.ArrayList;
 
 public class FragmentTrafficLaws extends Fragment {
     
     FrameLayout frameLayoutTrafficLaws;
-    ImageView imageViewPdd;
-    Button btnStartPdd;
+    ImageButton button_road, button_aviation, button_railway;
+    LinearLayout linear_layout_button_avia_jd, linear_layout_button_auto, linearLayoutTrafficLaws;
     FragmentTrafficLawsBinding binding;
+    ArrayList<ImageButton> imageButtonArrayList = new ArrayList<>();
     
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -28,42 +33,59 @@ public class FragmentTrafficLaws extends Fragment {
         binding = FragmentTrafficLawsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         frameLayoutTrafficLaws = binding.frameLayoutTrafficLaws;
-        imageViewPdd = binding.imageViewPdd;
-        btnStartPdd = binding.btnStartPdd;
+        
+        imageButtonArrayList.add(button_aviation = binding.buttonAviation);
+        imageButtonArrayList.add(button_railway = binding.buttonRailway);
+        imageButtonArrayList.add(button_road = binding.buttonRoad);
+        
+        linear_layout_button_avia_jd = binding.linearLayoutButtonAviaJd;
+        linear_layout_button_auto = binding.linearLayoutButtonAuto;
+        
         loadFragment(GlobalLinkUser.getUser());
         return root;
     }
     public void loadFragment(User user){
         if(user == null){
-            imageViewPdd.setVisibility(View.VISIBLE);
-            btnStartPdd.setVisibility(View.GONE);
-            frameLayoutTrafficLaws.setVisibility(View.GONE);
-            Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show();
+            setVisibleLayout(true);
+            for (ImageButton imageButton : imageButtonArrayList){setClickButton(imageButton);}
         } else {
-            imageViewPdd.setVisibility(View.VISIBLE);
-            btnStartPdd.setVisibility(View.VISIBLE);
-            frameLayoutTrafficLaws.setVisibility(View.GONE);
+            setVisibleLayout(true);
+            button_aviation.setOnClickListener(a -> openQuestion(NameQuestion.AVIATION_TRANSPORT));
+            button_railway.setOnClickListener(a -> openQuestion(NameQuestion.RAILWAY_TRANSPORT));
+            button_road.setOnClickListener(a -> openQuestion(NameQuestion.ROAD_TRANSPORT));
         }
-        btnStartPdd.setOnClickListener(v ->{
-            imageViewPdd.setVisibility(View.GONE);
-            btnStartPdd.setVisibility(View.GONE);
-            frameLayoutTrafficLaws.setVisibility(View.VISIBLE);
-            OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("getQuestion", "Traffic Laws");
-            ofTheGameFragment.setArguments(bundle);
-            ofTheGameFragment.setCont(this);
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.setReorderingAllowed(true);
-            transaction.replace(frameLayoutTrafficLaws.getId(), ofTheGameFragment, null);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
     }
     
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    private void setVisibleLayout(boolean def){
+        if(def){
+            linear_layout_button_auto.setVisibility(View.VISIBLE);
+            linear_layout_button_avia_jd.setVisibility(View.VISIBLE);
+            frameLayoutTrafficLaws.setVisibility(View.GONE);
+        } else {
+            linear_layout_button_auto.setVisibility(View.GONE);
+            linear_layout_button_avia_jd.setVisibility(View.GONE);
+            frameLayoutTrafficLaws.setVisibility(View.VISIBLE);
+        }
+    }
+    private void setClickButton(ImageButton imageButton) {
+        imageButton.setOnClickListener(b -> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
+    }
+    private void openQuestion(String s){
+        setVisibleLayout(false);
+        OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("getQuestion", s);
+        ofTheGameFragment.setArguments(bundle);
+        ofTheGameFragment.setCont(this);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
+        transaction.replace(frameLayoutTrafficLaws.getId(), ofTheGameFragment, null);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

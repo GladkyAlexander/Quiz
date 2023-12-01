@@ -5,8 +5,8 @@ import ru.great_larder.sportquiz.database.mysql.ConnectMySQL;
 import ru.great_larder.sportquiz.database.mysql.GetListQuestionMySQL;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionService;
 import ru.great_larder.sportquiz.database.mysql.service_dom_mysql.GetQuestionServiceImpl;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.LanguageEnMySQL;
-import ru.great_larder.sportquiz.database.mysql.sintax_mysql.impl.LanguageEnMySQLImpl;
+import ru.great_larder.sportquiz.database.syntax_db.SyntaxLanguageEn;
+import ru.great_larder.sportquiz.database.syntax_db.impl_mysql.LanguageEnMySQLImpl;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionEnLanguage;
 import ru.great_larder.sportquiz.domain.User;
@@ -22,7 +22,7 @@ public class GetListLanguageEnQuestionMySQLImpl implements GetListQuestionMySQL 
         
         ConnectMySQL connectMySQL = new ConnectMySQL(user, context);
         connectMySQL.createTableLanguageEnMySQL();
-        LanguageEnMySQL languageEnMySQL = new LanguageEnMySQLImpl();
+        SyntaxLanguageEn languageEnMySQL = new LanguageEnMySQLImpl();
         GetQuestionService getQuestionService = new GetQuestionServiceImpl();
         try {
             connectMySQL.resultSetMySQL = connectMySQL.statementMySQL.executeQuery(languageEnMySQL.SELECT(connectMySQL.nameDB));

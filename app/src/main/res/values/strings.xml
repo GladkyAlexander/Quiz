@@ -9,6 +9,7 @@
 
     <string name="menu_home">Домашняя страница</string>
     <string name="menu_slideshow">Информация</string>
+    <string name="menu_settings">"Настройки"</string>
 
     <string name="lets">Давай познакомимся</string>
     <string name="done">готово</string>
@@ -51,7 +52,6 @@
     <string name="viktikov">Виктиков</string>
     <string name="viktika">Виктика</string>
     <string name="FairiesGreeting">Заручитесь поддержкой фей и магов</string>
-    <string name="PuzzleGreeting">Откройте все картинки</string>
     <string name="zero">0</string>
     <string name="zero_zero">00</string>
     <string name="slogan">Мир вокруг нас постоянно меняется и чтобы держаться на волне, нужно постоянно учиться.
@@ -83,9 +83,17 @@
         город. Добавьте фото(или картинку) для оформления иконки. Если напишите немного о себе -
         пользователи это увидят. Отправляя введенные данные Вы соглашаетесь с тем, что они будут отображены в приложении.
     </string>
-<string name="introduce_yourself">Представьтесь</string>
-    <string name="this_is_not_a_mandatory_action">"Это не обязательное действие. Все введенные данные хранятся на этом
-        устройстве. "
-    </string>
+    <string name="introduce_yourself">Представьтесь</string>
+    <string name="this_is_not_a_mandatory_action">"Это не обязательное действие. Все введенные данные хранятся на этом устройстве. "</string>
+    <string name="all_data_is_stored_on_this_device">"Все данные хранятся на этом устройстве"</string>
     <string name="the_history_of_one_street">История одной улицы</string>
+    <string name="net_mobile">На Вашем устройстве используется интернет мобильного оператора. Продолжить загрузку новых
+        вопросов?  Или отложить до появления WI-FI подключения? Вы всегда можете в ручную обновить вопросы. Для этого
+        перейдите в меню, выберите раздел настройки. Нажмите кнопку обновить.
+    </string>
+    <string name="put_aside">Отложить</string>
+    <string name="update_questions">Обновить вопросы</string>
+    <string name="account">"Аккаунт"</string>
+    <string name="save">Сохранить</string>
+    <string name="change">Изменить</string>
 </resources>
