@@ -39,6 +39,7 @@ public class LoadDataFromMySQLForSQLite {
 		Toast.makeText(context, "Вопросы успешно обновлены!", Toast.LENGTH_SHORT).show();
 	}
 	private boolean load(){
+/* --- School start ---------------------------------------------------------------------------------------------- 0 -*/
 		progressBar.setIndeterminate(false);
 		GetListQuestionMySQL getListBiologyQuestion = new GetListBiologyQuestionMySQLImpl();
 		List<QuestionBiology> list = new ArrayList<>();
@@ -73,37 +74,39 @@ public class LoadDataFromMySQLForSQLite {
 		progressBar.setProgress(8);
 		System.out.println("Local SocialStudies end");
 		/*------------------------------------------------------------------------------------ 2 -*/
-		GetListQuestionMySQL getListEtiquetteBusinessQuestionMySQL = new GetListEtiquetteBusinessQuestionMySQLImpl();
-		List<QuestionEtiquetteBusiness> listEtiquetteBusiness = new ArrayList<>();
-		for (Question q : getListEtiquetteBusinessQuestionMySQL.getListQuestion(user, context)) {
-			listEtiquetteBusiness.add((QuestionEtiquetteBusiness) q);
+		GetListQuestionMySQL getListMathematicsQuestion = new GetListMathematicsQuestionMySQLImpl();
+		List<QuestionMathematics> listMathematics = new ArrayList<>();
+		List<Question> mathematics = getListMathematicsQuestion.getListQuestion(user, context);
+		for (Question q : mathematics) {
+			listMathematics.add((QuestionMathematics) q);
 		}
 		progressBar.setProgress(10);
-		System.out.println("External Business end");
-		ListEtiquetteBusinessLoad.setQuestionList(listEtiquetteBusiness);
-		EtiquetteBusinessAdapterSQLite etiquetteBusinessAdapterSQLite = new EtiquetteBusinessAdapterSQLite(context);
-		etiquetteBusinessAdapterSQLite.open();
-		etiquetteBusinessAdapterSQLite.clearTable();
-		etiquetteBusinessAdapterSQLite.setList(listEtiquetteBusiness);
-		etiquetteBusinessAdapterSQLite.close();
+		System.out.println("External Mathematics end");
+		ListMathematicsLoad.setQuestionList(listMathematics);
+		MathematicsAdapterSQLite mathematicsAdapterSQLite = new MathematicsAdapterSQLite(context);
+		mathematicsAdapterSQLite.open();
+		mathematicsAdapterSQLite.clearTable();
+		mathematicsAdapterSQLite.setList(listMathematics);
+		mathematicsAdapterSQLite.close();
 		progressBar.setProgress(12);
-		System.out.println("Local Business end");
-		/*------------------------------------------------------------------------------------ 3 -*/
-		GetListQuestionMySQL getListEtiquetteSecular = new GetListEtiquetteSecularQuestionMySQLImpl();
-		List<QuestionEtiquetteSecular> listEtiquetteSecular = new ArrayList<>();
-		for (Question q : getListEtiquetteSecular.getListQuestion(user, context)) {
-			listEtiquetteSecular.add((QuestionEtiquetteSecular) q);
+		System.out.println("Local Mathematics end");
+		/*------------------------------------------------------------------------------------- 3 -*/
+		GetListQuestionMySQL getListPhysicsQuestion = new GetListPhysicsQuestionMySQLImpl();
+		List<QuestionPhysics> listPhysics = new ArrayList<>();
+		List<Question> physics = getListPhysicsQuestion.getListQuestion(user, context);
+		for (Question q : physics) {
+			listPhysics.add((QuestionPhysics) q);
 		}
 		progressBar.setProgress(14);
-		System.out.println("External Etiquette end");
-		ListEtiquetteSecularLoad.setQuestionList(listEtiquetteSecular);
-		EtiquetteSecularAdapterSQLite etiquetteSecularAdapterSQLite = new EtiquetteSecularAdapterSQLite(context);
-		etiquetteSecularAdapterSQLite.open();
-		etiquetteSecularAdapterSQLite.clearTable();
-		etiquetteSecularAdapterSQLite.setList(listEtiquetteSecular);
-		etiquetteSecularAdapterSQLite.close();
+		System.out.println("External Physics end");
+		ListPhysicsLoad.setQuestionList(listPhysics);
+		PhysicsAdapterSQLite physicsAdapterSQLite = new PhysicsAdapterSQLite(context);
+		physicsAdapterSQLite.open();
+		physicsAdapterSQLite.clearTable();
+		physicsAdapterSQLite.setList(listPhysics);
+		physicsAdapterSQLite.close();
 		progressBar.setProgress(16);
-		System.out.println("Local Etiquette end");
+		System.out.println("Local Physics end");
 		/*------------------------------------------------------------------------------------ 4 -*/
 		GetListQuestionMySQL getListGeographyQuestion = new GetListGeographyQuestionMySQLImpl();
 		List<QuestionGeography> listGeographyQuestion = new ArrayList<>();
@@ -137,41 +140,41 @@ public class LoadDataFromMySQLForSQLite {
 		historyAdapterSQLite.close();
 		progressBar.setProgress(24);
 		System.out.println("Local History end");
-		/*------------------------------------------------------------------------------------- 6 -*/
-		GetListQuestionMySQL getListMathematicsQuestion = new GetListMathematicsQuestionMySQLImpl();
-		List<QuestionMathematics> listMathematics = new ArrayList<>();
-		List<Question> mathematics = getListMathematicsQuestion.getListQuestion(user, context);
-		for (Question q : mathematics) {
-			listMathematics.add((QuestionMathematics) q);
+/* --- School ent ------------------------------------------------------------------------------------------------ 6 -*/
+/* --- Etiquette start ------------------------------------------------------------------------------------------- 6 -*/
+		GetListQuestionMySQL getListEtiquetteSecular = new GetListEtiquetteSecularQuestionMySQLImpl();
+		List<QuestionEtiquetteSecular> listEtiquetteSecular = new ArrayList<>();
+		for (Question q : getListEtiquetteSecular.getListQuestion(user, context)) {
+			listEtiquetteSecular.add((QuestionEtiquetteSecular) q);
 		}
 		progressBar.setProgress(26);
-		System.out.println("External Mathematics end");
-		ListMathematicsLoad.setQuestionList(listMathematics);
-		MathematicsAdapterSQLite mathematicsAdapterSQLite = new MathematicsAdapterSQLite(context);
-		mathematicsAdapterSQLite.open();
-		mathematicsAdapterSQLite.clearTable();
-		mathematicsAdapterSQLite.setList(listMathematics);
-		mathematicsAdapterSQLite.close();
+		System.out.println("External Etiquette end");
+		ListEtiquetteSecularLoad.setQuestionList(listEtiquetteSecular);
+		EtiquetteSecularAdapterSQLite etiquetteSecularAdapterSQLite = new EtiquetteSecularAdapterSQLite(context);
+		etiquetteSecularAdapterSQLite.open();
+		etiquetteSecularAdapterSQLite.clearTable();
+		etiquetteSecularAdapterSQLite.setList(listEtiquetteSecular);
+		etiquetteSecularAdapterSQLite.close();
 		progressBar.setProgress(28);
-		System.out.println("Local Mathematics end");
-		/*------------------------------------------------------------------------------------- 7 -*/
-		GetListQuestionMySQL getListPhysicsQuestion = new GetListPhysicsQuestionMySQLImpl();
-		List<QuestionPhysics> listPhysics = new ArrayList<>();
-		List<Question> physics = getListPhysicsQuestion.getListQuestion(user, context);
-		for (Question q : physics) {
-			listPhysics.add((QuestionPhysics) q);
+		System.out.println("Local Etiquette end");
+		/*------------------------------------------------------------------------------------- 7-- -*/
+		GetListQuestionMySQL getListEtiquetteBusinessQuestionMySQL = new GetListEtiquetteBusinessQuestionMySQLImpl();
+		List<QuestionEtiquetteBusiness> listEtiquetteBusiness = new ArrayList<>();
+		for (Question q : getListEtiquetteBusinessQuestionMySQL.getListQuestion(user, context)) {
+			listEtiquetteBusiness.add((QuestionEtiquetteBusiness) q);
 		}
 		progressBar.setProgress(30);
-		System.out.println("External Physics end");
-		ListPhysicsLoad.setQuestionList(listPhysics);
-		PhysicsAdapterSQLite physicsAdapterSQLite = new PhysicsAdapterSQLite(context);
-		physicsAdapterSQLite.open();
-		physicsAdapterSQLite.clearTable();
-		physicsAdapterSQLite.setList(listPhysics);
-		physicsAdapterSQLite.close();
+		System.out.println("External Business end");
+		ListEtiquetteBusinessLoad.setQuestionList(listEtiquetteBusiness);
+		EtiquetteBusinessAdapterSQLite etiquetteBusinessAdapterSQLite = new EtiquetteBusinessAdapterSQLite(context);
+		etiquetteBusinessAdapterSQLite.open();
+		etiquetteBusinessAdapterSQLite.clearTable();
+		etiquetteBusinessAdapterSQLite.setList(listEtiquetteBusiness);
+		etiquetteBusinessAdapterSQLite.close();
 		progressBar.setProgress(32);
-		System.out.println("Local Physics end");
-		/*------------------------------------------------------------------------------------- 8 -*/
+		System.out.println("Local Business end");
+/* --- Etiquette end --------------------------------------------------------------------------------------------- 8 -*/
+/* --- Language start -------------------------------------------------------------------------------------------- 8 -*/
 		GetListQuestionMySQL getListEnLanguageQuestion = new GetListLanguageEnQuestionMySQLImpl();
 		List<QuestionEnLanguage> listEnLanguage = new ArrayList<>();
 		List<Question> enLanguages = getListEnLanguageQuestion.getListQuestion(user, context);
@@ -273,7 +276,8 @@ public class LoadDataFromMySQLForSQLite {
 		tatarLanguageAdapterSQLite.close();
 		progressBar.setProgress(56);
 		System.out.println("Local Tatar Language end");
-		/*------------------------------------------------------------------------------------- 14 -*/
+/* --- Language end -------------------------------------------------------------------------------------------- 14 --*/
+/* --- Sport start --------------------------------------------------------------------------------------------- 14 --*/
 		GetListQuestionMySQL getListSportsQuestion = new GetListSportsQuestionMySQLImpl();
 		List<QuestionSports> listSports = new ArrayList<>();
 		List<Question> sports = getListSportsQuestion.getListQuestion(user, context);
@@ -290,7 +294,8 @@ public class LoadDataFromMySQLForSQLite {
 		sportsAdapterSQLite.close();
 		progressBar.setProgress(60);
 		System.out.println("Local Sports end");
-		/*------------------------------------------------------------------------------------- 15 -*/
+/* --- Sport end ----------------------------------------------------------------------------------------------- 15 --*/
+/* --- Transport start ----------------------------------------------------------------------------------------- 15 --*/
 		GetListQuestionMySQL getListAviationTransport = new GetListAviationTransportQuestionMySQLImpl();
 		List<QuestionAviationTransport> listAviationTransport = new ArrayList<>();
 		List<Question> aviationTransport = getListAviationTransport.getListQuestion(user, context);
@@ -341,7 +346,8 @@ public class LoadDataFromMySQLForSQLite {
 		roadTransportAdapterSQLite.close();
 		progressBar.setProgress(72);
 		System.out.println("Local Road Transport end");
-		/*------------------------------------------------------------------------------------- 18 -*/
+/* --- Transport end ------------------------------------------------------------------------------------------- 18 --*/
+/* --- City start ---------------------------------------------------------------------------------------------- 18 --*/
 		GetListQuestionMySQL getListCityQuestion = new GetListCityQuestionMySQLImpl();
 		List<QuestionCity> listCity = new ArrayList<>();
 		List<Question> cities = getListCityQuestion.getListQuestion(user, context);
@@ -358,7 +364,8 @@ public class LoadDataFromMySQLForSQLite {
 		cityAdapterSQLite.close();
 		progressBar.setProgress(76);
 		System.out.println("Local City end");
-		/*------------------------------------------------------------------------------------- 19 -*/
+/* --- City end ------------------------------------------------------------------------------------------------ 19 --*/
+/* --- Author and Company partners start ----------------------------------------------------------------------- 19 --*/
 		GetListAuthorExternalDB getListAuthorExternalDB = new GetListAuthorMySQLImpl();
 		List<Author> authors = getListAuthorExternalDB.getListAuthor(user, context);
 		ListAuthor.setAuthorsList(authors);
@@ -371,7 +378,7 @@ public class LoadDataFromMySQLForSQLite {
 		authorAdapterSQLite.close();
 		progressBar.setProgress(80);
 		System.out.println("Local Author end");
-		/*------------------------------------------------------------------------------------- 21 -*/
+		/*------------------------------------------------------------------------------------- 20 -*/
 		GetListCompanyPartnersExternalDB getListCompanyPartnersExternalDB = new GetListCompanyPartnersImpl();
 		List<CompanyPartners> companyPartners = getListCompanyPartnersExternalDB.getListCompanyPartners(user, context);
 		ListCompanyPartners.setCompanyPartners(companyPartners);
@@ -384,7 +391,7 @@ public class LoadDataFromMySQLForSQLite {
 		companyPartnersAdapterSQLite.close();
 		progressBar.setProgress(95);
 		System.out.println("Local companyPartners end");
-		/*------------------------------------------------------------------------------------- 22 -*/
+/* --- Author and Company partners end ------------------------------------------------------------------------- 21 --*/
 		return true;
 	}
 }

@@ -33,7 +33,7 @@ public class OfTheGameFragment extends Fragment {
     LinearLayout llAnswersGame, llButtonsGame, linearLayoutGame;
     CheckBox checkBoxGame1, checkBoxGame2, checkBoxGame3, checkBoxGame4;
     Button buttonResumeGame, buttonOutGame;
-    ImageView img1, img2, img3, img4, imageViewFinish, view;
+    ImageView img1, img2, img3, img4, imageViewFinish;
     private CountDownTimer chronometer = null;
     Map<CheckBox, ImageView> map = new HashMap<>();
     List<Question> questionList;

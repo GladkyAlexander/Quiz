@@ -3,7 +3,6 @@ package ru.great_larder.sportquiz.ui.settings;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import ru.great_larder.sportquiz.GlobalLinkUser;
-import ru.great_larder.sportquiz.StartAppData;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.DatabaseAdapterUserSQLite;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.user_listener.DataUser;
@@ -38,8 +37,8 @@ public class SettingsViewModel extends ViewModel {
 		adapter.open();
 		users = adapter.getUsers();
 		adapter.close();
-		StartAppData startAppData = new StartAppData();
-		startAppData.loadData(GlobalLinkUser.getMainActivity());
+		/*StartAppData startAppData = new StartAppData();
+		startAppData.loadData(GlobalLinkUser.getMainActivity());*/
 		if (!users.isEmpty()) {
 			return users.get(0);
 		} else return null;

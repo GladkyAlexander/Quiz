@@ -23,7 +23,7 @@ public class FragmentTrafficLaws extends Fragment {
     
     FrameLayout frameLayoutTrafficLaws;
     ImageButton button_road, button_aviation, button_railway;
-    LinearLayout linear_layout_button_avia_jd, linear_layout_button_auto, linearLayoutTrafficLaws;
+    LinearLayout linear_layout_button_avia_jd, linear_layout_button_auto;
     FragmentTrafficLawsBinding binding;
     ArrayList<ImageButton> imageButtonArrayList = new ArrayList<>();
     
@@ -51,8 +51,8 @@ public class FragmentTrafficLaws extends Fragment {
         } else {
             setVisibleLayout(true);
             button_aviation.setOnClickListener(a -> openQuestion(NameQuestion.AVIATION_TRANSPORT));
-            button_railway.setOnClickListener(a -> openQuestion(NameQuestion.RAILWAY_TRANSPORT));
-            button_road.setOnClickListener(a -> openQuestion(NameQuestion.ROAD_TRANSPORT));
+            button_railway.setOnClickListener(b -> openQuestion(NameQuestion.RAILWAY_TRANSPORT));
+            button_road.setOnClickListener(c -> openQuestion(NameQuestion.ROAD_TRANSPORT));
         }
     }
     
@@ -73,7 +73,7 @@ public class FragmentTrafficLaws extends Fragment {
         }
     }
     private void setClickButton(ImageButton imageButton) {
-        imageButton.setOnClickListener(b -> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
+        imageButton.setOnClickListener(d -> Toast.makeText(requireActivity(), "Зарегистрируйтесь!", Toast.LENGTH_LONG).show());
     }
     private void openQuestion(String s){
         setVisibleLayout(false);

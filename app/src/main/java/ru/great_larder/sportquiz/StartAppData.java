@@ -21,7 +21,7 @@ public class StartAppData {
 				Toast.makeText(context, "Нет интернета!", Toast.LENGTH_LONG).show();
 			}
 			if (new CheckNetClass().getConnectionType(context) == 1) {
-				Toast.makeText(context, "У Вас интернет оператора! Перейдите на вкладку Информация", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "У Вас интернет оператора! Перейдите в настройки", Toast.LENGTH_LONG).show();
 			}
 			if (new CheckNetClass().getConnectionType(context) == 2) {
 				new CheckNetClass().isInternetAvailable().subscribe((hasInternet) -> {

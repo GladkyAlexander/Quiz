@@ -72,8 +72,8 @@ public class SettingsFragment extends Fragment {
 	}
 	
 	private void loadFragment(User user) {
-		imageViewAddImage.setOnClickListener(d -> loadImage());
-		btn_account_setting.setOnClickListener(s ->{
+		imageViewAddImage.setOnClickListener(a -> loadImage());
+		btn_account_setting.setOnClickListener(b ->{
 			setVisibleLayout(true);
 			if (GlobalLinkUser.getUser() != null) {
 				buttonDone.setVisibility(View.GONE);
@@ -92,7 +92,7 @@ public class SettingsFragment extends Fragment {
 				buttonDone.setVisibility(View.VISIBLE);
 			}
 		});
-		buttonDone.setOnClickListener(v -> {
+		buttonDone.setOnClickListener(c -> {
 			saveUser(settingsViewModel);
 			GlobalLinkUser.getHandlerUserListener().onNewDataUser(new DataUser(GlobalLinkUser.getUser()));
 			//new HideKeyboard(requireActivity(), tableLayoutHi);
@@ -104,28 +104,18 @@ public class SettingsFragment extends Fragment {
 			//new HideKeyboard(requireActivity(), tableLayoutHi);
 			setVisibleLayout(false);
 		});
-		btnDatePicker.setOnClickListener(f -> callDatePicker());
+		btnDatePicker.setOnClickListener(e -> callDatePicker());
 		
 		uploadQuestions.setEnabled(true);
 		uploadQuestions.setClickable(true);
 		
-		uploadQuestions.setOnClickListener(d-> {
+		uploadQuestions.setOnClickListener(f-> {
 			uploadQuestions.setEnabled(false);
 			uploadQuestions.setClickable(false);
 			if(GlobalLinkUser.getUser() != null) {
 				if (new CheckNetClass().getConnectionType(GlobalLinkUser.getMainActivity()) == 0) {
 					Toast.makeText(GlobalLinkUser.getMainActivity(), "Нет подключения к интернету!", Toast.LENGTH_LONG).show();
-				} else if (new CheckNetClass().getConnectionType(GlobalLinkUser.getMainActivity()) == 1) {
-					new CheckNetClass().isInternetAvailable().subscribe((hasInternet) -> {
-						if(hasInternet) {
-							GlobalLinkUser.getMainActivity().getProgressBar().setIndeterminate(true);
-							new LoadDataFromMySQLForSQLite().load(GlobalLinkUser.getUser(), GlobalLinkUser.getMainActivity()
-									, GlobalLinkUser.getMainActivity().getProgressBar());
-						}else {
-							Toast.makeText(GlobalLinkUser.getMainActivity(), "Проверьте подключение к интернету!", Toast.LENGTH_LONG).show();
-						}
-					});
-				} else if (new CheckNetClass().getConnectionType(GlobalLinkUser.getMainActivity()) == 2) {
+				} else {
 					new CheckNetClass().isInternetAvailable().subscribe((hasInternet) -> {
 						if(hasInternet) {
 							GlobalLinkUser.getMainActivity().getProgressBar().setIndeterminate(true);
@@ -139,7 +129,17 @@ public class SettingsFragment extends Fragment {
 			} else Toast.makeText(GlobalLinkUser.getMainActivity(), "Зарегистрируйтесь", Toast.LENGTH_LONG).show();
 		});
 	}
-	
+	/*if (new CheckNetClass().getConnectionType(GlobalLinkUser.getMainActivity()) == 1) {
+		new CheckNetClass().isInternetAvailable().subscribe((hasInternet) -> {
+			if(hasInternet) {
+				GlobalLinkUser.getMainActivity().getProgressBar().setIndeterminate(true);
+				new LoadDataFromMySQLForSQLite().load(GlobalLinkUser.getUser(), GlobalLinkUser.getMainActivity()
+						, GlobalLinkUser.getMainActivity().getProgressBar());
+			}else {
+				Toast.makeText(GlobalLinkUser.getMainActivity(), "Проверьте подключение к интернету!", Toast.LENGTH_LONG).show();
+			}
+		});
+	}*/
 	ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
 			uri -> {
 				flagChooseAwatar = true;
@@ -156,7 +156,6 @@ public class SettingsFragment extends Fragment {
 		userRecord.setThemeInstalledNow(0);
 		userRecord.setDate_of_birth(String.valueOf(editTextDate.getText()));
 		userRecord.setLastName("");
-		System.out.println("---------------------------------------------------" + flagChooseAwatar);
 		if(flagChooseAwatar){
 			Bitmap bitmap = ((BitmapDrawable) imageViewAddImage.getDrawable()).getBitmap();
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();

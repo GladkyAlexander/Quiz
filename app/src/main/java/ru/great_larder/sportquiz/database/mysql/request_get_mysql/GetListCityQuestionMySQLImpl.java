@@ -32,9 +32,9 @@ public class GetListCityQuestionMySQLImpl implements GetListQuestionMySQL {
                 
                 QuestionCity question = new QuestionCity();
 	            getQuestionService.getQuestion(connectMySQL, question);
-             
-	            question.setCity(connectMySQL.resultSetMySQL.getString("city"));
-                question.setLinkHistoryOneStreet(connectMySQL.resultSetMySQL.getNString("linkHistoryOneStreet"));
+                
+                question.setCity(connectMySQL.resultSetMySQL.getString("city"));
+                question.setLinkHistoryOneStreet(connectMySQL.resultSetMySQL.getString("linkHistoryOneStreet"));
                 Blob blob = connectMySQL.resultSetMySQL.getBlob("label");
                 
                 int blobLength = (int) blob.length();

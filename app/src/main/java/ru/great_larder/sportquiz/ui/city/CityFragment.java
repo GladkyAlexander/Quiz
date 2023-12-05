@@ -3,31 +3,34 @@ package ru.great_larder.sportquiz.ui.city;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.*;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.great_larder.sportquiz.GlobalLinkUser;
 import ru.great_larder.sportquiz.OfTheGameFragment;
-import ru.great_larder.sportquiz.database.repository.GetQuestion;
-import ru.great_larder.sportquiz.database.repository.impl.GetQuestionImpl;
 import ru.great_larder.sportquiz.database.sqlite.adapter_sqlite.CityAdapterSQLite;
 import ru.great_larder.sportquiz.databinding.FragmentCityBinding;
 import ru.great_larder.sportquiz.domain.Question;
 import ru.great_larder.sportquiz.domain.QuestionCity;
 import ru.great_larder.sportquiz.domain.User;
 import ru.great_larder.sportquiz.services.CheckNetClass;
+import ru.great_larder.sportquiz.services.NameQuestion;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.TreeSet;
 
 public class CityFragment extends Fragment implements RecyclerViewAdapterCity.ItemClickListener
     , RecyclerViewAdapterLinkHistoryOneStreet.ItemClickListener{
@@ -135,7 +138,7 @@ public class CityFragment extends Fragment implements RecyclerViewAdapterCity.It
         
         OfTheGameFragment ofTheGameFragment = new OfTheGameFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("getQuestion", "City");
+        bundle.putString("getQuestion", NameQuestion.CITY/*"City"*/);
         bundle.putString("nameCity", city);
         ofTheGameFragment.setArguments(bundle);
         ofTheGameFragment.setCont(this);
